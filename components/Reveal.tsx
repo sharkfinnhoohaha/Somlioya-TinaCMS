@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, type TargetAndTransition } from "framer-motion";
+import { motion } from "framer-motion";
 import { type ReactNode } from "react";
 
 type Direction = "up" | "left" | "right";
+type AnimState = { opacity: number; x?: number; y?: number };
 
-const variants: Record<Direction, { initial: TargetAndTransition; animate: TargetAndTransition }> = {
+const variants: Record<Direction, { initial: AnimState; animate: AnimState }> = {
   up:    { initial: { opacity: 0, y: 20 },  animate: { opacity: 1, y: 0 } },
   left:  { initial: { opacity: 0, x: -32 }, animate: { opacity: 1, x: 0 } },
   right: { initial: { opacity: 0, x: 32 },  animate: { opacity: 1, x: 0 } },
