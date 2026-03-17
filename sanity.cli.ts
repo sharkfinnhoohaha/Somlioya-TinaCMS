@@ -7,6 +7,7 @@ export default defineCliConfig({
   },
   studioHost: 'somlioya',
   deployment: {
-    appId: 'iv8tjc54oe5eck20k3t9h2fm',
+    appId: 'ic7wdkuys53t81zmivxzm21t',
+    autoUpdates: true
   },
 })
