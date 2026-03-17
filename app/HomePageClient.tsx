@@ -7,8 +7,8 @@ import Reveal from "@/components/Reveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
 import RichText from "@/components/RichText";
-import SplashScreen from "@/components/SplashScreen";
 import AuroraLayer from "@/components/AuroraLayer";
+import { useRipple } from "@/hooks/useRipple";
 import AnimatedDivider from "@/components/AnimatedDivider";
 import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
 import { useTina } from "tinacms/dist/react";
@@ -20,6 +20,10 @@ export default function HomePageClient(props: {
 }) {
   const { data } = useTina(props);
   const page = data.homePage;
+
+  const rippleExplore = useRipple();
+  const rippleContact = useRipple();
+  const rippleMap = useRipple();
 
   const heroTitle = page?.hero?.title ?? "Sømliøya";
   const heroSubtitle = page?.hero?.subtitle ?? "Where the world becomes quieter";
@@ -45,7 +49,6 @@ export default function HomePageClient(props: {
 
   return (
     <div style={{ background: "#0a0a0a" }}>
-      <SplashScreen />
       <Nav />
 
       {/* ═══════ HERO ═══════ */}
@@ -86,11 +89,13 @@ export default function HomePageClient(props: {
             {heroSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-up" style={{ animationDelay: "0.9s" }}>
-            <Link href="/island" className="text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white text-charcoal hover:bg-gold hover:text-white hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
+            <Link href="/island" onClick={rippleExplore.trigger} className="relative overflow-visible text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white text-charcoal hover:bg-gold hover:text-white hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
               Explore
+              {rippleExplore.rippleElements}
             </Link>
-            <Link href="/contact" className="text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-transparent text-white border border-white/50 hover:border-white hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-500">
+            <Link href="/contact" onClick={rippleContact.trigger} className="relative overflow-visible text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-transparent text-white border border-white/50 hover:border-white hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-500">
               Contact Us
+              {rippleContact.rippleElements}
             </Link>
           </div>
         </div>
@@ -107,6 +112,7 @@ export default function HomePageClient(props: {
         fadeTopColor={bridgeHeroFirst}
         fadeBottomColor={bridgeFirstSecond}
         overlay
+        aurora
         quality={85}
       >
         <div className="max-w-2xl w-full mx-auto text-center">
@@ -127,6 +133,7 @@ export default function HomePageClient(props: {
         fadeTopColor={bridgeFirstSecond}
         fadeBottomColor={secondBottom}
         overlay
+        aurora
         quality={85}
       >
         <div className="max-w-2xl w-full mx-auto text-center">
@@ -149,8 +156,9 @@ export default function HomePageClient(props: {
                 An interactive 3D model of Sømliøya rendered in real time from satellite data. Fly over the fjords, explore the coastline.
               </p>
             )}
-            <Link href="/map" className="inline-block text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white/10 border border-white/40 text-white hover:bg-gold hover:border-gold hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
+            <Link href="/map" onClick={rippleMap.trigger} className="relative overflow-visible inline-block text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white/10 border border-white/40 text-white hover:bg-gold hover:border-gold hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
               Open 3D Map
+              {rippleMap.rippleElements}
             </Link>
           </Reveal>
         </div>

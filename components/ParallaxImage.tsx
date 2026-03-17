@@ -17,6 +17,7 @@ interface ParallaxImageProps {
   /** Colour the bottom fade dissolves TO — auto-sampled from the adjacent image */
   fadeBottomColor?: string;
   overlay?: boolean;
+  aurora?: boolean;
   children?: ReactNode;
 }
 
@@ -31,6 +32,7 @@ export default function ParallaxImage({
   fadeTopColor = "#111111",
   fadeBottomColor = "#111111",
   overlay = false,
+  aurora = false,
   children,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -65,6 +67,29 @@ export default function ParallaxImage({
 
       {overlay && (
         <div className="absolute inset-0 bg-black/45 z-10" />
+      )}
+
+      {aurora && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[15]">
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 620, height: 260, left: "72%", top: "42%", background: "#00e87a", filter: "blur(110px)", opacity: 0.08, transform: "translate(-50%, -50%)" }}
+            animate={{ x: [-75, 55], y: [-38, 28] }}
+            transition={{ duration: 17, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 490, height: 210, left: "28%", top: "58%", background: "#0891b2", filter: "blur(110px)", opacity: 0.07, transform: "translate(-50%, -50%)" }}
+            animate={{ x: [48, -62], y: [22, -48] }}
+            transition={{ duration: 21, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 400, height: 180, left: "52%", top: "72%", background: "#6d28d9", filter: "blur(110px)", opacity: 0.06, transform: "translate(-50%, -50%)" }}
+            animate={{ x: [-45, 38], y: [-30, 44] }}
+            transition={{ duration: 25, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          />
+        </div>
       )}
 
       {fadeTop && (
