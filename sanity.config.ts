@@ -13,8 +13,12 @@ export default defineConfig({
   plugins: [
     presentationTool({
       previewUrl: {
-        draftMode: {
+        baseUrl: process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : 'http://localhost:3000',
+        previewMode: {
           enable: '/api/draft-mode/enable',
+          disable: '/api/draft-mode/disable',
         },
       },
     }),
