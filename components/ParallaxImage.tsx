@@ -50,6 +50,7 @@ export default function ParallaxImage({
           src={src}
           alt={alt}
           fill
+          unoptimized
           className="object-cover"
           sizes={sizes}
           quality={quality}
