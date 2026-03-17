@@ -9,6 +9,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import RichText from "@/components/RichText";
+import { PortableText } from '@portabletext/react';
 
 function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
   if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
@@ -101,7 +102,13 @@ export default async function HomePage() {
           <Reveal delay={0.4} className="mt-20">
             <p className="font-sans text-white/40 text-[0.7rem] uppercase tracking-[0.35em] mb-4">65°03′N · 11°55′E</p>
             <h2 className="font-heading text-white font-light tracking-wide text-3xl md:text-4xl mb-5">{mapHeading}</h2>
-            <p className="font-sans text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">{mapDescription}</p>
+            {Array.isArray(mapDescription) ? (
+              <div className="text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">
+                <PortableText value={mapDescription} />
+              </div>
+            ) : (
+              <p className="font-sans text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">{mapDescription}</p>
+            )}
             <Link href="/map" className="inline-block text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white/10 border border-white/40 text-white hover:bg-gold hover:border-gold hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
               Open 3D Map
             </Link>
