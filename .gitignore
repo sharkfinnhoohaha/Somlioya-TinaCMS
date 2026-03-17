@@ -24,6 +24,10 @@ yarn-error.log*
 .DS_Store
 .vercel
 
+# Vim swap files
+*.swp
+*.swo
+
 # Sanity Studio build
 dist/
 .sanity/

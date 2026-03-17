@@ -1,4 +1,4 @@
-import createImageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 
 const builder = createImageUrlBuilder({ projectId: 'blv6hhaq', dataset: 'production' })
 
