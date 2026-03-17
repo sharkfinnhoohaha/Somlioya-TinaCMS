@@ -1,7 +1,6 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { presentationTool } from 'sanity/presentation'
-import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './sanity/schemaTypes'
 
 const singletonTypes = ['homePage', 'activitiesPage', 'stayingPage', 'islandPage', 'ritualsPage', 'contactPage']
@@ -44,7 +43,6 @@ export default defineConfig({
             ),
           ]),
     }),
-    visionTool(),
   ],
   schema: {
     types: schemaTypes,
