@@ -63,14 +63,14 @@ export default function ParallaxImage({
 
       {fadeTop && (
         <div
-          className="absolute inset-x-0 top-0 h-48 pointer-events-none z-20"
-          style={{ background: "linear-gradient(to bottom, #111111, transparent)" }}
+          className="absolute inset-x-0 top-0 h-[35vh] pointer-events-none z-20"
+          style={{ background: "linear-gradient(to bottom, #111111 0%, transparent 100%)" }}
         />
       )}
       {fadeBottom && (
         <div
-          className="absolute inset-x-0 bottom-0 h-48 pointer-events-none z-20"
-          style={{ background: "linear-gradient(to top, #111111, transparent)" }}
+          className="absolute inset-x-0 bottom-0 h-[35vh] pointer-events-none z-20"
+          style={{ background: "linear-gradient(to top, #111111 0%, transparent 100%)" }}
         />
       )}
 

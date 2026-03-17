@@ -35,7 +35,7 @@ export default function Nav() {
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500 ${
           scrolled
             ? "bg-ivory/85 backdrop-blur-xl border-b border-black/5 py-3 px-6 md:px-10"
-            : "py-5 px-6 md:px-10 mix-blend-difference"
+            : "bg-black/30 backdrop-blur-md border-b border-white/10 py-5 px-6 md:px-10"
         }`}
       >
         <Link
@@ -53,7 +53,7 @@ export default function Nav() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`text-[0.72rem] font-sans tracking-[0.2em] uppercase relative transition-colors duration-400 group ${
+                className={`text-[0.82rem] font-sans tracking-[0.2em] uppercase relative transition-colors duration-400 group ${
                   scrolled ? "text-charcoal" : "text-white"
                 } ${pathname === l.href ? "font-medium" : "font-normal"}`}
               >

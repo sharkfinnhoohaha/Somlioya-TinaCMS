@@ -84,16 +84,20 @@ export default function HomePageClient(props: {
 
       {/* ═══════ POETIC INTRO ═══════ */}
       <ParallaxImage src={firstImageSrc} alt={firstImageAlt} height="min-h-[90vh]" fadeTop fadeBottom overlay quality={85}>
-        <div className="max-w-2xl w-full mx-auto">
-          <Reveal><div className="divider mb-10" /></Reveal>
-          <RichText value={poeticParagraphs} />
+        <div className="max-w-2xl w-full mx-auto text-center">
+          <Reveal><div className="divider mx-auto mb-10" /></Reveal>
+          <Reveal delay={0.15}>
+            <RichText value={poeticParagraphs} />
+          </Reveal>
         </div>
       </ParallaxImage>
 
       {/* ═══════ SECOND TEXT + MAP CTA ═══════ */}
       <ParallaxImage src={secondImageSrc} alt={secondImageAlt} height="min-h-[120vh]" fadeTop fadeBottom overlay quality={85}>
         <div className="max-w-2xl w-full mx-auto text-center">
-          <RichText value={secondParagraphs} />
+          <Reveal>
+            <RichText value={secondParagraphs} />
+          </Reveal>
           <Reveal delay={0.3} className="mt-10">
             <div className="divider mx-auto mb-8" />
             <p className="font-heading text-gold italic text-2xl md:text-3xl font-light">{pullQuote}</p>

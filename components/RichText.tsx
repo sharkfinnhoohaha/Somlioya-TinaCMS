@@ -25,20 +25,31 @@ function renderNode(node: TinaRichTextNode, index: number): React.ReactNode {
   switch (node.type) {
     case "root":
       return <React.Fragment key={index}>{children}</React.Fragment>;
-    case "p":
+    case "p": {
+      const textContent = node.children?.map(n => (n as any).text ?? "").join("").trim();
+      if (!textContent) return null;
       return (
-        <p key={index} className="font-sans text-smoke font-light leading-[1.85] mt-5 first:mt-0">
+        <p key={index} className="font-sans text-white/70 font-light leading-[1.85] text-lg mt-5 first:mt-0">
           {children}
         </p>
       );
+    }
+    case "h2":
+      return (
+        <h2 key={index} className="font-heading text-white/90 text-3xl md:text-4xl font-light tracking-wide mt-6 first:mt-0">
+          {children}
+        </h2>
+      );
     case "h3":
       return (
-        <h3 key={index} className="font-heading text-fjord-deep text-xl font-light mt-8 first:mt-0">
+        <h3 key={index} className="font-heading text-white/90 text-2xl md:text-3xl font-light leading-relaxed tracking-wide mt-8 first:mt-0">
           {children}
         </h3>
       );
+    case "hr":
+      return <div key={index} className="w-10 h-px bg-gold/50 mx-auto my-8" />;
     case "strong":
-      return <strong key={index} className="font-semibold">{children}</strong>;
+      return <strong key={index} className="font-medium">{children}</strong>;
     case "em":
       return <em key={index} className="italic">{children}</em>;
     default:
