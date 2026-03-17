@@ -20,13 +20,24 @@ export default function RichText({
   value,
   className,
 }: {
-  value: PortableTextBlock[] | null | undefined
+  value: PortableTextBlock[] | string | null | undefined
   className?: string
 }) {
-  if (!value?.length) return null
+  if (!value) return null
+  if (typeof value === 'string') {
+    return (
+      <div className={className}>
+        <p className="font-sans text-smoke font-light leading-[1.85] mt-5 first:mt-0">{value}</p>
+      </div>
+    )
+  }
+  const blocks = (Array.isArray(value) ? value : []).filter(
+    (item): item is PortableTextBlock => typeof item === 'object' && item !== null
+  )
+  if (!blocks.length) return null
   return (
     <div className={className}>
-      <PortableText value={value} components={components} />
+      <PortableText value={blocks} components={components} />
     </div>
   )
 }

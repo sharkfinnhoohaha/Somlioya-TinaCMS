@@ -106,7 +106,7 @@ export default async function ActivitiesPage() {
             {regionPlaces.map((place: any, i: number) => (
               <div key={place._key} className={i > 0 ? "mt-8" : ""}>
                 <h4 className="font-heading text-fjord text-xl font-medium mb-3">{place.name}</h4>
-                <p className="font-sans text-smoke font-light leading-[1.85]">{place.description}</p>
+                <RichText value={place.description} />
               </div>
             ))}
           </div>
