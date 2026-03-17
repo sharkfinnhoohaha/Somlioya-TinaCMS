@@ -23,18 +23,18 @@
     "three": "^0.183.2"
   },
   "devDependencies": {
+    "@sanity/icons": "^3.7.4",
+    "@sanity/vision": "^5.16.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/three": "^0.183.1",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0",
-    "sanity": "^5.16.0",
     "next-sanity": "^12.1.1",
-    "@sanity/vision": "^5.16.0",
-    "@sanity/icons": "^3.7.4",
-    "styled-components": "^6.3.11"
+    "sanity": "^5.16.0",
+    "styled-components": "^6.3.11",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0"
   },
   "overrides": {
     "react": "^19.0.0",
