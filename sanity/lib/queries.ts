@@ -40,7 +40,7 @@ export const ACTIVITIES_PAGE_QUERY = /* groq */ `
 `
 
 export const STAYING_PAGE_QUERY = /* groq */ `
-  *[_type == "stayingPage" && _id == "stayingPage"][0]{
+  *[_type == "stayingPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
     buildingImages[] { _key, ${imageFields} },
@@ -57,7 +57,7 @@ export const STAYING_PAGE_QUERY = /* groq */ `
 `
 
 export const ISLAND_PAGE_QUERY = /* groq */ `
-  *[_type == "islandPage" && _id == "islandPage"][0]{
+  *[_type == "islandPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
     climateSection { heading, paragraphs, image { ${imageFields} } },
@@ -81,7 +81,7 @@ export const RITUALS_PAGE_QUERY = /* groq */ `
 `
 
 export const CONTACT_PAGE_QUERY = /* groq */ `
-  *[_type == "contactPage" && _id == "contactPage"][0]{
+  *[_type == "contactPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     introText,
   }
