@@ -42,8 +42,8 @@ export default defineConfig({
     "main",
 
   // Use local mode (no Tina Cloud account needed for development)
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "523da489-c704-4aaf-8d32-1ff42bf31028",
+  token: process.env.TINA_TOKEN || "2d7dcb5e1d33ee3b466b01e105a9e5510f9cf976",
 
   build: {
     outputFolder: "admin",
