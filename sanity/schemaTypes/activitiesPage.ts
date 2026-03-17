@@ -39,8 +39,7 @@ export const activitiesPage = defineType({
     defineField({
       name: 'intro',
       title: 'Intro Paragraphs',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 2 })],
+      type: 'richText',
     }),
     defineField({
       name: 'waterSection',
@@ -75,7 +74,7 @@ export const activitiesPage = defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'name', type: 'string', title: 'Place Name' }),
-                defineField({ name: 'description', type: 'text', rows: 4, title: 'Description' }),
+                defineField({ name: 'description', type: 'richText', title: 'Description' }),
               ],
               preview: { select: { title: 'name' } },
             }),
@@ -96,7 +95,7 @@ export const activitiesPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Section Heading' }),
-        defineField({ name: 'text', type: 'text', rows: 4, title: 'Text' }),
+        defineField({ name: 'text', type: 'richText', title: 'Text' }),
         defineField({
           name: 'closingImage',
           title: 'Closing Image',

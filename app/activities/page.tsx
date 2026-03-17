@@ -4,9 +4,10 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ActivityCard from "@/components/ActivityCard";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { ACTIVITIES_PAGE_QUERY } from "@/sanity/lib/queries";
+import RichText from "@/components/RichText";
 
 function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
   if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
@@ -26,15 +27,12 @@ const DEFAULT_LAND = [
 ];
 
 export default async function ActivitiesPage() {
-  const data = await client.fetch(ACTIVITIES_PAGE_QUERY).catch(() => null);
+  const { data } = await sanityFetch({ query: ACTIVITIES_PAGE_QUERY }).catch(() => ({ data: null }));
 
   const heroSrc = imgSrc(data?.hero?.image, "/images/IMG_4928.jpeg");
   const heroAlt = data?.hero?.image?.alt ?? "Mountain panorama at sunset with hikers";
 
-  const intro = data?.intro ?? [
-    "Life on Sømliøya happens mostly outside.",
-    "The island and the surrounding fjord offer space for simple things: exploring the landscape, spending time by the water or gathering around a fire.",
-  ];
+  const intro = data?.intro ?? null;
 
   const waterItems = data?.waterSection?.items ?? DEFAULT_WATER;
   const landItems = data?.landSection?.items ?? DEFAULT_LAND;
@@ -48,7 +46,7 @@ export default async function ActivitiesPage() {
   const regionImgAlt = data?.regionSection?.image?.alt ?? "Two people at summit cairn overlooking fjords at sunset";
 
   const fireHeading = data?.fireSection?.heading ?? "Around the Fire";
-  const fireText = data?.fireSection?.text ?? "A fire by the shoreline is a natural gathering place in the evening. Fish from the fjord or simple meals prepared together in the house or outside. Evenings are often quiet, sometimes with music, sometimes just with the sound of the sea.";
+  const fireText = data?.fireSection?.text ?? null;
   const fireImgSrc = imgSrc(data?.fireSection?.closingImage, "/images/IMG_5214.jpeg");
   const fireImgAlt = data?.fireSection?.closingImage?.alt ?? "Group of people dining at outdoor table by the fjord";
 
@@ -64,9 +62,7 @@ export default async function ActivitiesPage() {
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
         <div className="divider mb-8" />
-        {intro.map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={intro} />
       </Reveal>
 
       {/* On the Water */}
@@ -124,7 +120,7 @@ export default async function ActivitiesPage() {
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-12">
         <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{fireHeading}</h3>
         <div className="divider mb-6" />
-        <p className="font-sans text-smoke font-light leading-[1.85] max-w-2xl">{fireText}</p>
+        <RichText value={fireText} className="max-w-2xl" />
       </Reveal>
 
       <Reveal>

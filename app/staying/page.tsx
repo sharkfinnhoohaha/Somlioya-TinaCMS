@@ -4,9 +4,10 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import StayingGallery from "@/components/StayingGallery";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { STAYING_PAGE_QUERY } from "@/sanity/lib/queries";
+import RichText from "@/components/RichText";
 
 function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
   if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
@@ -23,17 +24,14 @@ const DEFAULT_GALLERY = [
 ];
 
 export default async function StayingPage() {
-  const data = await client.fetch(STAYING_PAGE_QUERY).catch(() => null);
+  const { data } = await sanityFetch({ query: STAYING_PAGE_QUERY }).catch(() => ({ data: null }));
 
   const heroSrc = imgSrc(data?.hero?.image, "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG");
   const heroAlt = data?.hero?.image?.alt ?? "Aerial view of island buildings surrounded by forest and fjord";
 
-  const intro = data?.intro ?? [
-    "Life on Sømliøya is simple and shared.",
-    "There are two buildings on the island, offering space for sleeping, gathering and spending time together. The houses are modest and practical, designed for small groups who come to stay close to nature.",
-  ];
+  const intro = data?.intro ?? null;
 
-  const buildingImgs = data?.buildingImages?.length
+const buildingImgs = data?.buildingImages?.length
     ? data.buildingImages.map((img: any) => ({
         src: img.asset?._id ? urlFor(img).width(1200).url() : "/images/A4D4C1444081F165FD87951C3F619B8B.jpg",
         alt: img.alt ?? "",
@@ -43,22 +41,8 @@ export default async function StayingPage() {
         { src: "/images/IMG_3215.jpeg", alt: "Main house exterior with stairs and pine tree" },
       ];
 
-  const sleeping = data?.sleepingSection ?? {
-    heading: "Sleeping",
-    paragraphs: [
-      "The island has simple bedrooms spread across both buildings. Most rooms are small and quiet, intended mainly as a comfortable place to rest after a day outside.",
-      "For those who prefer sleeping closer to the landscape, there is of course also space to pitch a tent on the island.",
-      "Accommodation on Sømliøya is intentionally simple, in keeping with the character of the place.",
-    ],
-  };
-
-  const sharedSpaces = data?.sharedSpacesSection ?? {
-    heading: "Shared Spaces",
-    paragraphs: [
-      "The main house contains a large shared kitchen and living room, where people cook, eat and spend the evenings together. A fireplace makes it a warm place to gather after time outside by the water.",
-      "Bathrooms are shared, with toilets and hot showers available.",
-    ],
-  };
+  const sleeping = data?.sleepingSection ?? { heading: "Sleeping", paragraphs: null };
+  const sharedSpaces = data?.sharedSpacesSection ?? { heading: "Shared Spaces", paragraphs: null };
 
   const galleryImages = data?.galleryImages?.length
     ? data.galleryImages.map((img: any) => ({
@@ -68,13 +52,7 @@ export default async function StayingPage() {
       }))
     : DEFAULT_GALLERY;
 
-  const groupSpaces = data?.groupSpacesSection ?? {
-    heading: "Group Spaces",
-    paragraphs: [
-      "The second building on the island serves as a workshop and gathering space for groups, retreats and creative work. Some additional simple bedrooms are also located here.",
-      "In the basement of the main house, there is another room that can be used for meetings, workshops or quiet work.",
-    ],
-  };
+  const groupSpaces = data?.groupSpacesSection ?? { heading: "Group Spaces", paragraphs: null };
 
   const closingImgSrc = imgSrc(data?.closingImage, "/images/IMG_5184.jpeg");
   const closingImgAlt = data?.closingImage?.alt ?? "Outdoor volleyball net surrounded by forest";
@@ -91,9 +69,7 @@ export default async function StayingPage() {
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
         <div className="divider mb-8" />
-        {intro.map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={intro} />
       </Reveal>
 
       {/* Building image pair */}
@@ -110,9 +86,7 @@ export default async function StayingPage() {
         <div>
           <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{sleeping.heading}</h3>
           <div className="divider mb-6" />
-          {(sleeping.paragraphs ?? []).map((para: string, i: number) => (
-            <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-          ))}
+          <RichText value={sleeping.paragraphs} />
         </div>
         <div className="relative h-[500px]">
           <Image
@@ -128,9 +102,7 @@ export default async function StayingPage() {
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-10">
         <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{sharedSpaces.heading}</h3>
         <div className="divider mb-6" />
-        {(sharedSpaces.paragraphs ?? []).map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85] max-w-2xl${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={sharedSpaces.paragraphs} className="max-w-2xl" />
       </Reveal>
 
       {/* Gallery */}
@@ -140,9 +112,7 @@ export default async function StayingPage() {
       <Reveal className="max-w-2xl mx-auto px-6 py-16">
         <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{groupSpaces.heading}</h3>
         <div className="divider mb-6" />
-        {(groupSpaces.paragraphs ?? []).map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={groupSpaces.paragraphs} />
       </Reveal>
 
       <Reveal>

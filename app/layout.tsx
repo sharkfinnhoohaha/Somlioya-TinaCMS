@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,11 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isEnabled } = await draftMode();
   return (
     <html lang="en">
       <head>
@@ -25,7 +29,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="grain">{children}</body>
+      <body className="grain">
+        {children}
+        <SanityLive />
+        {isEnabled && <VisualEditing />}
+      </body>
     </html>
   );
 }

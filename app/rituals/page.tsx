@@ -3,9 +3,10 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { RITUALS_PAGE_QUERY } from "@/sanity/lib/queries";
+import RichText from "@/components/RichText";
 
 function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
   if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
@@ -13,44 +14,19 @@ function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
 }
 
 export default async function RitualsPage() {
-  const data = await client.fetch(RITUALS_PAGE_QUERY).catch(() => null);
+  const { data } = await sanityFetch({ query: RITUALS_PAGE_QUERY }).catch(() => ({ data: null }));
 
   const heroSrc = imgSrc(data?.hero?.image, "/images/IMG_5345.jpeg");
   const heroAlt = data?.hero?.image?.alt ?? "Decorated fabric banners hanging from birch trees with set table behind";
 
-  const intro = data?.intro ?? [
-    "A place to pause, to reflect, and to mark something that matters.",
-    "On Sømliøya we create space for personal rituals — simple, meaningful moments connected to the landscape and the sea.",
-    "Across cultures and throughout history, people have created rituals to give shape to important moments in life. Birth, loss, transitions, promises, endings and beginnings. Rituals help us slow down, step outside daily life and acknowledge what has changed.",
-  ];
+  const intro = data?.intro ?? null;
 
   const midImgSrc = imgSrc(data?.midImage, "/images/IMG_5352.jpeg");
   const midImgAlt = data?.midImage?.alt ?? "Community gathering at table under decorated fabric banners";
 
-  const secondParagraphs = data?.secondParagraphs ?? [
-    "The island offers a quiet setting for these moments. Open, natural and removed from the noise of the world.",
-    "People come here for many different reasons. To say goodbye to someone they loved. To scatter the ashes of a person or a beloved animal. To celebrate a new beginning. To mark a turning point in life. To gather family or friends around a shared memory.",
-    "Some simply want a place to pause and acknowledge something important.",
-  ];
-
-  const shaped = data?.shapedTogetherSection ?? {
-    heading: "Shaped Together",
-    paragraphs: [
-      "If you wish, we can help shape a ritual that fits you and the moment.",
-      "The rituals on Sømliøya are created together with Marijke Ottema, a psychologist, and Maria Groot, an artist. Together we combine psychological insight with creative and symbolic elements to design something personal and meaningful.",
-      "Some rituals are very simple: a walk across the island, a fire by the water, a few words spoken at the edge of the fjord. Others may include music, writing, symbolic gestures, or time spent in silence.",
-      "Each ritual is different and always shaped in conversation with the people involved.",
-    ],
-  };
-
-  const gatherings = data?.gatheringsSection ?? {
-    heading: "Other Gatherings",
-    paragraphs: [
-      "The island can also be used for other meaningful gatherings — small family celebrations, remembering someone together, marking an anniversary or transition, trying out an idea or ceremony, or creative and reflective gatherings with friends.",
-      "The landscape often becomes part of the experience.",
-    ],
-    pullQuote: "Sømliøya does not prescribe how these moments should look. It just offers the space — and sometimes a little guidance in shaping something that feels right.",
-  };
+  const secondParagraphs = data?.secondParagraphs ?? null;
+  const shaped = data?.shapedTogetherSection ?? { heading: "Shaped Together", paragraphs: null };
+  const gatherings = data?.gatheringsSection ?? { heading: "Other Gatherings", paragraphs: null, pullQuote: null };
 
   return (
     <>
@@ -64,9 +40,7 @@ export default async function RitualsPage() {
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
         <div className="divider mb-8" />
-        {intro.map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={intro} />
       </Reveal>
 
       <Reveal>
@@ -76,9 +50,7 @@ export default async function RitualsPage() {
       </Reveal>
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
-        {secondParagraphs.map((para: string, i: number) => (
-          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-        ))}
+        <RichText value={secondParagraphs} />
       </Reveal>
 
       {/* Shaped Together */}
@@ -86,9 +58,7 @@ export default async function RitualsPage() {
         <div>
           <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{shaped.heading}</h3>
           <div className="divider mb-6" />
-          {(shaped.paragraphs ?? []).map((para: string, i: number) => (
-            <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-          ))}
+          <RichText value={shaped.paragraphs} />
         </div>
         <div className="relative h-[500px]">
           <Image
@@ -105,9 +75,7 @@ export default async function RitualsPage() {
         <Reveal className="max-w-2xl mx-auto px-6 py-20">
           <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{gatherings.heading}</h3>
           <div className="divider mb-6" />
-          {(gatherings.paragraphs ?? []).map((para: string, i: number) => (
-            <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
-          ))}
+          <RichText value={gatherings.paragraphs} />
           <div className="divider my-8" />
           <p className="font-heading text-fjord italic text-lg font-light">{gatherings.pullQuote}</p>
         </Reveal>

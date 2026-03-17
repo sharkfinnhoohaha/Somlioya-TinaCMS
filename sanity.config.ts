@@ -1,5 +1,6 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
+import { presentationTool } from 'sanity/presentation'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './sanity/schemaTypes'
 
@@ -11,6 +12,13 @@ export default defineConfig({
   projectId: 'blv6hhaq',
   dataset: 'production',
   plugins: [
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
+    }),
     structureTool({
       structure: (S) =>
         S.list()

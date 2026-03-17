@@ -1,4 +1,4 @@
-import { defineField, defineType, defineArrayMember } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { EarthGlobeIcon } from '@sanity/icons'
 
 const imageTextField = (name: string, heading: string) =>
@@ -8,11 +8,7 @@ const imageTextField = (name: string, heading: string) =>
     type: 'object',
     fields: [
       defineField({ name: 'heading', type: 'string', title: 'Section Heading' }),
-      defineField({
-        name: 'paragraphs',
-        type: 'array',
-        of: [defineArrayMember({ type: 'text', rows: 3 })],
-      }),
+      defineField({ name: 'paragraphs', type: 'richText' }),
       defineField({
         name: 'image',
         type: 'image',
@@ -32,8 +28,7 @@ export const islandPage = defineType({
     defineField({
       name: 'intro',
       title: 'Intro Paragraphs',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 3 })],
+      type: 'richText',
     }),
     imageTextField('climateSection', 'Climate'),
     imageTextField('mountainsSection', 'Mountains and Views'),

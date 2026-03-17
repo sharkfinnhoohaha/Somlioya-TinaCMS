@@ -11,8 +11,7 @@ export const stayingPage = defineType({
     defineField({
       name: 'intro',
       title: 'Intro Paragraphs',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 2 })],
+      type: 'richText',
     }),
     defineField({
       name: 'buildingImages',
@@ -33,11 +32,7 @@ export const stayingPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({
-          name: 'paragraphs',
-          type: 'array',
-          of: [defineArrayMember({ type: 'text', rows: 2 })],
-        }),
+        defineField({ name: 'paragraphs', type: 'richText' }),
         defineField({
           name: 'image',
           type: 'image',
@@ -52,11 +47,7 @@ export const stayingPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({
-          name: 'paragraphs',
-          type: 'array',
-          of: [defineArrayMember({ type: 'text', rows: 2 })],
-        }),
+        defineField({ name: 'paragraphs', type: 'richText' }),
       ],
     }),
     defineField({
@@ -77,11 +68,7 @@ export const stayingPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({
-          name: 'paragraphs',
-          type: 'array',
-          of: [defineArrayMember({ type: 'text', rows: 2 })],
-        }),
+        defineField({ name: 'paragraphs', type: 'richText' }),
       ],
     }),
     defineField({

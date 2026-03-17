@@ -1,4 +1,4 @@
-import { defineField, defineType, defineArrayMember } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { HomeIcon } from '@sanity/icons'
 
 export const homePage = defineType({
@@ -29,15 +29,13 @@ export const homePage = defineType({
       name: 'poeticParagraphs',
       title: 'Poetic Intro Paragraphs',
       description: 'The short lines of text overlaid on the first image.',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 2 })],
+      type: 'richText',
     }),
     defineField({
       name: 'secondParagraphs',
       title: 'Second Text Block',
       description: 'The paragraphs overlaid on the closing image.',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 2 })],
+      type: 'richText',
     }),
     defineField({
       name: 'pullQuote',
@@ -51,7 +49,7 @@ export const homePage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({ name: 'description', type: 'text', rows: 3, title: 'Description' }),
+        defineField({ name: 'description', type: 'richText', title: 'Description' }),
       ],
     }),
     defineField({

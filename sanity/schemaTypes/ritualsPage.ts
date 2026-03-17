@@ -1,4 +1,4 @@
-import { defineField, defineType, defineArrayMember } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { StarIcon } from '@sanity/icons'
 
 export const ritualsPage = defineType({
@@ -11,8 +11,7 @@ export const ritualsPage = defineType({
     defineField({
       name: 'intro',
       title: 'Intro Paragraphs',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 3 })],
+      type: 'richText',
     }),
     defineField({
       name: 'midImage',
@@ -24,8 +23,7 @@ export const ritualsPage = defineType({
     defineField({
       name: 'secondParagraphs',
       title: 'Second Text Block',
-      type: 'array',
-      of: [defineArrayMember({ type: 'text', rows: 3 })],
+      type: 'richText',
     }),
     defineField({
       name: 'shapedTogetherSection',
@@ -33,11 +31,7 @@ export const ritualsPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({
-          name: 'paragraphs',
-          type: 'array',
-          of: [defineArrayMember({ type: 'text', rows: 3 })],
-        }),
+        defineField({ name: 'paragraphs', type: 'richText' }),
         defineField({
           name: 'image',
           type: 'image',
@@ -52,11 +46,7 @@ export const ritualsPage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'heading', type: 'string', title: 'Heading' }),
-        defineField({
-          name: 'paragraphs',
-          type: 'array',
-          of: [defineArrayMember({ type: 'text', rows: 3 })],
-        }),
+        defineField({ name: 'paragraphs', type: 'richText' }),
         defineField({
           name: 'pullQuote',
           type: 'string',

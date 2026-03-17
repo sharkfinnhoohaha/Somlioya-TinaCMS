@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { CONTACT_PAGE_QUERY } from "@/sanity/lib/queries";
 
@@ -12,7 +12,7 @@ function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
 }
 
 export default async function ContactPage() {
-  const data = await client.fetch(CONTACT_PAGE_QUERY).catch(() => null);
+  const { data } = await sanityFetch({ query: CONTACT_PAGE_QUERY }).catch(() => ({ data: null }));
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+
 import { EnvelopeIcon } from '@sanity/icons'
 
 export const contactPage = defineType({

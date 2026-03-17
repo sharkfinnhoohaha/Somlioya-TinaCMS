@@ -5,9 +5,10 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
+import RichText from "@/components/RichText";
 
 function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
   if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
@@ -15,7 +16,7 @@ function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
 }
 
 export default async function HomePage() {
-  const data = await client.fetch(HOME_PAGE_QUERY).catch(() => null);
+  const { data } = await sanityFetch({ query: HOME_PAGE_QUERY }).catch(() => ({ data: null }));
 
   const heroTitle = data?.hero?.title ?? "Sømliøya";
   const heroSubtitle = data?.hero?.subtitle ?? "Where the world becomes quieter";
@@ -27,18 +28,8 @@ export default async function HomePage() {
   const secondImageSrc = imgSrc(data?.secondImage, "/images/14cbdfe1c283435fb747c96413ad655d.jpg");
   const secondImageAlt = data?.secondImage?.alt ?? "Dramatic orange and pink sunset over the Norwegian fjord";
 
-  const poeticParagraphs = data?.poeticParagraphs ?? [
-    "Water that constantly changes colour. Skies that shift slowly, from grey, gold, blue, sometimes pink.",
-    "The weather moves quickly, the wind comes and goes.",
-    "The island is small. Simple. Private.",
-    "No roads, no traffic, only water and rocks. Birds, trees and space.",
-  ];
-
-  const secondParagraphs = data?.secondParagraphs ?? [
-    "You come here to be. To write. To think.",
-    "Some come to celebrate something. Others come to say goodbye.",
-    "Fires are lit by the edge of the water, fish are caught and eaten, kayaks glide through the fjord.",
-  ];
+  const poeticParagraphs = data?.poeticParagraphs ?? null;
+  const secondParagraphs = data?.secondParagraphs ?? null;
 
   const pullQuote = data?.pullQuote ?? "It is a place where you can step outside the world for a while.";
   const mapHeading = data?.mapCta?.heading ?? "See the island from above";
@@ -95,22 +86,14 @@ export default async function HomePage() {
       <ParallaxImage src={firstImageSrc} alt={firstImageAlt} height="min-h-[90vh]" fadeTop fadeBottom overlay quality={85}>
         <div className="max-w-2xl w-full mx-auto">
           <Reveal><div className="divider mb-10" /></Reveal>
-          {poeticParagraphs.map((para: string, i: number) => (
-            <Reveal key={i} delay={0.1 * (i + 1)} className={i > 0 ? "mt-6" : ""}>
-              <p className="font-sans text-white/85 font-light leading-[1.9] text-xl md:text-2xl">{para}</p>
-            </Reveal>
-          ))}
+          <RichText value={poeticParagraphs} />
         </div>
       </ParallaxImage>
 
       {/* ═══════ SECOND TEXT + MAP CTA ═══════ */}
       <ParallaxImage src={secondImageSrc} alt={secondImageAlt} height="min-h-[120vh]" fadeTop fadeBottom overlay quality={85}>
         <div className="max-w-2xl w-full mx-auto text-center">
-          {secondParagraphs.map((para: string, i: number) => (
-            <Reveal key={i} delay={0.1 * i} className={i > 0 ? "mt-6" : ""}>
-              <p className="font-sans text-white/85 font-light leading-[1.9] text-xl md:text-2xl">{para}</p>
-            </Reveal>
-          ))}
+          <RichText value={secondParagraphs} />
           <Reveal delay={0.3} className="mt-10">
             <div className="divider mx-auto mb-8" />
             <p className="font-heading text-gold italic text-2xl md:text-3xl font-light">{pullQuote}</p>
