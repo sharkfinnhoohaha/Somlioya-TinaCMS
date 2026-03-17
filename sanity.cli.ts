@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: 'blv6hhaq',
     dataset: 'production',
   },
+  studioHost: 'somlioya',
 })

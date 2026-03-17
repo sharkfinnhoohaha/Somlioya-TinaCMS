@@ -1,11 +1,9 @@
-import { defineQuery } from 'next-sanity'
-
 const imageFields = `
   asset->{ _id, url, metadata { lqip, dimensions } },
   alt, hotspot, crop
 `
 
-export const HOME_PAGE_QUERY = defineQuery(`
+export const HOME_PAGE_QUERY = /* groq */ `
   *[_type == "homePage" && _id == "homePage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     poeticParagraphs,
@@ -15,9 +13,9 @@ export const HOME_PAGE_QUERY = defineQuery(`
     firstImage { ${imageFields} },
     secondImage { ${imageFields} },
   }
-`)
+`
 
-export const ACTIVITIES_PAGE_QUERY = defineQuery(`
+export const ACTIVITIES_PAGE_QUERY = /* groq */ `
   *[_type == "activitiesPage" && _id == "activitiesPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
@@ -39,9 +37,9 @@ export const ACTIVITIES_PAGE_QUERY = defineQuery(`
       closingImage { ${imageFields} }
     },
   }
-`)
+`
 
-export const STAYING_PAGE_QUERY = defineQuery(`
+export const STAYING_PAGE_QUERY = /* groq */ `
   *[_type == "stayingPage" && _id == "stayingPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
@@ -56,9 +54,9 @@ export const STAYING_PAGE_QUERY = defineQuery(`
     groupSpacesSection { heading, paragraphs },
     closingImage { ${imageFields} },
   }
-`)
+`
 
-export const ISLAND_PAGE_QUERY = defineQuery(`
+export const ISLAND_PAGE_QUERY = /* groq */ `
   *[_type == "islandPage" && _id == "islandPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
@@ -66,9 +64,9 @@ export const ISLAND_PAGE_QUERY = defineQuery(`
     mountainsSection { heading, paragraphs, image { ${imageFields} } },
     wildlifeSection { heading, paragraphs, image { ${imageFields} } },
   }
-`)
+`
 
-export const RITUALS_PAGE_QUERY = defineQuery(`
+export const RITUALS_PAGE_QUERY = /* groq */ `
   *[_type == "ritualsPage" && _id == "ritualsPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     intro,
@@ -80,11 +78,11 @@ export const RITUALS_PAGE_QUERY = defineQuery(`
     },
     gatheringsSection { heading, paragraphs, pullQuote },
   }
-`)
+`
 
-export const CONTACT_PAGE_QUERY = defineQuery(`
+export const CONTACT_PAGE_QUERY = /* groq */ `
   *[_type == "contactPage" && _id == "contactPage"][0]{
     hero { image { ${imageFields} }, title, subtitle },
     introText,
   }
-`)
+`

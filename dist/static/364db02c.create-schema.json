@@ -1,0 +1,784 @@
+[
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ]
+              }
+            ],
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Hero Image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      }
+    ],
+    "name": "pageHero",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image",
+            "title": "Hero Image"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "subtitle",
+            "type": "string"
+          }
+        ],
+        "name": "hero",
+        "type": "object"
+      },
+      {
+        "description": "The short lines of text overlaid on the first image.",
+        "of": [
+          {
+            "rows": 2,
+            "type": "text"
+          }
+        ],
+        "name": "poeticParagraphs",
+        "type": "array",
+        "title": "Poetic Intro Paragraphs"
+      },
+      {
+        "description": "The paragraphs overlaid on the closing image.",
+        "of": [
+          {
+            "rows": 2,
+            "type": "text"
+          }
+        ],
+        "name": "secondParagraphs",
+        "type": "array",
+        "title": "Second Text Block"
+      },
+      {
+        "description": "The italic quote: \"It is a place where you can step outside…\"",
+        "name": "pullQuote",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "name": "description",
+            "type": "text"
+          }
+        ],
+        "name": "mapCta",
+        "type": "object",
+        "title": "3D Map Call-to-Action"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "firstImage",
+        "type": "image",
+        "title": "First Parallax Image (Poetic Intro)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "secondImage",
+        "type": "image",
+        "title": "Second Parallax Image (Closing)"
+      }
+    ],
+    "name": "homePage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "hero",
+        "type": "pageHero"
+      },
+      {
+        "of": [
+          {
+            "rows": 2,
+            "type": "text"
+          }
+        ],
+        "name": "intro",
+        "type": "array",
+        "title": "Intro Paragraphs"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "fields": [
+                      {
+                        "name": "alt",
+                        "type": "string",
+                        "title": "Alt Text"
+                      }
+                    ],
+                    "name": "image",
+                    "type": "image"
+                  },
+                  {
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "rows": 3,
+                    "name": "description",
+                    "type": "text"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "items",
+            "type": "array",
+            "title": "Activities"
+          }
+        ],
+        "name": "waterSection",
+        "type": "object",
+        "title": "On the Water"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "fields": [
+                      {
+                        "name": "alt",
+                        "type": "string",
+                        "title": "Alt Text"
+                      }
+                    ],
+                    "name": "image",
+                    "type": "image"
+                  },
+                  {
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "rows": 3,
+                    "name": "description",
+                    "type": "text"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "items",
+            "type": "array",
+            "title": "Activities"
+          }
+        ],
+        "name": "landSection",
+        "type": "object",
+        "title": "On Land"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "title": "Place Name"
+                  },
+                  {
+                    "rows": 4,
+                    "name": "description",
+                    "type": "text"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "places",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image",
+            "title": "Section Image"
+          }
+        ],
+        "name": "regionSection",
+        "type": "object",
+        "title": "Exploring the Region"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "rows": 4,
+            "name": "text",
+            "type": "text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "closingImage",
+            "type": "image"
+          }
+        ],
+        "name": "fireSection",
+        "type": "object",
+        "title": "Around the Fire"
+      }
+    ],
+    "name": "activitiesPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "hero",
+        "type": "pageHero"
+      },
+      {
+        "of": [
+          {
+            "rows": 2,
+            "type": "text"
+          }
+        ],
+        "name": "intro",
+        "type": "array",
+        "title": "Intro Paragraphs"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 2
+              }
+            ]
+          }
+        ],
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "buildingImages",
+        "type": "array",
+        "title": "Building Images (pair)"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "rows": 2,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "sleepingSection",
+        "type": "object",
+        "title": "Sleeping"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "rows": 2,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          }
+        ],
+        "name": "sharedSpacesSection",
+        "type": "object",
+        "title": "Shared Spaces"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "galleryImages",
+        "type": "array",
+        "title": "Gallery Images (horizontal scroll)"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "rows": 2,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          }
+        ],
+        "name": "groupSpacesSection",
+        "type": "object",
+        "title": "Group Spaces"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "closingImage",
+        "type": "image",
+        "title": "Closing Full-Width Image"
+      }
+    ],
+    "name": "stayingPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "hero",
+        "type": "pageHero"
+      },
+      {
+        "of": [
+          {
+            "rows": 3,
+            "type": "text"
+          }
+        ],
+        "name": "intro",
+        "type": "array",
+        "title": "Intro Paragraphs"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "rows": 3,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "climateSection",
+        "type": "object",
+        "title": "Climate"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "rows": 3,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "mountainsSection",
+        "type": "object",
+        "title": "Mountains and Views"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string",
+            "title": "Section Heading"
+          },
+          {
+            "of": [
+              {
+                "rows": 3,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "wildlifeSection",
+        "type": "object",
+        "title": "Wildlife"
+      }
+    ],
+    "name": "islandPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "hero",
+        "type": "pageHero"
+      },
+      {
+        "of": [
+          {
+            "rows": 3,
+            "type": "text"
+          }
+        ],
+        "name": "intro",
+        "type": "array",
+        "title": "Intro Paragraphs"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "midImage",
+        "type": "image",
+        "title": "Mid-Page Image"
+      },
+      {
+        "of": [
+          {
+            "rows": 3,
+            "type": "text"
+          }
+        ],
+        "name": "secondParagraphs",
+        "type": "array",
+        "title": "Second Text Block"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "rows": 3,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "shapedTogetherSection",
+        "type": "object",
+        "title": "Shaped Together"
+      },
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "rows": 3,
+                "type": "text"
+              }
+            ],
+            "name": "paragraphs",
+            "type": "array"
+          },
+          {
+            "description": "The italic quote at the bottom of this section.",
+            "name": "pullQuote",
+            "type": "string"
+          }
+        ],
+        "name": "gatheringsSection",
+        "type": "object",
+        "title": "Other Gatherings"
+      }
+    ],
+    "name": "ritualsPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "hero",
+        "type": "pageHero"
+      },
+      {
+        "rows": 3,
+        "name": "introText",
+        "type": "text"
+      }
+    ],
+    "name": "contactPage",
+    "type": "document"
+  }
+]
