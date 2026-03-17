@@ -7,6 +7,8 @@ import Reveal from "@/components/Reveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
 import RichText from "@/components/RichText";
+import SplashScreen from "@/components/SplashScreen";
+import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
 import { useTina } from "tinacms/dist/react";
 
 export default function HomePageClient(props: {
@@ -34,8 +36,18 @@ export default function HomePageClient(props: {
   const mapHeading = page?.mapCta?.heading ?? "See the island from above";
   const mapDescription = page?.mapCta?.description ?? null;
 
+  // ── Adaptive transition colours ──────────────────────────────────────────
+  // Each boundary uses matching colours on both sides for a seamless blend.
+  // hero-bottom → first-section-top: sample top of first image
+  // first-section-bottom → second-section-top: sample top of second image
+  // second-section-bottom: sample bottom of second image
+  const bridgeHeroFirst  = useImageEdgeColor(firstImageSrc,  "top");
+  const bridgeFirstSecond = useImageEdgeColor(secondImageSrc, "top");
+  const secondBottom     = useImageEdgeColor(secondImageSrc, "bottom");
+
   return (
-    <div style={{ background: "#111111" }}>
+    <div style={{ background: "#0a0a0a" }}>
+      <SplashScreen />
       <Nav />
 
       {/* ═══════ HERO ═══════ */}
@@ -53,9 +65,10 @@ export default function HomePageClient(props: {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/35 to-black/60" />
+        {/* Adaptive hero→section-1 fade */}
         <div
           className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to top, #111111 0%, transparent 100%)" }}
+          style={{ background: `linear-gradient(to top, ${bridgeHeroFirst} 0%, transparent 100%)` }}
         />
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
           <h1
@@ -83,20 +96,40 @@ export default function HomePageClient(props: {
       </section>
 
       {/* ═══════ POETIC INTRO ═══════ */}
-      <ParallaxImage src={firstImageSrc} alt={firstImageAlt} height="min-h-[90vh]" fadeTop fadeBottom overlay quality={85}>
+      <ParallaxImage
+        src={firstImageSrc}
+        alt={firstImageAlt}
+        height="min-h-[90vh]"
+        fadeTop
+        fadeBottom
+        fadeTopColor={bridgeHeroFirst}
+        fadeBottomColor={bridgeFirstSecond}
+        overlay
+        quality={85}
+      >
         <div className="max-w-2xl w-full mx-auto text-center">
           <Reveal><div className="divider mx-auto mb-10" /></Reveal>
           <Reveal delay={0.15}>
-            <RichText value={poeticParagraphs} />
+            <RichText value={poeticParagraphs} dark />
           </Reveal>
         </div>
       </ParallaxImage>
 
       {/* ═══════ SECOND TEXT + MAP CTA ═══════ */}
-      <ParallaxImage src={secondImageSrc} alt={secondImageAlt} height="min-h-[120vh]" fadeTop fadeBottom overlay quality={85}>
+      <ParallaxImage
+        src={secondImageSrc}
+        alt={secondImageAlt}
+        height="min-h-[120vh]"
+        fadeTop
+        fadeBottom
+        fadeTopColor={bridgeFirstSecond}
+        fadeBottomColor={secondBottom}
+        overlay
+        quality={85}
+      >
         <div className="max-w-2xl w-full mx-auto text-center">
           <Reveal>
-            <RichText value={secondParagraphs} />
+            <RichText value={secondParagraphs} dark />
           </Reveal>
           <Reveal delay={0.3} className="mt-10">
             <div className="divider mx-auto mb-8" />
@@ -107,7 +140,7 @@ export default function HomePageClient(props: {
             <h2 className="font-heading text-white font-light tracking-wide text-3xl md:text-4xl mb-5">{mapHeading}</h2>
             {mapDescription ? (
               <div className="text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">
-                <RichText value={mapDescription} />
+                <RichText value={mapDescription} dark />
               </div>
             ) : (
               <p className="font-sans text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">

@@ -6,6 +6,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ActivityCard from "@/components/ActivityCard";
 import RichText from "@/components/RichText";
+import RegionMap from "@/components/RegionMap";
 import { useTina } from "tinacms/dist/react";
 
 export default function ActivitiesClient(props: {
@@ -26,13 +27,13 @@ export default function ActivitiesClient(props: {
 
   const regionHeading = page?.regionSection?.heading ?? "Exploring the Region";
   const regionPlaces = page?.regionSection?.places ?? [];
-  const regionImgSrc = page?.regionSection?.image ?? "/images/IMG_1467.jpeg";
-  const regionImgAlt = page?.regionSection?.imageAlt ?? "Two people at summit cairn overlooking fjords at sunset";
 
   const fireHeading = page?.fireSection?.heading ?? "Around the Fire";
   const fireText = page?.fireSection?.text ?? null;
   const fireImgSrc = page?.fireSection?.closingImage ?? "/images/IMG_5214.jpeg";
   const fireImgAlt = page?.fireSection?.closingImageAlt ?? "Group of people dining at outdoor table by the fjord";
+
+  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <>
@@ -82,23 +83,27 @@ export default function ActivitiesClient(props: {
       </Reveal>
 
       {/* Exploring the Region */}
-      <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{regionHeading}</h3>
-        <div className="divider mb-8" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mt-8">
-          <div>
+      <div className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
+        <Reveal>
+          <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{regionHeading}</h3>
+          <div className="divider mb-8" />
+        </Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start mt-8">
+          {/* Place descriptions */}
+          <Reveal direction="left">
             {regionPlaces.map((place: any, i: number) => (
               <div key={i} className={i > 0 ? "mt-8" : ""}>
                 <h4 className="font-heading text-fjord text-xl font-medium mb-3">{place.name}</h4>
                 <RichText value={place.description} />
               </div>
             ))}
-          </div>
-          <div className="relative h-[500px]">
-            <Image src={regionImgSrc} alt={regionImgAlt} fill unoptimized className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
-          </div>
+          </Reveal>
+          {/* Interactive regional map */}
+          <Reveal direction="right" delay={0.15}>
+            <RegionMap places={regionPlaces} apiKey={mapsApiKey} />
+          </Reveal>
         </div>
-      </Reveal>
+      </div>
 
       {/* Around the Fire */}
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-12">

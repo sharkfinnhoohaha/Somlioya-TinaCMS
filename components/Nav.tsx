@@ -53,7 +53,7 @@ export default function Nav() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`text-[0.82rem] font-sans tracking-[0.2em] uppercase relative transition-colors duration-400 group ${
+                className={`text-[0.9rem] font-sans tracking-[0.2em] uppercase relative transition-colors duration-400 group ${
                   scrolled ? "text-charcoal" : "text-white"
                 } ${pathname === l.href ? "font-medium" : "font-normal"}`}
               >

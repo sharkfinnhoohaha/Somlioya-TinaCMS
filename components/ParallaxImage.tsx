@@ -12,6 +12,10 @@ interface ParallaxImageProps {
   sizes?: string;
   fadeTop?: boolean;
   fadeBottom?: boolean;
+  /** Colour the top fade dissolves FROM — auto-sampled from the adjacent image */
+  fadeTopColor?: string;
+  /** Colour the bottom fade dissolves TO — auto-sampled from the adjacent image */
+  fadeBottomColor?: string;
   overlay?: boolean;
   children?: ReactNode;
 }
@@ -24,6 +28,8 @@ export default function ParallaxImage({
   sizes = "100vw",
   fadeTop = false,
   fadeBottom = false,
+  fadeTopColor = "#111111",
+  fadeBottomColor = "#111111",
   overlay = false,
   children,
 }: ParallaxImageProps) {
@@ -64,13 +70,13 @@ export default function ParallaxImage({
       {fadeTop && (
         <div
           className="absolute inset-x-0 top-0 h-[35vh] pointer-events-none z-20"
-          style={{ background: "linear-gradient(to bottom, #111111 0%, transparent 100%)" }}
+          style={{ background: `linear-gradient(to bottom, ${fadeTopColor} 0%, transparent 100%)` }}
         />
       )}
       {fadeBottom && (
         <div
           className="absolute inset-x-0 bottom-0 h-[35vh] pointer-events-none z-20"
-          style={{ background: "linear-gradient(to top, #111111 0%, transparent 100%)" }}
+          style={{ background: `linear-gradient(to top, ${fadeBottomColor} 0%, transparent 100%)` }}
         />
       )}
 
