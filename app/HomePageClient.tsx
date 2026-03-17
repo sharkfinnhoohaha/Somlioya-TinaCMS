@@ -46,6 +46,7 @@ export default function HomePageClient(props: {
             alt={heroAlt}
             fill
             priority
+            unoptimized
             className="object-cover"
             sizes="100vw"
             quality={90}
