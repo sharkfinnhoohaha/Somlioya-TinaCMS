@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface ParallaxImageProps {
@@ -12,6 +12,8 @@ interface ParallaxImageProps {
   sizes?: string;
   fadeTop?: boolean;
   fadeBottom?: boolean;
+  overlay?: boolean;
+  children?: ReactNode;
 }
 
 export default function ParallaxImage({
@@ -22,6 +24,8 @@ export default function ParallaxImage({
   sizes = "100vw",
   fadeTop = false,
   fadeBottom = false,
+  overlay = false,
+  children,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -52,17 +56,27 @@ export default function ParallaxImage({
         />
       </motion.div>
 
+      {overlay && (
+        <div className="absolute inset-0 bg-black/45 z-10" />
+      )}
+
       {fadeTop && (
         <div
-          className="absolute inset-x-0 top-0 h-32 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to bottom, #FAFAF8, transparent)" }}
+          className="absolute inset-x-0 top-0 h-48 pointer-events-none z-20"
+          style={{ background: "linear-gradient(to bottom, #111111, transparent)" }}
         />
       )}
       {fadeBottom && (
         <div
-          className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to top, #FAFAF8, transparent)" }}
+          className="absolute inset-x-0 bottom-0 h-48 pointer-events-none z-20"
+          style={{ background: "linear-gradient(to top, #111111, transparent)" }}
         />
+      )}
+
+      {children && (
+        <div className="relative z-30 h-full flex flex-col items-center justify-center px-6 py-24">
+          {children}
+        </div>
       )}
     </div>
   );
