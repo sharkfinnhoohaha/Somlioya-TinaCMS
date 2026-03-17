@@ -8,6 +8,8 @@ import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
 import RichText from "@/components/RichText";
 import SplashScreen from "@/components/SplashScreen";
+import AuroraLayer from "@/components/AuroraLayer";
+import AnimatedDivider from "@/components/AnimatedDivider";
 import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
 import { useTina } from "tinacms/dist/react";
 
@@ -37,10 +39,6 @@ export default function HomePageClient(props: {
   const mapDescription = page?.mapCta?.description ?? null;
 
   // ── Adaptive transition colours ──────────────────────────────────────────
-  // Each boundary uses matching colours on both sides for a seamless blend.
-  // hero-bottom → first-section-top: sample top of first image
-  // first-section-bottom → second-section-top: sample top of second image
-  // second-section-bottom: sample bottom of second image
   const bridgeHeroFirst  = useImageEdgeColor(firstImageSrc,  "top");
   const bridgeFirstSecond = useImageEdgeColor(secondImageSrc, "top");
   const secondBottom     = useImageEdgeColor(secondImageSrc, "bottom");
@@ -65,6 +63,10 @@ export default function HomePageClient(props: {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/35 to-black/60" />
+
+        {/* Aurora ambient layer — drifts continuously above the gradient */}
+        <AuroraLayer />
+
         {/* Adaptive hero→section-1 fade */}
         <div
           className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
@@ -108,7 +110,7 @@ export default function HomePageClient(props: {
         quality={85}
       >
         <div className="max-w-2xl w-full mx-auto text-center">
-          <Reveal><div className="divider mx-auto mb-10" /></Reveal>
+          <AnimatedDivider className="mx-auto mb-10" />
           <Reveal delay={0.15}>
             <RichText value={poeticParagraphs} dark />
           </Reveal>
@@ -132,7 +134,7 @@ export default function HomePageClient(props: {
             <RichText value={secondParagraphs} dark />
           </Reveal>
           <Reveal delay={0.3} className="mt-10">
-            <div className="divider mx-auto mb-8" />
+            <AnimatedDivider className="mx-auto mb-8" />
             <p className="font-heading text-gold italic text-2xl md:text-3xl font-light">{pullQuote}</p>
           </Reveal>
           <Reveal delay={0.4} className="mt-20">

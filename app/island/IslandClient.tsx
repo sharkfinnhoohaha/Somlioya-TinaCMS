@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
+import AnimatedDivider from "@/components/AnimatedDivider";
 import { useTina } from "tinacms/dist/react";
 
 export default function IslandClient(props: {
@@ -34,7 +35,7 @@ export default function IslandClient(props: {
       />
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
-        <div className="divider mb-8" />
+        <AnimatedDivider className="mb-8" />
         <RichText value={intro} />
       </Reveal>
 
@@ -42,7 +43,7 @@ export default function IslandClient(props: {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
         <Reveal direction="left">
           <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{climate.heading}</h3>
-          <div className="divider mb-6" />
+          <AnimatedDivider className="mb-6" />
           <RichText value={climate.paragraphs} />
         </Reveal>
         <Reveal direction="right" delay={0.15}>
@@ -78,7 +79,7 @@ export default function IslandClient(props: {
         <Reveal direction="right">
           <div className="md:order-0">
             <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{mountains.heading}</h3>
-            <div className="divider mb-6" />
+            <AnimatedDivider className="mb-6" />
             <RichText value={mountains.paragraphs} />
           </div>
         </Reveal>
@@ -88,7 +89,7 @@ export default function IslandClient(props: {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16 pb-24">
         <Reveal direction="left">
           <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{wildlife.heading}</h3>
-          <div className="divider mb-6" />
+          <AnimatedDivider className="mb-6" />
           <RichText value={wildlife.paragraphs} />
         </Reveal>
         <Reveal direction="right" delay={0.15}>

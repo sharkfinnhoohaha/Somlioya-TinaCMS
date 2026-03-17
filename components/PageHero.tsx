@@ -31,21 +31,26 @@ export default function PageHero({
         quality={85}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-      <motion.div
-        className="relative z-10 p-8 md:p-12 lg:px-[6vw] lg:pb-14"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      >
-        <h1 className="font-heading text-white text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight">
+      <div className="relative z-10 p-8 md:p-12 lg:px-[6vw] lg:pb-14">
+        <motion.h1
+          className="font-heading text-white text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        >
           {title}
-        </h1>
+        </motion.h1>
         {subtitle && (
-          <p className="font-heading text-white/75 text-lg font-light italic tracking-wide mt-3">
+          <motion.p
+            className="font-heading text-white/75 text-lg font-light italic tracking-wide mt-3"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
+          >
             {subtitle}
-          </p>
+          </motion.p>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 }
