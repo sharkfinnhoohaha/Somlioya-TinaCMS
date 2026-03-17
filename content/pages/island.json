@@ -1,105 +1,26 @@
 {
   "hero": {
-    "image": "/images/IMG_5184.jpeg",
+    "image": "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG",
     "imageAlt": "Aerial view of the island in summer with mountains behind",
     "title": "About the Island",
     "subtitle": "Nærøysund municipality, Trøndelag"
   },
-  "intro": {
-    "type": "root",
-    "children": [
-      {
-        "type": "p",
-        "children": [
-          {
-            "type": "text",
-            "text": "Sømliøya lies at 65°03′N, just inside the Arctic Circle. It is a small island — about 15 acres — but its position between the open Norwegian Sea and a narrow inland fjord gives it a distinctive character that changes dramatically with the seasons and the light."
-          }
-        ]
-      },
-      {
-        "type": "p",
-        "children": [
-          {
-            "type": "text",
-            "text": "The name comes from the old Norwegian word sømli, meaning something like 'a quiet or sheltered place'. The island has been inhabited for at least 300 years."
-          }
-        ]
-      }
-    ]
-  },
+  "intro": "",
   "climateSection": {
     "heading": "Climate",
-    "paragraphs": {
-      "type": "root",
-      "children": [
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "The coastal position means the climate is milder than you might expect at this latitude — the sea moderates both summer and winter temperatures. In summer, temperatures often reach 18–22°C, and the light lasts almost around the clock."
-            }
-          ]
-        },
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "In winter, the island is quiet and cold, with short days and occasional snow. The northern lights are sometimes visible from October to March."
-            }
-          ]
-        }
-      ]
-    },
+    "paragraphs": "\\[object Object]\n",
     "image": "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
     "imageAlt": "The island buildings in golden winter light"
   },
   "mountainsSection": {
     "heading": "Mountains and Views",
-    "paragraphs": {
-      "type": "root",
-      "children": [
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "Across the fjord, the mountains rise steeply to peaks of 400–600 metres. The most prominent is Heilhornet, visible from the island on clear days. The combination of sea, island, and mountain in close proximity is what gives this landscape its particular quality."
-            }
-          ]
-        }
-      ]
-    },
+    "paragraphs": "\\[object Object]\n",
     "image": "/images/IMG_2336.jpeg",
     "imageAlt": "Heilhornet and mountain peaks across the fjord in winter"
   },
   "wildlifeSection": {
     "heading": "Wildlife",
-    "paragraphs": {
-      "type": "root",
-      "children": [
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "Sea eagles are common in the area and can often be seen hunting over the fjord. Cormorants, guillemots, and various waders are regular visitors. In the forest on the nearby mainland, roe deer and occasional moose are seen."
-            }
-          ]
-        },
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "The fjord itself is rich in fish — cod, pollock, mackerel and herring move through these waters in different seasons. Seals are sometimes spotted on the rocks."
-            }
-          ]
-        }
-      ]
-    },
+    "paragraphs": "\\[object Object]\n",
     "image": "/images/IMG_1440.jpeg",
     "imageAlt": "Reindeer silhouetted against the northern sky on rocks"
   }
