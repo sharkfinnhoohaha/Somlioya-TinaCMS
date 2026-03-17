@@ -13,9 +13,9 @@ export default async function IslandPage() {
   const heroAlt = data?.hero?.imageAlt ?? "Aerial view of the island in summer with mountains behind";
 
   const intro = data?.intro ?? null;
-  const climate = data?.climateSection ?? { heading: "Climate", paragraphs: null };
-  const mountains = data?.mountainsSection ?? { heading: "Mountains and Views", paragraphs: null };
-  const wildlife = data?.wildlifeSection ?? { heading: "Wildlife", paragraphs: null };
+  const climate = data?.climateSection ?? { heading: "Climate", paragraphs: null, image: undefined, imageAlt: undefined };
+  const mountains = data?.mountainsSection ?? { heading: "Mountains and Views", paragraphs: null, image: undefined, imageAlt: undefined };
+  const wildlife = data?.wildlifeSection ?? { heading: "Wildlife", paragraphs: null, image: undefined, imageAlt: undefined };
 
   return (
     <>

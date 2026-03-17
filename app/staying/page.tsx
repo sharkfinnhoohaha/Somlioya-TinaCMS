@@ -22,7 +22,7 @@ export default async function StayingPage() {
         { src: "/images/IMG_3215.jpeg", alt: "Main house exterior with stairs and pine tree" },
       ];
 
-  const sleeping = data?.sleepingSection ?? { heading: "Sleeping", paragraphs: null };
+  const sleeping = data?.sleepingSection ?? { heading: "Sleeping", paragraphs: null, image: undefined, imageAlt: undefined };
   const sharedSpaces = data?.sharedSpacesSection ?? { heading: "Shared Spaces", paragraphs: null };
 
   const galleryImages = data?.galleryImages?.length

@@ -18,7 +18,7 @@ export default async function RitualsPage() {
   const midImgAlt = data?.midImage?.alt ?? "Community gathering at table under decorated fabric banners";
 
   const secondParagraphs = data?.secondParagraphs ?? null;
-  const shaped = data?.shapedTogetherSection ?? { heading: "Shaped Together", paragraphs: null };
+  const shaped = data?.shapedTogetherSection ?? { heading: "Shaped Together", paragraphs: null, image: undefined, imageAlt: undefined };
   const gatherings = data?.gatheringsSection ?? { heading: "Other Gatherings", paragraphs: null, pullQuote: null };
 
   return (

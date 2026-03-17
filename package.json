@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "tinacms build && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -17,13 +17,15 @@
     "next": "^16.1.7",
     "postprocessing": "^6.38.3",
     "react": "^19.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.0",
     "three": "^0.183.2",
     "tinacms": "^2.6.0"
   },
   "devDependencies": {
-    "@tinacms/cli": "^1.6.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@tinacms/cli": "^1.6.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
