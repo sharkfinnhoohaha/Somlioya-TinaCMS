@@ -5,28 +5,20 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
-import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
-import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
+import { getHomePage } from "@/tina/lib/client";
 import RichText from "@/components/RichText";
-import { PortableText } from '@portabletext/react';
-
-function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
-  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
-  return fallback;
-}
 
 export default async function HomePage() {
-  const { data } = await sanityFetch({ query: HOME_PAGE_QUERY }).catch(() => ({ data: null }));
+  const data = getHomePage();
 
   const heroTitle = data?.hero?.title ?? "Sømliøya";
   const heroSubtitle = data?.hero?.subtitle ?? "Where the world becomes quieter";
-  const heroSrc = imgSrc(data?.hero?.image, "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg");
-  const heroAlt = data?.hero?.image?.alt ?? "Aerial view of Sømliøya in winter light";
+  const heroSrc = data?.hero?.image ?? "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg";
+  const heroAlt = data?.hero?.imageAlt ?? "Aerial view of Sømliøya in winter light";
 
-  const firstImageSrc = imgSrc(data?.firstImage, "/images/IMG_9794.jpeg");
+  const firstImageSrc = data?.firstImage?.src ?? "/images/IMG_9794.jpeg";
   const firstImageAlt = data?.firstImage?.alt ?? "Mirror-still fjord at sunset with mountains";
-  const secondImageSrc = imgSrc(data?.secondImage, "/images/14cbdfe1c283435fb747c96413ad655d.jpg");
+  const secondImageSrc = data?.secondImage?.src ?? "/images/14cbdfe1c283435fb747c96413ad655d.jpg";
   const secondImageAlt = data?.secondImage?.alt ?? "Dramatic orange and pink sunset over the Norwegian fjord";
 
   const poeticParagraphs = data?.poeticParagraphs ?? null;
@@ -34,7 +26,7 @@ export default async function HomePage() {
 
   const pullQuote = data?.pullQuote ?? "It is a place where you can step outside the world for a while.";
   const mapHeading = data?.mapCta?.heading ?? "See the island from above";
-  const mapDescription = data?.mapCta?.description ?? "An interactive 3D model of Sømliøya rendered in real time from satellite data. Fly over the fjords, explore the coastline.";
+  const mapDescription = data?.mapCta?.description ?? null;
 
   return (
     <div style={{ background: "#111111" }}>
@@ -102,12 +94,14 @@ export default async function HomePage() {
           <Reveal delay={0.4} className="mt-20">
             <p className="font-sans text-white/40 text-[0.7rem] uppercase tracking-[0.35em] mb-4">65°03′N · 11°55′E</p>
             <h2 className="font-heading text-white font-light tracking-wide text-3xl md:text-4xl mb-5">{mapHeading}</h2>
-            {Array.isArray(mapDescription) ? (
+            {mapDescription ? (
               <div className="text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">
-                <PortableText value={mapDescription} />
+                <RichText value={mapDescription} />
               </div>
             ) : (
-              <p className="font-sans text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">{mapDescription}</p>
+              <p className="font-sans text-white/65 font-light leading-relaxed text-lg mb-8 max-w-md mx-auto">
+                An interactive 3D model of Sømliøya rendered in real time from satellite data. Fly over the fjords, explore the coastline.
+              </p>
             )}
             <Link href="/map" className="inline-block text-[0.8rem] font-sans font-medium tracking-[0.25em] uppercase px-10 py-4 bg-white/10 border border-white/40 text-white hover:bg-gold hover:border-gold hover:-translate-y-0.5 hover:shadow-xl transition-all duration-500">
               Open 3D Map

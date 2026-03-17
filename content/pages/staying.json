@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "image": "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG",
+    "imageAlt": "Aerial view of island buildings surrounded by forest and fjord",
+    "title": "Sleeping & Living",
+    "subtitle": "Intentionally simple, shared, and close to nature."
+  },
+  "intro": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "The island has two houses — a main house and a smaller annex — with space for up to 20 people in total. The accommodation is comfortable and functional, designed for groups who want to cook together, spend time outdoors, and sleep well."
+          }
+        ]
+      }
+    ]
+  },
+  "buildingImages": [
+    {
+      "src": "/images/A4D4C1444081F165FD87951C3F619B8B.jpg",
+      "alt": "Aerial view of both island buildings"
+    },
+    {
+      "src": "/images/IMG_3215.jpeg",
+      "alt": "Main house exterior with stairs and pine tree"
+    }
+  ],
+  "sleepingSection": {
+    "heading": "Sleeping",
+    "paragraphs": {
+      "type": "root",
+      "children": [
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "The main house has six bedrooms with a mix of single and bunk beds. The annex has two additional rooms. All beds are made up with fresh linen and blankets."
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "There are four bathrooms across the two buildings, each with hot showers. The island has its own freshwater source."
+            }
+          ]
+        }
+      ]
+    },
+    "image": "/images/IMG_3202.jpeg",
+    "imageAlt": "Main house with deck, garden and dog"
+  },
+  "sharedSpacesSection": {
+    "heading": "Shared Spaces",
+    "paragraphs": {
+      "type": "root",
+      "children": [
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "The main living and dining area is a large open room with windows facing the fjord. There is a fully equipped kitchen, a long dining table for communal meals, and a fireplace for evenings."
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "There is also a small reading room, a terrace with outdoor furniture, and a jetty for boats and swimming."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "galleryImages": [
+    { "src": "/images/IMG_7429.jpeg", "alt": "Gathering room with tables and sunflower paintings" },
+    { "src": "/images/IMG_7414.jpeg", "alt": "Large dining room with wooden floors" },
+    { "src": "/images/IMG_7422.jpeg", "alt": "Living room with fireplace and couches" },
+    { "src": "/images/IMG_1256.jpeg", "alt": "People cooking together in the kitchen" },
+    { "src": "/images/IMG_5123.jpeg", "alt": "Outdoor picnic tables with fjord view" },
+    { "src": "/images/IMG_6710.jpeg", "alt": "Yellow house exterior with wooden deck" }
+  ],
+  "groupSpacesSection": {
+    "heading": "Group Spaces",
+    "paragraphs": {
+      "type": "root",
+      "children": [
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "For larger gatherings, the island has an outdoor fire circle with seating for 25–30 people, and a covered outdoor space suitable for workshops, ceremonies, or shared meals in most weather."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "closingImage": {
+    "src": "/images/IMG_5184.jpeg",
+    "alt": "Outdoor volleyball net surrounded by forest"
+  }
+}

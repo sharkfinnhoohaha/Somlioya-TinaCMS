@@ -1,10 +1,10 @@
 {
-  "name": "somlioya",
+  "name": "somlioya-tinacms",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "tinacms dev -c \"next dev\"",
+    "build": "tinacms build && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,26 +12,22 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@sanity/client": "^7.17.0",
-    "@sanity/image-url": "^2.0.3",
     "3d-tiles-renderer": "^0.4.22",
     "framer-motion": "^11.15.0",
     "next": "^16.1.7",
     "postprocessing": "^6.38.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "three": "^0.183.2"
+    "three": "^0.183.2",
+    "tinacms": "^2.6.0"
   },
   "devDependencies": {
-    "@sanity/icons": "^3.7.4",
-    "@sanity/vision": "^5.16.0",
+    "@tinacms/cli": "^1.6.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/three": "^0.183.1",
-    "next-sanity": "^12.1.1",
-    "sanity": "^5.16.0",
     "styled-components": "^6.3.11",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0"

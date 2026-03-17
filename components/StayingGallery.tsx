@@ -4,10 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 
 interface GalleryImage {
-  _key: string;
-  url?: string;
-  alt?: string;
   src?: string;
+  alt?: string;
 }
 
 export default function StayingGallery({ images }: { images: GalleryImage[] }) {
@@ -15,10 +13,10 @@ export default function StayingGallery({ images }: { images: GalleryImage[] }) {
 
   return (
     <div ref={scrollRef} className="overflow-x-auto hide-scrollbar whitespace-nowrap py-6 px-[6vw]">
-      {images.map((img) => (
-        <div key={img._key} className="inline-block relative h-[50vh] min-h-[350px] w-auto mr-4 last:mr-0">
+      {images.map((img, i) => (
+        <div key={i} className="inline-block relative h-[50vh] min-h-[350px] w-auto mr-4 last:mr-0">
           <Image
-            src={img.url ?? img.src ?? ""}
+            src={img.src ?? ""}
             alt={img.alt ?? ""}
             width={700}
             height={500}

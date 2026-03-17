@@ -2,24 +2,17 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
-import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
-import { CONTACT_PAGE_QUERY } from "@/sanity/lib/queries";
-
-function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
-  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
-  return fallback;
-}
+import { getContactPage } from "@/tina/lib/client";
 
 export default async function ContactPage() {
-  const { data } = await sanityFetch({ query: CONTACT_PAGE_QUERY }).catch(() => ({ data: null }));
+  const data = getContactPage();
 
   return (
     <>
       <Nav />
       <PageHero
-        src={imgSrc(data?.hero?.image, "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg")}
-        alt={data?.hero?.image?.alt ?? "Aerial winter view of Sømliøya and surrounding fjord"}
+        src={data?.hero?.image ?? "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg"}
+        alt={data?.hero?.imageAlt ?? "Aerial winter view of Sømliøya and surrounding fjord"}
         title={data?.hero?.title ?? "Get in Touch"}
         subtitle={data?.hero?.subtitle ?? "The island is for rent for a day, a weekend or a week."}
         height="h-[50vh] min-h-[350px]"

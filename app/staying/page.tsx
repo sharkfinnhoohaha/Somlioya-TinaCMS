@@ -4,38 +4,19 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import StayingGallery from "@/components/StayingGallery";
-import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
-import { STAYING_PAGE_QUERY } from "@/sanity/lib/queries";
+import { getStayingPage } from "@/tina/lib/client";
 import RichText from "@/components/RichText";
 
-function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
-  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
-  return fallback;
-}
-
-const DEFAULT_GALLERY = [
-  { _key: "g1", src: "/images/IMG_7429.jpeg", alt: "Gathering room with tables and sunflower paintings" },
-  { _key: "g2", src: "/images/IMG_7414.jpeg", alt: "Large dining room with wooden floors" },
-  { _key: "g3", src: "/images/IMG_7422.jpeg", alt: "Living room with fireplace and couches" },
-  { _key: "g4", src: "/images/IMG_1256.jpeg", alt: "People cooking together in the kitchen" },
-  { _key: "g5", src: "/images/IMG_5123.jpeg", alt: "Outdoor picnic tables with fjord view" },
-  { _key: "g6", src: "/images/IMG_6710.jpeg", alt: "Yellow house exterior with wooden deck" },
-];
-
 export default async function StayingPage() {
-  const { data } = await sanityFetch({ query: STAYING_PAGE_QUERY }).catch(() => ({ data: null }));
+  const data = getStayingPage();
 
-  const heroSrc = imgSrc(data?.hero?.image, "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG");
-  const heroAlt = data?.hero?.image?.alt ?? "Aerial view of island buildings surrounded by forest and fjord";
+  const heroSrc = data?.hero?.image ?? "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG";
+  const heroAlt = data?.hero?.imageAlt ?? "Aerial view of island buildings surrounded by forest and fjord";
 
   const intro = data?.intro ?? null;
 
-const buildingImgs = data?.buildingImages?.length
-    ? data.buildingImages.map((img: any) => ({
-        src: img.asset?._id ? urlFor(img).width(1200).url() : "/images/A4D4C1444081F165FD87951C3F619B8B.jpg",
-        alt: img.alt ?? "",
-      }))
+  const buildingImgs = data?.buildingImages?.length
+    ? data.buildingImages
     : [
         { src: "/images/A4D4C1444081F165FD87951C3F619B8B.jpg", alt: "Aerial view of both island buildings" },
         { src: "/images/IMG_3215.jpeg", alt: "Main house exterior with stairs and pine tree" },
@@ -45,16 +26,19 @@ const buildingImgs = data?.buildingImages?.length
   const sharedSpaces = data?.sharedSpacesSection ?? { heading: "Shared Spaces", paragraphs: null };
 
   const galleryImages = data?.galleryImages?.length
-    ? data.galleryImages.map((img: any) => ({
-        _key: img._key,
-        url: img.asset?._id ? urlFor(img).width(1000).url() : undefined,
-        alt: img.alt ?? "",
-      }))
-    : DEFAULT_GALLERY;
+    ? data.galleryImages.map((img) => ({ src: img.src ?? "", alt: img.alt ?? "" }))
+    : [
+        { src: "/images/IMG_7429.jpeg", alt: "Gathering room with tables and sunflower paintings" },
+        { src: "/images/IMG_7414.jpeg", alt: "Large dining room with wooden floors" },
+        { src: "/images/IMG_7422.jpeg", alt: "Living room with fireplace and couches" },
+        { src: "/images/IMG_1256.jpeg", alt: "People cooking together in the kitchen" },
+        { src: "/images/IMG_5123.jpeg", alt: "Outdoor picnic tables with fjord view" },
+        { src: "/images/IMG_6710.jpeg", alt: "Yellow house exterior with wooden deck" },
+      ];
 
   const groupSpaces = data?.groupSpacesSection ?? { heading: "Group Spaces", paragraphs: null };
 
-  const closingImgSrc = imgSrc(data?.closingImage, "/images/IMG_5184.jpeg");
+  const closingImgSrc = data?.closingImage?.src ?? "/images/IMG_5184.jpeg";
   const closingImgAlt = data?.closingImage?.alt ?? "Outdoor volleyball net surrounded by forest";
 
   return (
@@ -74,9 +58,9 @@ const buildingImgs = data?.buildingImages?.length
 
       {/* Building image pair */}
       <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
-        {buildingImgs.map((img: any, i: number) => (
+        {buildingImgs.map((img, i) => (
           <div key={i} className="relative h-[45vh] min-h-[300px]">
-            <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
+            <Image src={img.src ?? ""} alt={img.alt ?? ""} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
           </div>
         ))}
       </Reveal>
@@ -90,8 +74,8 @@ const buildingImgs = data?.buildingImages?.length
         </div>
         <div className="relative h-[500px]">
           <Image
-            src={imgSrc(sleeping.image, "/images/IMG_3202.jpeg")}
-            alt={sleeping.image?.alt ?? "Main house with deck, garden and dog"}
+            src={sleeping.image ?? "/images/IMG_3202.jpeg"}
+            alt={sleeping.imageAlt ?? "Main house with deck, garden and dog"}
             fill className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />

@@ -3,21 +3,14 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
-import { ISLAND_PAGE_QUERY } from "@/sanity/lib/queries";
+import { getIslandPage } from "@/tina/lib/client";
 import RichText from "@/components/RichText";
 
-function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
-  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
-  return fallback;
-}
-
 export default async function IslandPage() {
-  const { data } = await sanityFetch({ query: ISLAND_PAGE_QUERY }).catch(() => ({ data: null }));
+  const data = getIslandPage();
 
-  const heroSrc = imgSrc(data?.hero?.image, "/images/IMG_5184.jpeg");
-  const heroAlt = data?.hero?.image?.alt ?? "Aerial view of the island in summer with mountains behind";
+  const heroSrc = data?.hero?.image ?? "/images/IMG_5184.jpeg";
+  const heroAlt = data?.hero?.imageAlt ?? "Aerial view of the island in summer with mountains behind";
 
   const intro = data?.intro ?? null;
   const climate = data?.climateSection ?? { heading: "Climate", paragraphs: null };
@@ -48,8 +41,8 @@ export default async function IslandPage() {
         </div>
         <div className="relative h-[500px]">
           <Image
-            src={imgSrc(climate.image, "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg")}
-            alt={climate.image?.alt ?? "The island buildings in golden winter light"}
+            src={climate.image ?? "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg"}
+            alt={climate.imageAlt ?? "The island buildings in golden winter light"}
             fill className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />
@@ -60,8 +53,8 @@ export default async function IslandPage() {
       <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
         <div className="relative h-[500px] md:order-1">
           <Image
-            src={imgSrc(mountains.image, "/images/IMG_2336.jpeg")}
-            alt={mountains.image?.alt ?? "Heilhornet and mountain peaks across the fjord in winter"}
+            src={mountains.image ?? "/images/IMG_2336.jpeg"}
+            alt={mountains.imageAlt ?? "Heilhornet and mountain peaks across the fjord in winter"}
             fill className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />
@@ -82,8 +75,8 @@ export default async function IslandPage() {
         </div>
         <div className="relative h-[500px]">
           <Image
-            src={imgSrc(wildlife.image, "/images/IMG_1440.jpeg")}
-            alt={wildlife.image?.alt ?? "Reindeer silhouetted against the northern sky on rocks"}
+            src={wildlife.image ?? "/images/IMG_1440.jpeg"}
+            alt={wildlife.imageAlt ?? "Reindeer silhouetted against the northern sky on rocks"}
             fill className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />

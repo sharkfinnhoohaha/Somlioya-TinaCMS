@@ -1,43 +1,71 @@
-import { PortableText, type PortableTextComponents } from '@portabletext/react'
-import type { PortableTextBlock } from '@portabletext/types'
+/**
+ * TinaRichText renderer
+ *
+ * TinaCMS stores rich text as a tree of nodes (similar to Slate.js format),
+ * unlike Sanity's PortableText array-of-blocks format.
+ *
+ * This component recursively renders TinaCMS rich text nodes into HTML.
+ * The styling matches the original Sanity-based PortableText renderer.
+ */
 
-const components: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => (
-      <p className="font-sans text-smoke font-light leading-[1.85] mt-5 first:mt-0">{children}</p>
-    ),
-    h3: ({ children }) => (
-      <h3 className="font-heading text-fjord-deep text-xl font-light mt-8 first:mt-0">{children}</h3>
-    ),
-  },
-  marks: {
-    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-    em: ({ children }) => <em className="italic">{children}</em>,
-  },
+import type { TinaRichText, TinaRichTextNode } from "@/tina/lib/client";
+import React from "react";
+
+function renderNode(node: TinaRichTextNode, index: number): React.ReactNode {
+  // Leaf text node
+  if (node.type === "text") {
+    let content: React.ReactNode = node.text ?? "";
+    if (node.bold) content = <strong className="font-semibold" key={index}>{content}</strong>;
+    if (node.italic) content = <em className="italic" key={index}>{content}</em>;
+    return content;
+  }
+
+  const children = node.children?.map((child, i) => renderNode(child, i));
+
+  switch (node.type) {
+    case "root":
+      return <React.Fragment key={index}>{children}</React.Fragment>;
+    case "p":
+      return (
+        <p key={index} className="font-sans text-smoke font-light leading-[1.85] mt-5 first:mt-0">
+          {children}
+        </p>
+      );
+    case "h3":
+      return (
+        <h3 key={index} className="font-heading text-fjord-deep text-xl font-light mt-8 first:mt-0">
+          {children}
+        </h3>
+      );
+    case "strong":
+      return <strong key={index} className="font-semibold">{children}</strong>;
+    case "em":
+      return <em key={index} className="italic">{children}</em>;
+    default:
+      return <React.Fragment key={index}>{children}</React.Fragment>;
+  }
 }
 
 export default function RichText({
   value,
   className,
 }: {
-  value: PortableTextBlock[] | string | null | undefined
-  className?: string
+  value: TinaRichText | string | null | undefined;
+  className?: string;
 }) {
-  if (!value) return null
-  if (typeof value === 'string') {
+  if (!value) return null;
+
+  if (typeof value === "string") {
     return (
       <div className={className}>
         <p className="font-sans text-smoke font-light leading-[1.85] mt-5 first:mt-0">{value}</p>
       </div>
-    )
+    );
   }
-  const blocks = (Array.isArray(value) ? value : []).filter(
-    (item): item is PortableTextBlock => typeof item === 'object' && item !== null
-  )
-  if (!blocks.length) return null
+
   return (
     <div className={className}>
-      <PortableText value={blocks} components={components} />
+      {value.children?.map((node, i) => renderNode(node, i))}
     </div>
-  )
+  );
 }

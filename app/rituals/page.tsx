@@ -3,25 +3,18 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { sanityFetch } from "@/sanity/lib/live";
-import { urlFor } from "@/sanity/lib/image";
-import { RITUALS_PAGE_QUERY } from "@/sanity/lib/queries";
+import { getRitualsPage } from "@/tina/lib/client";
 import RichText from "@/components/RichText";
 
-function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
-  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
-  return fallback;
-}
-
 export default async function RitualsPage() {
-  const { data } = await sanityFetch({ query: RITUALS_PAGE_QUERY }).catch(() => ({ data: null }));
+  const data = getRitualsPage();
 
-  const heroSrc = imgSrc(data?.hero?.image, "/images/IMG_5345.jpeg");
-  const heroAlt = data?.hero?.image?.alt ?? "Decorated fabric banners hanging from birch trees with set table behind";
+  const heroSrc = data?.hero?.image ?? "/images/IMG_5345.jpeg";
+  const heroAlt = data?.hero?.imageAlt ?? "Decorated fabric banners hanging from birch trees with set table behind";
 
   const intro = data?.intro ?? null;
 
-  const midImgSrc = imgSrc(data?.midImage, "/images/IMG_5352.jpeg");
+  const midImgSrc = data?.midImage?.src ?? "/images/IMG_5352.jpeg";
   const midImgAlt = data?.midImage?.alt ?? "Community gathering at table under decorated fabric banners";
 
   const secondParagraphs = data?.secondParagraphs ?? null;
@@ -62,8 +55,8 @@ export default async function RitualsPage() {
         </div>
         <div className="relative h-[500px]">
           <Image
-            src={imgSrc(shaped.image, "/images/IMG_9780.jpeg")}
-            alt={shaped.image?.alt ?? "Artist painting at an easel among birch trees"}
+            src={shaped.image ?? "/images/IMG_9780.jpeg"}
+            alt={shaped.imageAlt ?? "Artist painting at an easel among birch trees"}
             fill className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />

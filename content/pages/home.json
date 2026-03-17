@@ -1,0 +1,80 @@
+{
+  "hero": {
+    "image": "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg",
+    "imageAlt": "Aerial view of Sømliøya in winter light",
+    "title": "Sømliøya",
+    "subtitle": "Where the world becomes quieter"
+  },
+  "poeticParagraphs": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Sømliøya is a small private island in the Nærøysund municipality of Trøndelag, on the west coast of Norway. It sits at the mouth of a narrow fjord, surrounded by open sea to the west and mountains to the east."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "The island has been in the same family for generations. It is a place shaped by the rhythms of the sea and the seasons — where the light changes dramatically between winter and summer, and where the silence is deep and uninterrupted."
+          }
+        ]
+      }
+    ]
+  },
+  "secondParagraphs": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "We rent it to groups who want to step outside their ordinary lives for a while. For a day, a weekend, or a week — the island becomes yours."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "There is room for up to 20 people across two houses. There is a sauna, a firepit, kayaks, fishing rods, and a kitchen big enough for communal cooking. But mostly there is space — physical and mental — to slow down."
+          }
+        ]
+      }
+    ]
+  },
+  "pullQuote": "It is a place where you can step outside the world for a while.",
+  "mapCta": {
+    "heading": "See the island from above",
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "p",
+          "children": [
+            {
+              "type": "text",
+              "text": "An interactive 3D model of Sømliøya rendered in real time from satellite data. Fly over the fjords, explore the coastline."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "firstImage": {
+    "src": "/images/IMG_9794.jpeg",
+    "alt": "Mirror-still fjord at sunset with mountains"
+  },
+  "secondImage": {
+    "src": "/images/14cbdfe1c283435fb747c96413ad655d.jpg",
+    "alt": "Dramatic orange and pink sunset over the Norwegian fjord"
+  }
+}
