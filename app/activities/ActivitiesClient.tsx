@@ -95,7 +95,7 @@ export default function ActivitiesClient(props: {
             ))}
           </div>
           <div className="relative h-[500px]">
-            <Image src={regionImgSrc} alt={regionImgAlt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
+            <Image src={regionImgSrc} alt={regionImgAlt} fill unoptimized className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
           </div>
         </div>
       </Reveal>
@@ -109,7 +109,7 @@ export default function ActivitiesClient(props: {
 
       <Reveal>
         <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image src={fireImgSrc} alt={fireImgAlt} fill className="object-cover" sizes="100vw" quality={85} />
+          <Image src={fireImgSrc} alt={fireImgAlt} fill unoptimized className="object-cover" sizes="100vw" quality={85} />
         </div>
       </Reveal>
 

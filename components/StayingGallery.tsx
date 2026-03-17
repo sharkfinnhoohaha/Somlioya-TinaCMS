@@ -20,6 +20,7 @@ export default function StayingGallery({ images }: { images: GalleryImage[] }) {
             alt={img.alt ?? ""}
             width={700}
             height={500}
+            unoptimized
             className="h-full w-auto object-cover"
             quality={75}
           />

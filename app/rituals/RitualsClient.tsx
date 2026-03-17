@@ -44,7 +44,7 @@ export default function RitualsClient(props: {
 
       <Reveal>
         <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image src={midImgSrc} alt={midImgAlt} fill className="object-cover" sizes="100vw" quality={85} />
+          <Image src={midImgSrc} alt={midImgAlt} fill unoptimized className="object-cover" sizes="100vw" quality={85} />
         </div>
       </Reveal>
 
@@ -63,7 +63,9 @@ export default function RitualsClient(props: {
           <Image
             src={shaped.image ?? "/images/IMG_9780.jpeg"}
             alt={shaped.imageAlt ?? "Artist painting at an easel among birch trees"}
-            fill className="object-cover"
+            fill
+            unoptimized
+            className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />
         </div>

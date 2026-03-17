@@ -25,6 +25,7 @@ export default function PageHero({
         alt={alt}
         fill
         priority
+        unoptimized
         className="object-cover scale-[1.02] hover:scale-[1.06] transition-transform duration-[8000ms]"
         sizes="100vw"
         quality={85}

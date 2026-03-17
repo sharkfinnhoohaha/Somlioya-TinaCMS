@@ -66,7 +66,7 @@ export default function StayingClient(props: {
       <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
         {buildingImgs.map((img: any, i: number) => (
           <div key={i} className="relative h-[45vh] min-h-[300px]">
-            <Image src={img.src ?? ""} alt={img.alt ?? ""} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
+            <Image src={img.src ?? ""} alt={img.alt ?? ""} fill unoptimized className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
           </div>
         ))}
       </Reveal>
@@ -82,7 +82,9 @@ export default function StayingClient(props: {
           <Image
             src={sleeping.image ?? "/images/IMG_3202.jpeg"}
             alt={sleeping.imageAlt ?? "Main house with deck, garden and dog"}
-            fill className="object-cover"
+            fill
+            unoptimized
+            className="object-cover"
             sizes="(max-width:768px) 100vw, 50vw" quality={80}
           />
         </div>
@@ -107,7 +109,7 @@ export default function StayingClient(props: {
 
       <Reveal>
         <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image src={closingImgSrc} alt={closingImgAlt} fill className="object-cover" sizes="100vw" quality={80} />
+          <Image src={closingImgSrc} alt={closingImgAlt} fill unoptimized className="object-cover" sizes="100vw" quality={80} />
         </div>
       </Reveal>
 

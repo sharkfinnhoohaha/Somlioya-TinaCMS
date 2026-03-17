@@ -101,6 +101,7 @@ export default function IslandExplorer() {
           src="/images/8A53C7A7FEF5530A7B3D2DC3EB5393CB.jpg"
           alt="Aerial view of Sømliøya island"
           fill
+          unoptimized
           className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
           style={{
             transform: `translate(${translate.x}px, ${translate.y}px) scale(1.15)`,
