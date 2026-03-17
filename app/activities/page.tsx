@@ -4,149 +4,132 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ActivityCard from "@/components/ActivityCard";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { ACTIVITIES_PAGE_QUERY } from "@/sanity/lib/queries";
 
-export default function ActivitiesPage() {
+function imgSrc(sanityImg: any, fallback: string, width = 1200): string {
+  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
+  return fallback;
+}
+
+const DEFAULT_WATER = [
+  { _key: "k1", image: null, alt: "View across the fjord with a small boat", title: "Kayaking", description: "The fjord is calm and sheltered in many places, making it possible to explore the coast and quiet bays by kayak.", src: "/images/IMG_4762.jpeg" },
+  { _key: "k2", image: null, alt: "Fishing rods against the fjord with mountain backdrop", title: "Fishing", description: "Fishing has always been part of life along the fjord. Cod, pollock and mackerel are common in these waters.", src: "/images/IMG_1476.jpeg" },
+  { _key: "k3", image: null, alt: "Person fishing from rocks in Norwegian sweater", title: "Swimming", description: "The sea is cold and clear. You can jump from the rocks and warm up afterwards by the fire or in the house.", src: "/images/IMG_2192.jpeg" },
+];
+
+const DEFAULT_LAND = [
+  { _key: "l1", image: null, alt: "Two hikers at mountain summit at sunset", title: "Walking & Hiking", description: "The island and nearby areas offer simple coastal walks across rocks, forest paths and open shoreline.", src: "/images/IMG_1432.jpeg" },
+  { _key: "l2", image: null, alt: "Silhouette of hiker against dramatic orange sunset", title: "Heilhornet", description: "One of the most distinctive peaks in the region. A day trip to the summit offers wide views across fjords, islands and the open Norwegian Sea.", src: "/images/IMG_1460.jpeg" },
+  { _key: "l3", image: null, alt: "Hikers on rocky mountain summit ridge", title: "Wildlife Watching", description: "Sea eagles are often seen above the fjord, and roe deer and moose move through nearby forests.", src: "/images/IMG_1496.jpeg" },
+];
+
+export default async function ActivitiesPage() {
+  const data = await client.fetch(ACTIVITIES_PAGE_QUERY).catch(() => null);
+
+  const heroSrc = imgSrc(data?.hero?.image, "/images/IMG_4928.jpeg");
+  const heroAlt = data?.hero?.image?.alt ?? "Mountain panorama at sunset with hikers";
+
+  const intro = data?.intro ?? [
+    "Life on Sømliøya happens mostly outside.",
+    "The island and the surrounding fjord offer space for simple things: exploring the landscape, spending time by the water or gathering around a fire.",
+  ];
+
+  const waterItems = data?.waterSection?.items ?? DEFAULT_WATER;
+  const landItems = data?.landSection?.items ?? DEFAULT_LAND;
+
+  const regionHeading = data?.regionSection?.heading ?? "Exploring the Region";
+  const regionPlaces = data?.regionSection?.places ?? [
+    { _key: "r1", name: "Island of Leka", description: "About half an hour lies Leka, known for its unusual red and golden rock formations and open coastal landscapes. The island is part of the Leka Ophiolite Complex, one of the few places in the world where parts of the Earth's oceanic crust are visible above the surface." },
+    { _key: "r2", name: "Coastal Villages", description: "Small communities such as Gravvik and Rørvik reflect the traditional coastal life of this region, shaped for centuries by fishing and the sea." },
+  ];
+  const regionImgSrc = imgSrc(data?.regionSection?.image, "/images/IMG_1467.jpeg");
+  const regionImgAlt = data?.regionSection?.image?.alt ?? "Two people at summit cairn overlooking fjords at sunset";
+
+  const fireHeading = data?.fireSection?.heading ?? "Around the Fire";
+  const fireText = data?.fireSection?.text ?? "A fire by the shoreline is a natural gathering place in the evening. Fish from the fjord or simple meals prepared together in the house or outside. Evenings are often quiet, sometimes with music, sometimes just with the sound of the sea.";
+  const fireImgSrc = imgSrc(data?.fireSection?.closingImage, "/images/IMG_5214.jpeg");
+  const fireImgAlt = data?.fireSection?.closingImage?.alt ?? "Group of people dining at outdoor table by the fjord";
+
   return (
     <>
       <Nav />
-
       <PageHero
-        src="/images/IMG_4928.jpeg"
-        alt="Mountain panorama at sunset with hikers"
-        title="Activities"
-        subtitle="There is always something to do. And always space to do nothing at all."
+        src={heroSrc}
+        alt={heroAlt}
+        title={data?.hero?.title ?? "Activities"}
+        subtitle={data?.hero?.subtitle ?? "There is always something to do. And always space to do nothing at all."}
       />
 
       <Reveal className="max-w-2xl mx-auto px-6 py-20">
         <div className="divider mb-8" />
-        <p className="font-sans text-smoke font-light leading-[1.85]">
-          Life on Sømliøya happens mostly outside.
-        </p>
-        <p className="font-sans text-smoke font-light leading-[1.85] mt-5">
-          The island and the surrounding fjord offer space for simple things:
-          exploring the landscape, spending time by the water or gathering
-          around a fire.
-        </p>
+        {intro.map((para: string, i: number) => (
+          <p key={i} className={`font-sans text-smoke font-light leading-[1.85]${i > 0 ? " mt-5" : ""}`}>{para}</p>
+        ))}
       </Reveal>
 
-      {/* ═══════ ON THE WATER ═══════ */}
+      {/* On the Water */}
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] pb-16">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">
-          On the Water
-        </h3>
+        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">{data?.waterSection?.heading ?? "On the Water"}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <ActivityCard
-            src="/images/IMG_4762.jpeg"
-            alt="View across the fjord with a small boat"
-            title="Kayaking"
-            description="The fjord is calm and sheltered in many places, making it possible to explore the coast and quiet bays by kayak."
-          />
-          <ActivityCard
-            src="/images/IMG_1476.jpeg"
-            alt="Fishing rods against the fjord with mountain backdrop"
-            title="Fishing"
-            description="Fishing has always been part of life along the fjord. Cod, pollock and mackerel are common in these waters."
-          />
-          <ActivityCard
-            src="/images/IMG_2192.jpeg"
-            alt="Person fishing from rocks in Norwegian sweater"
-            title="Swimming"
-            description="The sea is cold and clear. You can jump from the rocks and warm up afterwards by the fire or in the house."
-          />
+          {waterItems.map((item: any) => (
+            <ActivityCard
+              key={item._key}
+              src={item.image?.asset?._id ? urlFor(item.image).width(800).url() : item.src}
+              alt={item.image?.alt ?? item.alt}
+              title={item.title}
+              description={item.description}
+            />
+          ))}
         </div>
       </Reveal>
 
-      {/* ═══════ ON LAND ═══════ */}
+      {/* On Land */}
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] pb-16">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">
-          On Land
-        </h3>
+        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">{data?.landSection?.heading ?? "On Land"}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <ActivityCard
-            src="/images/IMG_1432.jpeg"
-            alt="Two hikers at mountain summit at sunset"
-            title="Walking & Hiking"
-            description="The island and nearby areas offer simple coastal walks across rocks, forest paths and open shoreline."
-          />
-          <ActivityCard
-            src="/images/IMG_1460.jpeg"
-            alt="Silhouette of hiker against dramatic orange sunset"
-            title="Heilhornet"
-            description="One of the most distinctive peaks in the region. A day trip to the summit offers wide views across fjords, islands and the open Norwegian Sea."
-          />
-          <ActivityCard
-            src="/images/IMG_1496.jpeg"
-            alt="Hikers on rocky mountain summit ridge"
-            title="Wildlife Watching"
-            description="Sea eagles are often seen above the fjord, and roe deer and moose move through nearby forests."
-          />
+          {landItems.map((item: any) => (
+            <ActivityCard
+              key={item._key}
+              src={item.image?.asset?._id ? urlFor(item.image).width(800).url() : item.src}
+              alt={item.image?.alt ?? item.alt}
+              title={item.title}
+              description={item.description}
+            />
+          ))}
         </div>
       </Reveal>
 
-      {/* ═══════ EXPLORING THE REGION ═══════ */}
+      {/* Exploring the Region */}
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">
-          Exploring the Region
-        </h3>
+        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{regionHeading}</h3>
         <div className="divider mb-8" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mt-8">
           <div>
-            <h4 className="font-heading text-fjord text-xl font-medium mb-3">
-              Island of Leka
-            </h4>
-            <p className="font-sans text-smoke font-light leading-[1.85]">
-              About half an hour lies Leka, known for its unusual red and golden
-              rock formations and open coastal landscapes. The island is part of
-              the Leka Ophiolite Complex, one of the few places in the world
-              where parts of the Earth&apos;s oceanic crust are visible above
-              the surface.
-            </p>
-            <h4 className="font-heading text-fjord text-xl font-medium mb-3 mt-8">
-              Coastal Villages
-            </h4>
-            <p className="font-sans text-smoke font-light leading-[1.85]">
-              Small communities such as Gravvik and Rørvik reflect the
-              traditional coastal life of this region, shaped for centuries by
-              fishing and the sea.
-            </p>
+            {regionPlaces.map((place: any, i: number) => (
+              <div key={place._key} className={i > 0 ? "mt-8" : ""}>
+                <h4 className="font-heading text-fjord text-xl font-medium mb-3">{place.name}</h4>
+                <p className="font-sans text-smoke font-light leading-[1.85]">{place.description}</p>
+              </div>
+            ))}
           </div>
           <div className="relative h-[500px]">
-            <Image
-              src="/images/IMG_1467.jpeg"
-              alt="Two people at summit cairn overlooking fjords at sunset"
-              fill
-              className="object-cover"
-              sizes="(max-width:768px) 100vw, 50vw"
-              quality={80}
-            />
+            <Image src={regionImgSrc} alt={regionImgAlt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
           </div>
         </div>
       </Reveal>
 
-      {/* ═══════ AROUND THE FIRE ═══════ */}
+      {/* Around the Fire */}
       <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-12">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">
-          Around the Fire
-        </h3>
+        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{fireHeading}</h3>
         <div className="divider mb-6" />
-        <p className="font-sans text-smoke font-light leading-[1.85] max-w-2xl">
-          A fire by the shoreline is a natural gathering place in the evening.
-          Fish from the fjord or simple meals prepared together in the house or
-          outside. Evenings are often quiet, sometimes with music, sometimes
-          just with the sound of the sea.
-        </p>
+        <p className="font-sans text-smoke font-light leading-[1.85] max-w-2xl">{fireText}</p>
       </Reveal>
 
       <Reveal>
         <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image
-            src="/images/IMG_5214.jpeg"
-            alt="Group of people dining at outdoor table by the fjord"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={85}
-          />
+          <Image src={fireImgSrc} alt={fireImgAlt} fill className="object-cover" sizes="100vw" quality={85} />
         </div>
       </Reveal>
 

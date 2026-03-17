@@ -1,79 +1,30 @@
-"use client";
-
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import Reveal from "@/components/Reveal";
-import { useState } from "react";
+import ContactForm from "@/components/ContactForm";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { CONTACT_PAGE_QUERY } from "@/sanity/lib/queries";
 
-export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
+function imgSrc(sanityImg: any, fallback: string, width = 1920): string {
+  if (sanityImg?.asset?._id) return urlFor(sanityImg).width(width).url();
+  return fallback;
+}
+
+export default async function ContactPage() {
+  const data = await client.fetch(CONTACT_PAGE_QUERY).catch(() => null);
 
   return (
     <>
       <Nav />
-
       <PageHero
-        src="/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg"
-        alt="Aerial winter view of Sømliøya and surrounding fjord"
-        title="Get in Touch"
-        subtitle="The island is for rent for a day, a weekend or a week."
+        src={imgSrc(data?.hero?.image, "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg")}
+        alt={data?.hero?.image?.alt ?? "Aerial winter view of Sømliøya and surrounding fjord"}
+        title={data?.hero?.title ?? "Get in Touch"}
+        subtitle={data?.hero?.subtitle ?? "The island is for rent for a day, a weekend or a week."}
         height="h-[50vh] min-h-[350px]"
       />
-
-      <Reveal className="max-w-xl mx-auto px-6 py-20">
-        <div className="divider mb-8" />
-        <p className="font-sans text-smoke font-light leading-[1.85] mb-10">
-          Just get in touch to ask for whatever you need.
-        </p>
-
-        {!submitted ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSubmitted(true);
-            }}
-            className="space-y-0"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              required
-              className="w-full py-4 bg-transparent border-b border-black/10 font-sans text-base font-light text-charcoal outline-none focus:border-gold transition-colors placeholder:text-black/25 mb-6"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              required
-              className="w-full py-4 bg-transparent border-b border-black/10 font-sans text-base font-light text-charcoal outline-none focus:border-gold transition-colors placeholder:text-black/25 mb-6"
-            />
-            <textarea
-              name="message"
-              placeholder="Your moment — tell us what brings you here"
-              rows={5}
-              className="w-full py-4 bg-transparent border-b border-black/10 font-sans text-base font-light text-charcoal outline-none focus:border-gold transition-colors placeholder:text-black/25 resize-y min-h-[120px] mb-10"
-            />
-            <button
-              type="submit"
-              className="text-[0.72rem] font-sans font-medium tracking-[0.25em] uppercase px-12 py-4 bg-fjord-deep text-white hover:bg-gold hover:-translate-y-0.5 hover:shadow-lg transition-all duration-400 cursor-pointer"
-            >
-              Connect
-            </button>
-          </form>
-        ) : (
-          <div className="text-center py-12">
-            <p className="font-heading text-fjord-deep text-2xl font-light mb-3">
-              Thank you
-            </p>
-            <p className="font-sans text-smoke font-light">
-              We&apos;ll be in touch soon.
-            </p>
-          </div>
-        )}
-      </Reveal>
-
+      <ContactForm introText={data?.introText} />
       <Footer />
     </>
   );
