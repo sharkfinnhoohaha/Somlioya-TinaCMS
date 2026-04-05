@@ -91,8 +91,11 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
         </blockquote>
       );
     case "a":
+      if (!node.url) {
+        return <React.Fragment key={index}>{children}</React.Fragment>;
+      }
       return (
-        <a key={index} href={node.url ?? "#"} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target="_blank" rel="noopener noreferrer">
+        <a key={index} href={node.url} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target="_blank" rel="noopener noreferrer">
           {children}
         </a>
       );
