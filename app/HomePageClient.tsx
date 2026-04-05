@@ -30,6 +30,7 @@ export default function HomePageClient(props: {
   const heroSubtitle = page?.hero?.subtitle ?? "Where the world becomes quieter";
   const heroSrc = page?.hero?.image ?? "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg";
   const heroAlt = page?.hero?.imageAlt ?? "Aerial view of Sømliøya in winter light";
+  const heroIsVideo = isVideo(heroSrc);
 
   const firstImageSrc = page?.firstImage?.src ?? "/images/IMG_9794.jpeg";
   const firstImageAlt = page?.firstImage?.alt ?? "Mirror-still fjord at sunset with mountains";
@@ -54,8 +55,8 @@ export default function HomePageClient(props: {
 
       {/* ═══════ HERO ═══════ */}
       <section className="relative h-screen w-full overflow-hidden">
-        <div className={`absolute inset-0 ${isVideo(heroSrc) ? "" : "animate-slow-zoom"}`}>
-          {isVideo(heroSrc) ? (
+        <div className={`absolute inset-0 ${heroIsVideo ? "" : "animate-slow-zoom"}`}>
+          {heroIsVideo ? (
             <video
               src={heroSrc}
               autoPlay

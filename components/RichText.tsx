@@ -8,6 +8,14 @@
 import type { TinaRichText, TinaRichTextNode } from "@/tina/lib/client";
 import React from "react";
 
+/** Allow only safe protocols and relative paths to prevent javascript: injection. */
+function sanitizeHref(url: string | undefined): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (/^(https?:|mailto:|\/|#)/i.test(trimmed)) return trimmed;
+  return null;
+}
+
 function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React.ReactNode {
   if (node.type === "text") {
     let content: React.ReactNode = node.text ?? "";
@@ -24,8 +32,12 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
     case "root":
       return <React.Fragment key={index}>{children}</React.Fragment>;
     case "p": {
-      const textContent = node.children?.map(n => (n as any).text ?? "").join("").trim();
-      if (!textContent) return null;
+      // Treat any non-text child (inline image, link, etc.) as content so we
+      // don't incorrectly drop paragraphs that contain only embedded nodes.
+      const hasContent = node.children?.some(
+        (n) => n.type !== "text" || (n.text ?? "").trim() !== ""
+      );
+      if (!hasContent) return null;
       return (
         <p key={index} className={`font-sans font-light leading-[1.85] mt-5 first:mt-0 ${dark ? "text-white/70 text-lg" : "text-smoke"}`}>
           {children}
@@ -90,20 +102,62 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
           {children}
         </blockquote>
       );
-    case "a":
-      if (!node.url) {
+    case "a": {
+      const href = sanitizeHref(node.url);
+      if (!href) {
         return <React.Fragment key={index}>{children}</React.Fragment>;
       }
       return (
-        <a key={index} href={node.url} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target="_blank" rel="noopener noreferrer">
+        <a key={index} href={href} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target="_blank" rel="noopener noreferrer">
           {children}
         </a>
       );
-    case "img":
+    }
+    case "img": {
+      if (!node.url) return null;
       return (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={index} src={node.url ?? ""} alt={node.alt ?? ""} className="max-w-full rounded mt-5" />
+        <img key={index} src={node.url} alt={node.alt ?? "Rich text image"} className="max-w-full rounded mt-5" />
       );
+    }
+    case "table":
+      return (
+        <div key={index} className="overflow-x-auto mt-5">
+          <table className={`w-full text-sm border-collapse font-sans font-light ${dark ? "text-white/70" : "text-smoke"}`}>
+            {children}
+          </table>
+        </div>
+      );
+    case "thead":
+      return <thead key={index}>{children}</thead>;
+    case "tbody":
+      return <tbody key={index}>{children}</tbody>;
+    case "tr":
+      return <tr key={index} className={`border-b ${dark ? "border-white/20" : "border-black/10"}`}>{children}</tr>;
+    case "th":
+      return (
+        <th key={index} className={`px-4 py-2 text-left font-medium ${dark ? "text-white/90 border-b border-white/30" : "text-fjord-deep border-b border-black/20"}`}>
+          {children}
+        </th>
+      );
+    case "td":
+      return <td key={index} className="px-4 py-2">{children}</td>;
+    case "embed": {
+      if (!node.url) return null;
+      const safeUrl = sanitizeHref(node.url);
+      if (!safeUrl) return null;
+      return (
+        <div key={index} className="relative mt-5 w-full" style={{ paddingBottom: "56.25%" }}>
+          <iframe
+            src={safeUrl}
+            title={node.caption ?? node.alt ?? "Embedded content"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full rounded"
+          />
+        </div>
+      );
+    }
     case "hr":
       return <div key={index} className={`w-10 h-px mx-auto my-8 ${dark ? "bg-gold/50" : "bg-gold"}`} />;
     case "strong":

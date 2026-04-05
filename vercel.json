@@ -1,4 +1,4 @@
 {
   "installCommand": "npm ci",
-  "buildCommand": "tinacms build --skip-cloud-checks -c \"next build\" || next build"
+  "buildCommand": "tinacms build --skip-cloud-checks -c \"next build\""
 }
