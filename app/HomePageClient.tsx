@@ -12,6 +12,7 @@ import { useRipple } from "@/hooks/useRipple";
 import AnimatedDivider from "@/components/AnimatedDivider";
 import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
 import { useTina } from "tinacms/dist/react";
+import { isVideo } from "@/lib/media";
 
 export default function HomePageClient(props: {
   data: any;
@@ -53,17 +54,30 @@ export default function HomePageClient(props: {
 
       {/* ═══════ HERO ═══════ */}
       <section className="relative h-screen w-full overflow-hidden">
-        <div className="absolute inset-0 animate-slow-zoom">
-          <Image
-            src={heroSrc}
-            alt={heroAlt}
-            fill
-            priority
-            unoptimized
-            className="object-cover"
-            sizes="100vw"
-            quality={90}
-          />
+        <div className={`absolute inset-0 ${isVideo(heroSrc) ? "" : "animate-slow-zoom"}`}>
+          {isVideo(heroSrc) ? (
+            <video
+              src={heroSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={heroAlt}
+              title={heroAlt}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={heroSrc}
+              alt={heroAlt}
+              fill
+              priority
+              unoptimized
+              className="object-cover"
+              sizes="100vw"
+              quality={90}
+            />
+          )}
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/35 to-black/60" />
 

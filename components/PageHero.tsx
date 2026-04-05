@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { isVideo } from "@/lib/media";
 
 interface PageHeroProps {
   src: string;
@@ -20,16 +21,29 @@ export default function PageHero({
 }: PageHeroProps) {
   return (
     <section className={`relative ${height} overflow-hidden flex items-end`}>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority
-        unoptimized
-        className="object-cover scale-[1.02] hover:scale-[1.06] transition-transform duration-[8000ms]"
-        sizes="100vw"
-        quality={85}
-      />
+      {isVideo(src) ? (
+        <video
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label={alt}
+          title={alt}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority
+          unoptimized
+          className="object-cover scale-[1.02] hover:scale-[1.06] transition-transform duration-[8000ms]"
+          sizes="100vw"
+          quality={85}
+        />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
       <div className="relative z-10 p-8 md:p-12 lg:px-[6vw] lg:pb-14">
         <motion.h1

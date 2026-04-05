@@ -69,6 +69,11 @@ export interface TinaRichTextNode {
   text?: string;
   bold?: boolean;
   italic?: boolean;
+  underline?: boolean;
+  strikethrough?: boolean;
+  url?: string;
+  alt?: string;
+  caption?: string;
 }
 
 export interface PageHero {
