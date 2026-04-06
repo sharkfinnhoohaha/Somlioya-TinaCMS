@@ -12,6 +12,7 @@ import { useRipple } from "@/hooks/useRipple";
 import AnimatedDivider from "@/components/AnimatedDivider";
 import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
 import { useTina } from "tinacms/dist/react";
+import { isVideo } from "@/lib/media";
 
 export default function HomePageClient(props: {
   data: any;
@@ -29,6 +30,7 @@ export default function HomePageClient(props: {
   const heroSubtitle = page?.hero?.subtitle ?? "Where the world becomes quieter";
   const heroSrc = page?.hero?.image ?? "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg";
   const heroAlt = page?.hero?.imageAlt ?? "Aerial view of Sømliøya in winter light";
+  const heroIsVideo = isVideo(heroSrc);
 
   const firstImageSrc = page?.firstImage?.src ?? "/images/IMG_9794.jpeg";
   const firstImageAlt = page?.firstImage?.alt ?? "Mirror-still fjord at sunset with mountains";
@@ -53,17 +55,30 @@ export default function HomePageClient(props: {
 
       {/* ═══════ HERO ═══════ */}
       <section className="relative h-screen w-full overflow-hidden">
-        <div className="absolute inset-0 animate-slow-zoom">
-          <Image
-            src={heroSrc}
-            alt={heroAlt}
-            fill
-            priority
-            unoptimized
-            className="object-cover"
-            sizes="100vw"
-            quality={90}
-          />
+        <div className={`absolute inset-0 ${heroIsVideo ? "" : "animate-slow-zoom"}`}>
+          {heroIsVideo ? (
+            <video
+              src={heroSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={heroAlt}
+              title={heroAlt}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={heroSrc}
+              alt={heroAlt}
+              fill
+              priority
+              unoptimized
+              className="object-cover"
+              sizes="100vw"
+              quality={90}
+            />
+          )}
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/35 to-black/60" />
 

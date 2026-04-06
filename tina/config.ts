@@ -2,16 +2,46 @@ import { defineConfig } from "tinacms";
 
 // ─── Reusable field groups ───────────────────────────────────────────────────
 
+type ToolbarItem =
+  | "heading"
+  | "link"
+  | "image"
+  | "quote"
+  | "ul"
+  | "ol"
+  | "code"
+  | "codeBlock"
+  | "bold"
+  | "italic"
+  | "raw"
+  | "embed"
+  | "mermaid"
+  | "table";
+
+const richTextToolbar: ToolbarItem[] = [
+  "heading",
+  "bold",
+  "italic",
+  "link",
+  "image",
+  "quote",
+  "ul",
+  "ol",
+  "code",
+  "table",
+  "embed",
+];
+
 const pageHeroFields = [
   {
     type: "image" as const,
     name: "image",
-    label: "Hero Image",
+    label: "Hero Image or Video",
   },
   {
     type: "string" as const,
     name: "imageAlt",
-    label: "Image Alt Text",
+    label: "Image / Video Description",
   },
   {
     type: "string" as const,
@@ -30,6 +60,9 @@ const richTextField = (name: string, label: string) => ({
   type: "rich-text" as const,
   name,
   label,
+  overrides: {
+    toolbar: richTextToolbar,
+  },
 });
 
 // ─── TinaCMS Configuration ────────────────────────────────────────────────────

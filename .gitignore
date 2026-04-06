@@ -31,3 +31,4 @@ yarn-error.log*
 # Sanity Studio build
 dist/
 .sanity/
+tsconfig.tsbuildinfo
