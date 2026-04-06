@@ -8,11 +8,13 @@
 import type { TinaRichText, TinaRichTextNode } from "@/tina/lib/client";
 import React from "react";
 
-/** Allow only safe protocols and relative paths to prevent javascript: injection. */
+/** Allow only safe protocols and true relative paths to prevent javascript: injection. */
 function sanitizeHref(url: string | undefined): string | null {
   if (!url) return null;
   const trimmed = url.trim();
-  if (/^(https?:|mailto:|\/|#)/i.test(trimmed)) return trimmed;
+  // Reject protocol-relative URLs (e.g. //example.com) which can be used to bypass checks
+  if (trimmed.startsWith("//")) return null;
+  if (/^(https?:|mailto:|\/(?!\/)|#)/i.test(trimmed)) return trimmed;
   return null;
 }
 
@@ -107,8 +109,9 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       if (!href) {
         return <React.Fragment key={index}>{children}</React.Fragment>;
       }
+      const isExternal = /^https?:/i.test(href);
       return (
-        <a key={index} href={href} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target="_blank" rel="noopener noreferrer">
+        <a key={index} href={href} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
           {children}
         </a>
       );
@@ -153,6 +156,7 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
             title={node.caption ?? node.alt ?? "Embedded content"}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
             className="absolute inset-0 w-full h-full rounded"
           />
         </div>
