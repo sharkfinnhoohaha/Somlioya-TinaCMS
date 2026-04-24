@@ -5,91 +5,21 @@
     "title": "Rituals",
     "subtitle": "Some moments in life ask for a place."
   },
-  "intro": {
-    "type": "root",
-    "children": [
-      {
-        "type": "p",
-        "children": [
-          {
-            "type": "text",
-            "text": "There are moments — birthdays, milestones, farewells, beginnings — that benefit from being held somewhere apart from ordinary life. Sømliøya has been the setting for many of them."
-          }
-        ]
-      },
-      {
-        "type": "p",
-        "children": [
-          {
-            "type": "text",
-            "text": "The island does not cater or perform. It simply offers a stage: water, sky, fire, and time."
-          }
-        ]
-      }
-    ]
-  },
+  "intro": "Some moments in life ask for a place.\n\nA place to pause, to reflect, and to mark something that matters.\n\nOn Sømliøya we create space for personal rituals, that are simple, meaningful moments connected to the landscape and the sea.\n\nAcross cultures and throughout history, people have created rituals to give shape to important moments in life. Birth, loss, transitions, promises, endings and beginnings. Rituals help us slow down, step outside daily life and acknowledge what has changed.\n\nThe island offers a quiet setting for these moments. Open, natural and removed from the noise of the world.\n",
   "midImage": {
     "src": "/images/IMG_5352.jpeg",
     "alt": "Community gathering at table under decorated fabric banners"
   },
-  "secondParagraphs": {
-    "type": "root",
-    "children": [
-      {
-        "type": "p",
-        "children": [
-          {
-            "type": "text",
-            "text": "People come to Sømliøya to mark things. To gather those they love. To make promises, or to say goodbye. To celebrate quietly, away from the noise of ordinary venues."
-          }
-        ]
-      }
-    ]
-  },
+  "secondParagraphs": "People come here for many different reasons.\n\nTo say goodbye to someone they loved. To scatter the ashes of a person or a beloved animal. To celebrate a new beginning. To mark a turning point in life. To gather family or friends around a shared memory.\n\nSome simply want a place to pause and acknowledge something important.\n",
   "shapedTogetherSection": {
     "heading": "Shaped Together",
-    "paragraphs": {
-      "type": "root",
-      "children": [
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "We have hosted weddings, anniversaries, and family gatherings on the island. We have also hosted creative retreats for artists, writers, and musicians who needed uninterrupted time and space."
-            }
-          ]
-        },
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "In all cases, the event is shaped by the people who come — not by a programme. The island provides the container; you bring what needs to happen."
-            }
-          ]
-        }
-      ]
-    },
+    "paragraphs": "If you wish, we can help shape a ritual that fits you and the moment.\n\nThe rituals on Sømliøya are created together with Marijke Ottema, a psychologist, and Maria Groot, an artist. Together we combine psychological insight with creative and symbolic elements to design something personal and meaningful.\n\nSome rituals are very simple: a walk across the island, a fire by the water, a few words spoken at the edge of the fjord.\n\nOthers may include music, writing, symbolic gestures, or time spent in silence.\n\nEach ritual is different and always shaped in conversation with the people involved.\n\nOther gatherings\n\nThe island can also be used for other meaningful gatherings.\n\nFor example:\n\n\\* small family celebrations\n\n\\* remembering someone together\n\n\\* marking an anniversary or transition\n\n\\* trying out an idea or ceremony\n\n\\* creative or reflective gatherings with friends\n\nThe landscape often becomes part of the experience.\n\nSømliøya does not prescribe how these moments should look.\n\nIt just offers the space and sometimes a little guidance in shaping something that feels right.\n",
     "image": "/images/IMG_9780.jpeg",
     "imageAlt": "Artist painting at an easel among birch trees"
   },
   "gatheringsSection": {
     "heading": "Other Gatherings",
-    "paragraphs": {
-      "type": "root",
-      "children": [
-        {
-          "type": "p",
-          "children": [
-            {
-              "type": "text",
-              "text": "Corporate retreats, team offsites, and professional workshops have also found a home here. Away from offices and cities, people tend to think differently — and more honestly."
-            }
-          ]
-        }
-      ]
-    },
+    "paragraphs": "\\[object Object]\n",
     "pullQuote": "The island has a way of making things clearer."
   }
 }
