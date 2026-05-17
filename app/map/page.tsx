@@ -1,6 +1,11 @@
-'use client';
+import type { Metadata } from "next";
+import RealisticIslandMap from "@/components/RealisticIslandMap";
 
-import RealisticIslandMap from '@/components/RealisticIslandMap';
+export const metadata: Metadata = {
+  title: "3D Island Map",
+  description:
+    "Explore Sømliøya in an interactive 3D model rendered in real time from satellite data.",
+};
 
 export default function MapPage() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;

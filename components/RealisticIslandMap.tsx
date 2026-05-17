@@ -367,8 +367,8 @@ function HUDOverlay({ hud, ortho, onToggle }: { hud: HUDState; ortho: boolean; o
       <div className="pointer-events-auto flex items-end justify-between gap-3">
         <div className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 backdrop-blur-xl shadow-xl">
           <p className="text-[9px] uppercase tracking-[0.28em] text-white/35">Target</p>
-          <p className="mt-1.5 text-[13px] font-semibold text-white/90">Sømliøya · Brønnøy</p>
-          <p className="mt-0.5 text-[11px] text-white/45">Nordland, Norway</p>
+          <p className="mt-1.5 text-[13px] font-semibold text-white/90">Sømliøya · Nærøysund</p>
+          <p className="mt-0.5 text-[11px] text-white/45">Trøndelag, Norway</p>
           {!ortho && (
             <p className="mt-2 text-[10px] text-white/25">
               Left-drag pan · Right-drag orbit · Scroll zoom

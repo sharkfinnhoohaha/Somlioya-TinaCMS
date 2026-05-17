@@ -23,7 +23,7 @@ export default function ContactClient(props: {
         subtitle={page?.hero?.subtitle ?? "The island is for rent for a day, a weekend or a week."}
         height="h-[50vh] min-h-[350px]"
       />
-      <ContactForm introText={page?.introText} />
+      <ContactForm introText={page?.introText} contactEmail={page?.contactEmail} />
       <Footer />
     </>
   );

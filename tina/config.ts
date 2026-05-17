@@ -452,6 +452,14 @@ export default defineConfig({
             label: "Intro Text",
             ui: { component: "textarea" },
           },
+          {
+            type: "string" as const,
+            name: "contactEmail",
+            label: "Contact Email Address",
+            description:
+              "Where enquiries are sent. The contact form opens the visitor's email app addressed here, and this address is shown on the page.",
+            required: true,
+          },
         ],
       },
     ],

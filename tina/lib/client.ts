@@ -180,4 +180,5 @@ export interface RitualsPageContent {
 export interface ContactPageContent {
   hero?: PageHero;
   introText?: string;
+  contactEmail?: string;
 }
