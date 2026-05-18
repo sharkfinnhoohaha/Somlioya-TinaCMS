@@ -3,17 +3,15 @@ import { getHomePage } from "@/tina/lib/client";
 import HomePageClient from "./HomePageClient";
 
 export default async function HomePage() {
+  let props: { data: any; query: string; variables: object };
   try {
-    const tinaData = await client.queries.homePage({ relativePath: "home.json" });
-    return <HomePageClient {...tinaData} />;
+    props = await client.queries.homePage({ relativePath: "home.json" });
   } catch {
-    const data = getHomePage();
-    return (
-      <HomePageClient
-        data={{ homePage: data as any }}
-        query=""
-        variables={{ relativePath: "home.json" }}
-      />
-    );
+    props = {
+      data: { homePage: getHomePage() as any },
+      query: "",
+      variables: { relativePath: "home.json" },
+    };
   }
+  return <HomePageClient {...props} />;
 }
