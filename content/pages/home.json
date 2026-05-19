@@ -1,16 +1,17 @@
 {
   "hero": {
     "image": "/images/videokenburns.m4v",
-    "imageAlt": "Aerial view of Sømliøya",
+    "posterImage": "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg",
+    "imageAlt": "Aerial view of Sømliøya in winter light",
     "title": "Sømliøya",
     "subtitle": "Where the world becomes quieter"
   },
-  "poeticParagraphs": "### **Sømliøya is an island. It's small, private and simple. No roads, no traffic, only water and rocks. Birds, trees and space.**\n\n### &#x20;                                       You come here to be. To write. To think. To celebrate, to create, to say goodbye, to make memories.\n\n### Fires are lit by the edge of the water, fish are caught and eaten, kayaks glide through the fjord.  \n",
-  "secondParagraphs": "",
+  "poeticParagraphs": "Sømliøya is an island. It is small, private and simple. No roads, no traffic — only water and rocks. Birds, trees and space.\n\nYou come here to be. To write. To think. To celebrate, to create, to say goodbye, to make memories.\n\nFires are lit at the edge of the water, fish are caught and eaten, and kayaks glide quietly through the fjord.\n",
+  "secondParagraphs": "There is no schedule here, and nothing that must be done. The days are shaped by light and weather, by the tide and the fire.\n\nWhether you come for a single quiet night or a longer gathering of friends, the island asks only one thing of you — that you slow down.\n",
   "pullQuote": "It is a place where you can step outside the world for a while.",
   "mapCta": {
     "heading": "See the island from above",
-    "description": "## Open Interactive 3D Map\n"
+    "description": "Drift above the fjord in an interactive 3D model of Sømliøya, rendered in real time from satellite data.\n"
   },
   "firstImage": {
     "src": "/images/IMG_2171.jpeg",

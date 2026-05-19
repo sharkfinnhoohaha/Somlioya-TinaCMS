@@ -1,11 +1,12 @@
 {
   "hero": {
     "image": "/images/activitieskenburns.m4v",
+    "posterImage": "/images/IMG_4928.jpeg",
     "imageAlt": "Mountain panorama at sunset with hikers",
     "title": "Activities",
     "subtitle": "There is always something to do. And always space to do nothing at all."
   },
-  "intro": "Life on Sømliøya happens mostly outside.\n\nThe island and the surrounding fjord offer space for simple things: exploring the landscape, spending time by the water or gathering around a fire. There is always something to do.  And of course always space to do nothing at all.\n",
+  "intro": "Life on Sømliøya happens mostly outside.\n\nThe island and the surrounding fjord offer space for simple things: exploring the landscape, spending time by the water, or gathering around a fire. There is always something to do — and, of course, always space to do nothing at all.\n",
   "waterSection": {
     "heading": "On the Water",
     "items": [
@@ -57,11 +58,11 @@
     "places": [
       {
         "name": "Island of Leka",
-        "description": "Leka is a small island off the coast, known for its distinctive red and orange rock formations—some of the oldest geological formations in the country. The landscape is surprisingly varied, with rugged mountains, open coastline, quiet beaches, and wide views over the sea.\n\nIt’s also home to what is often considered one of the most beautiful hikes in Norway, with trails that take you through this unique geology and out to panoramic coastal views.\n\n![](/images/IMG_6617.jpeg)\n"
+        "description": "Leka is a small island off the coast, known for its distinctive red and orange rock formations — some of the oldest geological formations in the country. The landscape is surprisingly varied, with rugged mountains, open coastline, quiet beaches, and wide views over the sea.\n\nIt is also home to what is often considered one of the most beautiful hikes in Norway, with trails that take you through this unique geology and out to panoramic coastal views.\n\n![Leka's red rock formations and coastline](/images/IMG_6617.jpeg)\n"
       },
       {
         "name": "Coastal Villages",
-        "description": "\\[object Object]\n"
+        "description": "The mainland coast nearby is dotted with small fishing villages and quiet harbours. A short trip by boat brings you to shops, cafés and the everyday rhythm of Norwegian coastal life — close enough to reach with ease, far enough that the island remains its own quiet world.\n"
       }
     ],
     "image": "/images/IMG_1467.jpeg",
@@ -69,7 +70,7 @@
   },
   "fireSection": {
     "heading": "Around the Fire",
-    "text": "\\[object Object]\n",
+    "text": "As the light softens, the day usually finds its way back to the fire. It is where meals are cooked and shared, where stories are told, and where the evening slows to the sound of the water.\n\nA fire by the shore is the simplest thing the island offers — and often the part of a stay that people remember most.\n",
     "closingImage": "/images/IMG_5214.jpeg",
     "closingImageAlt": "Group of people dining at outdoor table by the fjord"
   }

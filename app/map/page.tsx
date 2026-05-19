@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import RealisticIslandMap from "@/components/RealisticIslandMap";
 
 export const metadata: Metadata = {
@@ -12,19 +13,29 @@ export default function MapPage() {
 
   if (!apiKey) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#0a0f1a] font-mono text-white/50">
-        <div className="text-center">
-          <p className="text-sm">Missing environment variable</p>
-          <code className="mt-2 block text-xs text-red-400">
-            NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-          </code>
-        </div>
-      </div>
+      <main
+        id="main-content"
+        className="flex h-screen flex-col items-center justify-center gap-5 bg-[#0d1622] px-6 text-center"
+      >
+        <p className="font-heading text-lead font-light italic text-white/75">
+          The interactive map is resting just now.
+        </p>
+        <p className="font-sans text-caption text-white/50 max-w-xs">
+          The 3D island view is temporarily unavailable. Please explore the
+          rest of the island in the meantime.
+        </p>
+        <Link
+          href="/"
+          className="focus-ring-light font-sans text-[0.72rem] uppercase tracking-[0.2em] text-white/85 border border-white/25 px-6 py-3 hover:bg-white/10 transition-colors"
+        >
+          ← Back to Sømliøya
+        </Link>
+      </main>
     );
   }
 
   return (
-    <main className="h-screen w-screen">
+    <main id="main-content" className="h-screen w-screen">
       <RealisticIslandMap apiKey={apiKey} />
     </main>
   );

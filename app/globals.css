@@ -1,36 +1,61 @@
 @import "tailwindcss";
 
-/* ═══════════ DESIGN TOKENS ═══════════ */
+/* ═══════════════════ DESIGN TOKENS ═══════════════════ */
 @theme {
-  --color-steel: #6B7B8D;
+  /* — Colour —
+     A single muted, nature-led palette. Every token below is used in the UI;
+     unused decorative tokens were removed to keep the palette honest. */
   --color-fjord: #2C3E50;
-  --color-fjord-deep: #1a2633;
+  --color-fjord-deep: #1A2633;
   --color-gold: #C8A96E;
-  --color-gold-soft: #D4B87A;
-  --color-pink: #D4A0A0;
-  --color-pink-sky: #E8C4C4;
-  --color-snow: #F5F2EE;
-  --color-bone: #EDE8E0;
   --color-charcoal: #2B2B2B;
-  --color-smoke: #8A8A8A;
+  --color-smoke: #5C5C5C;        /* body text — ≈6.4:1 on ivory (WCAG AA) */
+  --color-smoke-soft: #6E6E6E;   /* lightest accessible grey for fine print */
+  --color-bone: #EDE8E0;
   --color-ivory: #FAFAF8;
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Karla', sans-serif;
+  /* — Type families — */
+  --font-serif: 'Cormorant Garamond', Georgia, "Times New Roman", serif;
+  --font-sans: 'Karla', system-ui, -apple-system, sans-serif;
 
+  /* — Fluid type scale — one scale, shared by every page & the CMS renderer — */
+  --text-display: clamp(3rem, 1.6rem + 5.6vw, 6rem);
+  --text-display--line-height: 1.04;
+  --text-h1: clamp(2.15rem, 1.5rem + 2.7vw, 3.5rem);
+  --text-h1--line-height: 1.12;
+  --text-h2: clamp(1.6rem, 1.3rem + 1.3vw, 2.35rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: clamp(1.3rem, 1.15rem + 0.65vw, 1.65rem);
+  --text-h3--line-height: 1.3;
+  --text-h4: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --text-h4--line-height: 1.4;
+  --text-lead: clamp(1.1rem, 1.04rem + 0.3vw, 1.3rem);
+  --text-lead--line-height: 1.7;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.75;
+  --text-caption: 0.78rem;
+  --text-caption--line-height: 1.5;
+  --text-eyebrow: 0.72rem;
+  --text-eyebrow--line-height: 1.1;
+
+  /* — Easing — */
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ═══════════ BASE ═══════════ */
+/* ═══════════════════ BASE ═══════════════════ */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* keep anchor targets clear of the fixed nav */
+  -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
   color: var(--color-charcoal);
   background: var(--color-ivory);
   overflow-x: hidden;
@@ -38,46 +63,66 @@ body {
 
 ::selection {
   background: var(--color-gold);
-  color: white;
+  color: var(--color-fjord-deep); /* dark-on-gold — legible, unlike white-on-gold */
 }
 
-/* ═══════════ TYPOGRAPHY ═══════════ */
+/* ═══════════════════ TYPOGRAPHY ═══════════════════ */
 .font-heading {
   font-family: var(--font-serif);
 }
 
-/* ═══════════ DIVIDER ═══════════ */
-.divider {
-  width: 60px;
-  height: 1px;
-  background: var(--color-gold);
+/* ═══════════════════ FOCUS STATES ═══════════════════ */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+/* Brighter ring for controls sitting on dark imagery */
+.focus-ring-light:focus-visible {
+  outline-color: var(--color-ivory);
 }
 
-/* ═══════════ PAGE TRANSITIONS ═══════════ */
+/* ═══════════════════ SKIP LINK ═══════════════════ */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -120px;
+  z-index: 9999;
+  background: var(--color-fjord-deep);
+  color: var(--color-ivory);
+  padding: 0.8rem 1.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  transition: top 0.25s var(--ease-out-expo);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ═══════════════════ ANIMATIONS ═══════════════════ */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slowZoom {
   from { transform: scale(1); }
-  to { transform: scale(1.08); }
+  to   { transform: scale(1.06); }
 }
-
 @keyframes hotspotPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 169, 110, 0.6); }
-  50% { box-shadow: 0 0 0 12px rgba(200, 169, 110, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 169, 110, 0.55); }
+  50%      { box-shadow: 0 0 0 10px rgba(200, 169, 110, 0); }
 }
 
 .animate-fade-up {
-  animation: fadeUp 1.2s var(--ease-out-expo) forwards;
+  animation: fadeUp 1.1s var(--ease-out-expo) forwards;
 }
-
 .animate-slow-zoom {
-  animation: slowZoom 20s var(--ease-smooth) infinite alternate;
+  animation: slowZoom 24s var(--ease-smooth) infinite alternate;
 }
 
-/* ═══════════ SCROLLBAR ═══════════ */
+/* ═══════════════════ UTILITIES ═══════════════════ */
 .hide-scrollbar {
   scrollbar-width: none;
 }
@@ -85,13 +130,26 @@ body {
   display: none;
 }
 
-/* ═══════════ FILM GRAIN ═══════════ */
+/* Film grain — subtle cinematic texture */
 .grain::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.022;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════ REDUCED MOTION ═══════════════════ */
+/* Honours the OS "reduce motion" setting (WCAG 2.3.3). Framer-motion
+   components additionally check useReducedMotion() in JS. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .grain::after { display: none; }
 }

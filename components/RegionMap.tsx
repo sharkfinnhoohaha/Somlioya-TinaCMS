@@ -3,77 +3,93 @@
 import { useState } from "react";
 import Link from "next/link";
 
-interface PlaceMarker {
+interface PlaceInput {
   name: string;
-  description?: string;
-  lat: number;
-  lng: number;
-  isSelf?: boolean;
+  description?: unknown;
+  lat?: number;
+  lng?: number;
 }
 
-// Approximate coordinates for known regional places
+interface PlaceMarker {
+  name: string;
+  description: string;
+  lat: number;
+  lng: number;
+  isSelf: boolean;
+}
+
+// Fallback coordinates for known regional places (used when the CMS entry
+// has no explicit lat/lng — see the optional fields in tina/config.ts).
 const PLACE_COORDS: Record<string, { lat: number; lng: number }> = {
-  "Island of Leka": { lat: 65.10, lng: 11.62 },
+  "Island of Leka": { lat: 65.1, lng: 11.62 },
   "Coastal Villages": { lat: 64.86, lng: 11.24 },
-  "Sømliøya": { lat: 65.064, lng: 11.931 },
+  Sømliøya: { lat: 65.064, lng: 11.931 },
 };
 
-// Bounding box for a nice regional view
 const BOUNDS = { latMin: 64.72, latMax: 65.35, lngMin: 11.0, lngMax: 12.2 };
 
-function toPos(lat: number, lng: number) {
+function toPct(lat: number, lng: number) {
   return {
-    left: `${((lng - BOUNDS.lngMin) / (BOUNDS.lngMax - BOUNDS.lngMin)) * 100}%`,
-    top: `${(1 - (lat - BOUNDS.latMin) / (BOUNDS.latMax - BOUNDS.latMin)) * 100}%`,
+    left: ((lng - BOUNDS.lngMin) / (BOUNDS.lngMax - BOUNDS.lngMin)) * 100,
+    top: (1 - (lat - BOUNDS.latMin) / (BOUNDS.latMax - BOUNDS.latMin)) * 100,
   };
 }
 
-interface RegionMapProps {
-  places: { name: string; description?: any }[];
-  apiKey?: string;
+/** Pull plain text from a CMS string or TinaCMS rich-text object. */
+function plainText(d: unknown): string {
+  if (typeof d === "string") return d;
+  if (d && typeof d === "object") {
+    const node = d as { children?: Array<{ children?: Array<{ text?: string }> }> };
+    return node.children?.[0]?.children?.[0]?.text ?? "";
+  }
+  return "";
 }
 
-export default function RegionMap({ places, apiKey }: RegionMapProps) {
+export default function RegionMap({
+  places,
+  apiKey,
+}: {
+  places: PlaceInput[];
+  apiKey?: string;
+}) {
   const [active, setActive] = useState<string | null>(null);
 
-  // Satellite background via Google Static Maps (no new dependency needed)
   const bgUrl = apiKey
     ? `https://maps.googleapis.com/maps/api/staticmap?center=65.0,11.65&zoom=9&size=900x550&scale=2&maptype=satellite&key=${apiKey}`
     : null;
 
-  // Merge CMS places with hardcoded coordinates
   const markers: PlaceMarker[] = [
     {
       name: "Sømliøya",
       ...PLACE_COORDS["Sømliøya"],
-      description: "Our private island retreat in Nærøysund",
+      description: "Our private island retreat in Nærøysund.",
       isSelf: true,
     },
-    ...places.map((p) => ({
-      name: p.name,
-      ...(PLACE_COORDS[p.name] ?? { lat: 65.1, lng: 11.7 }),
-      // Extract plain text from TinaCMS rich text if needed
-      description:
-        typeof p.description === "string"
-          ? p.description
-          : p.description?.children?.[0]?.children?.[0]?.text ?? "",
-      isSelf: false,
-    })),
+    ...places.map((p) => {
+      const coords =
+        typeof p.lat === "number" && typeof p.lng === "number"
+          ? { lat: p.lat, lng: p.lng }
+          : PLACE_COORDS[p.name] ?? { lat: 65.1, lng: 11.7 };
+      return {
+        name: p.name,
+        ...coords,
+        description: plainText(p.description),
+        isSelf: false,
+      };
+    }),
   ];
 
   return (
     <div
-      className="relative h-[480px] md:h-[520px] rounded-sm overflow-hidden bg-[#0a1020]"
+      className="relative h-[480px] md:h-[520px] overflow-hidden rounded-sm bg-[#0a1020]"
       style={
         bgUrl
           ? { backgroundImage: `url(${bgUrl})`, backgroundSize: "cover", backgroundPosition: "center" }
           : {}
       }
     >
-      {/* Dark gradient vignette */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1020]/70 via-transparent to-[#0a1020]/40 pointer-events-none z-10" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a1020]/70 via-transparent to-[#0a1020]/40 pointer-events-none" />
 
-      {/* Grid lines for "map" feel when no satellite bg */}
       {!bgUrl && (
         <div
           className="absolute inset-0 opacity-10"
@@ -85,49 +101,51 @@ export default function RegionMap({ places, apiKey }: RegionMapProps) {
         />
       )}
 
-      {/* Markers */}
       {markers.map((m) => {
-        const pos = toPos(m.lat, m.lng);
+        const pos = toPct(m.lat, m.lng);
         const isActive = active === m.name;
+        // Flip the label and card to the left for markers near the right edge.
+        const flip = pos.left > 60;
 
         return (
           <button
             key={m.name}
-            className="absolute z-20 group focus:outline-none"
-            style={{ left: pos.left, top: pos.top, transform: "translate(-50%, -50%)" }}
+            className="absolute z-20 flex h-11 w-11 items-center justify-center group"
+            style={{ left: `${pos.left}%`, top: `${pos.top}%`, transform: "translate(-50%, -50%)" }}
             onClick={() => setActive(isActive ? null : m.name)}
+            aria-pressed={isActive}
+            aria-label={m.name}
           >
-            {/* Pulse ring */}
             <span
-              className={`absolute rounded-full animate-ping ${
+              className={`absolute h-5 w-5 rounded-full animate-ping ${
                 m.isSelf ? "bg-gold/40" : "bg-white/25"
               }`}
-              style={{ inset: -6 }}
             />
-            {/* Dot */}
             <span
-              className={`relative block w-3 h-3 rounded-full border-2 shadow-lg transition-transform duration-200 group-hover:scale-125 ${
-                m.isSelf
-                  ? "bg-gold border-gold/80"
-                  : "bg-white/80 border-white/50"
+              className={`relative block h-3 w-3 rounded-full border-2 shadow-lg transition-transform duration-200 group-hover:scale-125 ${
+                m.isSelf ? "bg-gold border-gold/80" : "bg-white/85 border-white/50"
               }`}
             />
-            {/* Place label */}
             <span
-              className={`absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap text-[0.65rem] font-sans tracking-[0.15em] uppercase transition-opacity duration-200 ${
-                m.isSelf ? "text-gold" : "text-white/75"
-              } ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-100"}`}
+              className={`absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-sans text-[0.65rem] uppercase tracking-[0.15em] transition-opacity duration-200 ${
+                flip ? "right-full mr-3 text-right" : "left-full ml-3"
+              } ${m.isSelf ? "text-gold" : "text-white/80"} ${
+                isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100"
+              }`}
             >
               {m.name}
             </span>
 
-            {/* Info card */}
             {isActive && m.description && (
-              <div className="absolute left-5 top-6 w-60 bg-black/85 backdrop-blur-md rounded-sm p-4 text-left z-30 border border-white/10 shadow-xl">
-                <h4 className="font-heading text-white text-sm font-light tracking-wide mb-2">
+              <div
+                className={`absolute top-6 w-60 rounded-sm border border-white/10 bg-[#0a1020]/95 p-4 text-left shadow-xl backdrop-blur-md ${
+                  flip ? "right-full mr-3" : "left-full ml-3"
+                }`}
+              >
+                <h3 className="font-heading text-sm font-light tracking-wide text-white mb-1.5">
                   {m.name}
-                </h4>
-                <p className="font-sans text-white/55 text-xs leading-relaxed">
+                </h3>
+                <p className="font-sans text-caption leading-relaxed text-white/70">
                   {m.description}
                 </p>
               </div>
@@ -136,15 +154,13 @@ export default function RegionMap({ places, apiKey }: RegionMapProps) {
         );
       })}
 
-      {/* Coordinate label */}
-      <p className="absolute top-4 left-4 z-20 font-sans text-white/30 text-[0.6rem] tracking-[0.3em] uppercase pointer-events-none">
+      <p className="absolute left-4 top-4 z-20 font-sans text-[0.6rem] uppercase tracking-[0.3em] text-white/45 pointer-events-none">
         65°N · Nærøysund
       </p>
 
-      {/* View 3D Map CTA */}
       <Link
         href="/map"
-        className="absolute bottom-4 right-4 z-20 text-[0.7rem] font-sans font-medium tracking-[0.2em] uppercase px-5 py-2.5 bg-black/50 border border-white/25 text-white hover:bg-gold hover:border-gold transition-all duration-500 backdrop-blur-sm"
+        className="focus-ring-light absolute bottom-4 right-4 z-20 font-sans text-[0.7rem] font-medium uppercase tracking-[0.2em] px-5 py-2.5 bg-[#0a1020]/70 border border-white/25 text-white hover:bg-gold hover:border-gold hover:text-fjord-deep transition-colors duration-300 backdrop-blur-sm"
       >
         View 3D Map →
       </Link>
