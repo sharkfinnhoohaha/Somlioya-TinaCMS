@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
@@ -24,7 +24,7 @@ export default function ParallaxImage({
   src,
   alt,
   height = "h-[65vh] min-h-[450px]",
-  quality = 82,
+  quality = 85,
   sizes = "100vw",
   fadeTop = false,
   fadeBottom = false,
@@ -54,7 +54,7 @@ export default function ParallaxImage({
           y,
         }}
       >
-        <Image
+        <SafeImage
           src={src}
           alt={alt}
           fill

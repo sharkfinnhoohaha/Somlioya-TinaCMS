@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { motion, useReducedMotion } from "framer-motion";
 import { isVideo } from "@/lib/media";
 
@@ -49,14 +49,14 @@ export default function PageHero({
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : (
-        <Image
+        <SafeImage
           src={src}
           alt={alt}
           fill
           priority
           className="object-cover"
           sizes="100vw"
-          quality={82}
+          quality={85}
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/10" />

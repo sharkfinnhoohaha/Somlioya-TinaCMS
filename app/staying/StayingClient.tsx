@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -86,13 +86,13 @@ export default function StayingClient(props: {
                 oddBuildings && i === 0 ? "sm:col-span-2 sm:aspect-[2/1]" : ""
               }`}
             >
-              <Image
+              <SafeImage
                 src={img.src ?? ""}
                 alt={img.alt ?? ""}
                 fill
                 className="object-cover"
                 sizes="(max-width:768px) 100vw, 50vw"
-                quality={80}
+                quality={75}
               />
             </div>
           ))}

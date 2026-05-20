@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Button from "@/components/Button";
@@ -72,7 +72,7 @@ export default function HomePageClient(props: {
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (
-              <Image
+              <SafeImage
                 src={heroSrc}
                 alt={heroAlt}
                 fill
@@ -129,7 +129,7 @@ export default function HomePageClient(props: {
           fadeTopColor={bridgeHeroFirst}
           fadeBottomColor={bridgeFirstSecond}
           overlay
-          quality={82}
+          quality={85}
         >
           <div className="max-w-xl w-full mx-auto text-center">
             <AnimatedDivider className="mx-auto mb-9" />
@@ -149,7 +149,7 @@ export default function HomePageClient(props: {
           fadeTopColor={bridgeFirstSecond}
           fadeBottomColor={secondBottom}
           overlay
-          quality={82}
+          quality={85}
         >
           <div className="max-w-xl w-full mx-auto text-center">
             <Reveal>
