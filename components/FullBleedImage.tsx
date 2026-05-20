@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import Reveal from "./Reveal";
 
 /** Full-width image band used to break up long pages. */
@@ -14,13 +14,13 @@ export default function FullBleedImage({
   return (
     <Reveal>
       <div className={`relative w-full ${height}`}>
-        <Image
+        <SafeImage
           src={src}
           alt={alt}
           fill
           className="object-cover"
           sizes="100vw"
-          quality={82}
+          quality={75}
         />
       </div>
     </Reveal>

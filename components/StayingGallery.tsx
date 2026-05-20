@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { useRef } from "react";
 
 interface GalleryImage {
@@ -30,13 +30,13 @@ export default function StayingGallery({ images }: { images: GalleryImage[] }) {
             key={i}
             className="relative shrink-0 snap-start h-[52vh] min-h-[320px] aspect-[4/3]"
           >
-            <Image
+            <SafeImage
               src={img.src ?? ""}
               alt={img.alt ?? ""}
               fill
               className="object-cover"
               sizes="(max-width:768px) 85vw, 38vw"
-              quality={78}
+              quality={75}
             />
           </div>
         ))}

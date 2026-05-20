@@ -90,9 +90,13 @@ export default defineConfig({
     publicFolder: "public",
   },
 
+  // Editor uploads land in /public/uploads, kept separate from the
+  // designer-curated /public/images library so a stray delete in the media
+  // browser can't take out a hero photo. Existing /images/... references in
+  // content keep working — paths in JSON are literal strings, not lookups.
   media: {
     tina: {
-      mediaRoot: "images",
+      mediaRoot: "uploads",
       publicFolder: "public",
     },
   },

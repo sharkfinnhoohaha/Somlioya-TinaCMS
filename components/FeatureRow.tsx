@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import RichText from "./RichText";
@@ -46,13 +46,13 @@ export default function FeatureRow({
         className={reverse ? "md:order-1" : ""}
       >
         <div className="relative aspect-[4/3] md:aspect-auto md:h-[480px]">
-          <Image
+          <SafeImage
             src={image}
             alt={imageAlt}
             fill
             className="object-cover"
             sizes="(max-width:768px) 100vw, 48vw"
-            quality={80}
+            quality={75}
           />
         </div>
       </Reveal>

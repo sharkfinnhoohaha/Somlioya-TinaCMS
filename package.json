@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
+    "prebuild": "node scripts/check-content-images.mjs",
     "build": "tinacms build --skip-cloud-checks -c \"next build\"",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:content": "node scripts/check-content-images.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

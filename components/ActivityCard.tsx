@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 
 interface ActivityCardProps {
   src: string;
@@ -17,13 +17,13 @@ export default function ActivityCard({
 }: ActivityCardProps) {
   return (
     <div className="group relative overflow-hidden h-[420px]">
-      <Image
+      <SafeImage
         src={src}
         alt={alt}
         fill
         className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.05] motion-reduce:group-hover:scale-100"
         sizes="(max-width:768px) 100vw, 33vw"
-        quality={80}
+        quality={75}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex flex-col justify-end p-6 md:p-8">
         <h3 className="font-heading text-white text-h3 font-normal mb-2">
