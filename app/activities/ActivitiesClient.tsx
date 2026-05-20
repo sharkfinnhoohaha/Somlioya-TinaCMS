@@ -1,13 +1,16 @@
 "use client";
-import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
-import ActivityCard from "@/components/ActivityCard";
 import RichText from "@/components/RichText";
-import RegionMap from "@/components/RegionMap";
 import AnimatedDivider from "@/components/AnimatedDivider";
+import SectionHeading from "@/components/SectionHeading";
+import ActivityCard from "@/components/ActivityCard";
+import RegionMap from "@/components/RegionMap";
+import FullBleedImage from "@/components/FullBleedImage";
+import CtaBand from "@/components/CtaBand";
 import { useTina } from "tinacms/dist/react";
 
 export default function ActivitiesClient(props: {
@@ -20,115 +23,122 @@ export default function ActivitiesClient(props: {
 
   const heroSrc = page?.hero?.image ?? "/images/IMG_4928.jpeg";
   const heroAlt = page?.hero?.imageAlt ?? "Mountain panorama at sunset with hikers";
+  const heroPoster = page?.hero?.posterImage ?? "/images/IMG_4928.jpeg";
 
   const intro = page?.intro ?? null;
-
   const waterItems = page?.waterSection?.items ?? [];
   const landItems = page?.landSection?.items ?? [];
-
   const regionHeading = page?.regionSection?.heading ?? "Exploring the Region";
   const regionPlaces = page?.regionSection?.places ?? [];
-
   const fireHeading = page?.fireSection?.heading ?? "Around the Fire";
   const fireText = page?.fireSection?.text ?? null;
   const fireImgSrc = page?.fireSection?.closingImage ?? "/images/IMG_5214.jpeg";
-  const fireImgAlt = page?.fireSection?.closingImageAlt ?? "Group of people dining at outdoor table by the fjord";
+  const fireImgAlt =
+    page?.fireSection?.closingImageAlt ??
+    "Group of people dining at outdoor table by the fjord";
 
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <>
       <Nav />
-      <PageHero
-        src={heroSrc}
-        alt={heroAlt}
-        title={page?.hero?.title ?? "Activities"}
-        subtitle={page?.hero?.subtitle ?? "There is always something to do. And always space to do nothing at all."}
-      />
+      <main id="main-content">
+        <PageHero
+          src={heroSrc}
+          alt={heroAlt}
+          poster={heroPoster}
+          title={page?.hero?.title ?? "Activities"}
+          subtitle={
+            page?.hero?.subtitle ??
+            "There is always something to do. And always space to do nothing at all."
+          }
+        />
 
-      <Reveal className="max-w-2xl mx-auto px-6 py-20">
-        <AnimatedDivider className="mb-8" />
-        <RichText value={intro} />
-      </Reveal>
+        <Section width="prose">
+          <Reveal>
+            <AnimatedDivider className="mb-8" />
+            <RichText value={intro} />
+          </Reveal>
+        </Section>
 
-      {/* On the Water */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-[6vw] pb-16">
-        <Reveal>
-          <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">
-            {page?.waterSection?.heading ?? "On the Water"}
-          </h3>
-        </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {waterItems.map((item: any, i: number) => (
-            <Reveal key={i} delay={i * 0.12}>
-              <ActivityCard
-                src={item.image ?? item.src}
-                alt={item.imageAlt ?? item.alt}
-                title={item.title}
-                description={item.description}
-              />
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      {/* On Land */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-[6vw] pb-16">
-        <Reveal>
-          <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-6">
-            {page?.landSection?.heading ?? "On Land"}
-          </h3>
-        </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {landItems.map((item: any, i: number) => (
-            <Reveal key={i} delay={i * 0.12}>
-              <ActivityCard
-                src={item.image ?? item.src}
-                alt={item.imageAlt ?? item.alt}
-                title={item.title}
-                description={item.description}
-              />
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      {/* Exploring the Region */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
-        <Reveal>
-          <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{regionHeading}</h3>
-          <AnimatedDivider className="mb-8" />
-        </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start mt-8">
-          {/* Place descriptions */}
-          <Reveal direction="left">
-            {regionPlaces.map((place: any, i: number) => (
-              <div key={i} className={i > 0 ? "mt-8" : ""}>
-                <h4 className="font-heading text-fjord text-xl font-medium mb-3">{place.name}</h4>
-                <RichText value={place.description} />
-              </div>
+        {/* On the Water */}
+        <Section width="wide" padding="compact">
+          <Reveal>
+            <SectionHeading as="h2">
+              {page?.waterSection?.heading ?? "On the Water"}
+            </SectionHeading>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+            {waterItems.map((item: any, i: number) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <ActivityCard
+                  src={item.image ?? item.src}
+                  alt={item.imageAlt ?? item.alt}
+                  title={item.title}
+                  description={item.description}
+                />
+              </Reveal>
             ))}
+          </div>
+        </Section>
+
+        {/* On Land */}
+        <Section width="wide" padding="compact">
+          <Reveal>
+            <SectionHeading as="h2">
+              {page?.landSection?.heading ?? "On Land"}
+            </SectionHeading>
           </Reveal>
-          {/* Interactive regional map */}
-          <Reveal direction="right" delay={0.15}>
-            <RegionMap places={regionPlaces} apiKey={mapsApiKey} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+            {landItems.map((item: any, i: number) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <ActivityCard
+                  src={item.image ?? item.src}
+                  alt={item.imageAlt ?? item.alt}
+                  title={item.title}
+                  description={item.description}
+                />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+
+        {/* Exploring the Region */}
+        <Section width="wide">
+          <Reveal>
+            <SectionHeading as="h2">{regionHeading}</SectionHeading>
           </Reveal>
-        </div>
-      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start mt-8">
+            <Reveal direction="left">
+              {regionPlaces.map((place: any, i: number) => (
+                <div key={i} className={i > 0 ? "mt-8" : ""}>
+                  <h3 className="font-heading text-h3 font-normal text-fjord mb-3">
+                    {place.name}
+                  </h3>
+                  <RichText value={place.description} />
+                </div>
+              ))}
+            </Reveal>
+            <Reveal direction="right" delay={0.1}>
+              <RegionMap places={regionPlaces} apiKey={mapsApiKey} />
+            </Reveal>
+          </div>
+        </Section>
 
-      {/* Around the Fire */}
-      <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-12">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{fireHeading}</h3>
-        <AnimatedDivider className="mb-6" />
-        <RichText value={fireText} className="max-w-2xl" />
-      </Reveal>
+        {/* Around the Fire */}
+        <Section width="wide" padding="compact">
+          <Reveal>
+            <SectionHeading as="h2">{fireHeading}</SectionHeading>
+            <div className="mt-6 max-w-2xl">
+              <RichText value={fireText} />
+            </div>
+          </Reveal>
+        </Section>
 
-      <Reveal>
-        <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image src={fireImgSrc} alt={fireImgAlt} fill unoptimized className="object-cover" sizes="100vw" quality={85} />
-        </div>
-      </Reveal>
+        <FullBleedImage src={fireImgSrc} alt={fireImgAlt} />
 
+        <CtaBand />
+      </main>
       <Footer />
     </>
   );

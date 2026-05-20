@@ -18,8 +18,11 @@ type ToolbarItem =
   | "mermaid"
   | "table";
 
+// Deliberately minimal. A non-technical editor only needs basic formatting,
+// and headings are intentionally excluded — every page section heading is a
+// dedicated string field, so body copy can never be accidentally styled as an
+// oversized heading (which previously broke the page typography).
 const richTextToolbar: ToolbarItem[] = [
-  "heading",
   "bold",
   "italic",
   "link",
@@ -27,9 +30,6 @@ const richTextToolbar: ToolbarItem[] = [
   "quote",
   "ul",
   "ol",
-  "code",
-  "table",
-  "embed",
 ];
 
 const pageHeroFields = [
@@ -37,6 +37,13 @@ const pageHeroFields = [
     type: "image" as const,
     name: "image",
     label: "Hero Image or Video",
+  },
+  {
+    type: "image" as const,
+    name: "posterImage",
+    label: "Hero Video Poster",
+    description:
+      "A still image shown while a hero video loads, and if autoplay is blocked. Recommended whenever the hero is a video; ignored for image heroes.",
   },
   {
     type: "string" as const,
@@ -220,6 +227,8 @@ export default defineConfig({
                 fields: [
                   { type: "string" as const, name: "name", label: "Name" },
                   richTextField("description", "Description"),
+                  { type: "number" as const, name: "lat", label: "Latitude (optional — positions the map marker)" },
+                  { type: "number" as const, name: "lng", label: "Longitude (optional — positions the map marker)" },
                 ],
               },
               { type: "image" as const, name: "image", label: "Image" },

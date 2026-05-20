@@ -3,9 +3,15 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
-import StayingGallery from "@/components/StayingGallery";
 import RichText from "@/components/RichText";
+import AnimatedDivider from "@/components/AnimatedDivider";
+import SectionHeading from "@/components/SectionHeading";
+import FeatureRow from "@/components/FeatureRow";
+import FullBleedImage from "@/components/FullBleedImage";
+import StayingGallery from "@/components/StayingGallery";
+import CtaBand from "@/components/CtaBand";
 import { useTina } from "tinacms/dist/react";
 
 export default function StayingClient(props: {
@@ -17,7 +23,11 @@ export default function StayingClient(props: {
   const page = data.stayingPage;
 
   const heroSrc = page?.hero?.image ?? "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG";
-  const heroAlt = page?.hero?.imageAlt ?? "Aerial view of island buildings surrounded by forest and fjord";
+  const heroAlt =
+    page?.hero?.imageAlt ??
+    "Aerial view of island buildings surrounded by forest and fjord";
+  const heroPoster =
+    page?.hero?.posterImage ?? "/images/569F22A4217156A6F9DEF31BB8B2F7CC.JPG";
 
   const intro = page?.intro ?? null;
 
@@ -27,8 +37,9 @@ export default function StayingClient(props: {
         { src: "/images/A4D4C1444081F165FD87951C3F619B8B.jpg", alt: "Aerial view of both island buildings" },
         { src: "/images/IMG_3215.jpeg", alt: "Main house exterior with stairs and pine tree" },
       ];
+  const oddBuildings = buildingImgs.length % 2 === 1;
 
-  const sleeping = page?.sleepingSection ?? { heading: "Sleeping", paragraphs: null, image: undefined, imageAlt: undefined };
+  const sleeping = page?.sleepingSection ?? { heading: "Sleeping", paragraphs: null };
   const sharedSpaces = page?.sharedSpacesSection ?? { heading: "Shared Spaces", paragraphs: null };
 
   const galleryImages = page?.galleryImages?.length
@@ -50,69 +61,77 @@ export default function StayingClient(props: {
   return (
     <>
       <Nav />
-      <PageHero
-        src={heroSrc}
-        alt={heroAlt}
-        title={page?.hero?.title ?? "Sleeping & Living"}
-        subtitle={page?.hero?.subtitle ?? "Intentionally simple, shared, and close to nature."}
-      />
+      <main id="main-content">
+        <PageHero
+          src={heroSrc}
+          alt={heroAlt}
+          poster={heroPoster}
+          title={page?.hero?.title ?? "Sleeping & Living"}
+          subtitle={page?.hero?.subtitle ?? "Intentionally simple, shared, and close to nature."}
+        />
 
-      <Reveal className="max-w-2xl mx-auto px-6 py-20">
-        <div className="divider mb-8" />
-        <RichText value={intro} />
-      </Reveal>
+        <Section width="prose">
+          <Reveal>
+            <AnimatedDivider className="mb-8" />
+            <RichText value={intro} />
+          </Reveal>
+        </Section>
 
-      {/* Building image pair */}
-      <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
-        {buildingImgs.map((img: any, i: number) => (
-          <div key={i} className="relative h-[45vh] min-h-[300px]">
-            <Image src={img.src ?? ""} alt={img.alt ?? ""} fill unoptimized className="object-cover" sizes="(max-width:768px) 100vw, 50vw" quality={80} />
-          </div>
-        ))}
-      </Reveal>
+        {/* Building images — adapts to any number of images */}
+        <Reveal className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4 md:px-6">
+          {buildingImgs.map((img: any, i: number) => (
+            <div
+              key={i}
+              className={`relative aspect-[3/2] ${
+                oddBuildings && i === 0 ? "sm:col-span-2 sm:aspect-[2/1]" : ""
+              }`}
+            >
+              <Image
+                src={img.src ?? ""}
+                alt={img.alt ?? ""}
+                fill
+                className="object-cover"
+                sizes="(max-width:768px) 100vw, 50vw"
+                quality={80}
+              />
+            </div>
+          ))}
+        </Reveal>
 
-      {/* Sleeping */}
-      <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-[1400px] mx-auto px-6 md:px-[6vw] py-16">
-        <div>
-          <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-5">{sleeping.heading}</h3>
-          <div className="divider mb-6" />
-          <RichText value={sleeping.paragraphs} />
-        </div>
-        <div className="relative h-[500px]">
-          <Image
-            src={sleeping.image ?? "/images/IMG_3202.jpeg"}
-            alt={sleeping.imageAlt ?? "Main house with deck, garden and dog"}
-            fill
-            unoptimized
-            className="object-cover"
-            sizes="(max-width:768px) 100vw, 50vw" quality={80}
-          />
-        </div>
-      </Reveal>
+        <FeatureRow
+          heading={sleeping.heading}
+          body={sleeping.paragraphs}
+          image={sleeping.image ?? "/images/IMG_3202.jpeg"}
+          imageAlt={sleeping.imageAlt ?? "Main house with deck, garden and dog"}
+          reverse
+        />
 
-      {/* Shared Spaces */}
-      <Reveal className="max-w-[1400px] mx-auto px-6 md:px-[6vw] py-10">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{sharedSpaces.heading}</h3>
-        <div className="divider mb-6" />
-        <RichText value={sharedSpaces.paragraphs} className="max-w-2xl" />
-      </Reveal>
+        <Section width="prose">
+          <Reveal>
+            <SectionHeading as="h2">{sharedSpaces.heading}</SectionHeading>
+            <div className="mt-6">
+              <RichText value={sharedSpaces.paragraphs} />
+            </div>
+          </Reveal>
+        </Section>
 
-      {/* Gallery */}
-      <Reveal><StayingGallery images={galleryImages} /></Reveal>
+        <Reveal>
+          <StayingGallery images={galleryImages} />
+        </Reveal>
 
-      {/* Group Spaces */}
-      <Reveal className="max-w-2xl mx-auto px-6 py-16">
-        <h3 className="font-heading text-fjord-deep text-2xl md:text-3xl font-normal mb-2">{groupSpaces.heading}</h3>
-        <div className="divider mb-6" />
-        <RichText value={groupSpaces.paragraphs} />
-      </Reveal>
+        <Section width="prose">
+          <Reveal>
+            <SectionHeading as="h2">{groupSpaces.heading}</SectionHeading>
+            <div className="mt-6">
+              <RichText value={groupSpaces.paragraphs} />
+            </div>
+          </Reveal>
+        </Section>
 
-      <Reveal>
-        <div className="relative w-full h-[60vh] min-h-[400px]">
-          <Image src={closingImgSrc} alt={closingImgAlt} fill unoptimized className="object-cover" sizes="100vw" quality={80} />
-        </div>
-      </Reveal>
+        <FullBleedImage src={closingImgSrc} alt={closingImgAlt} />
 
+        <CtaBand />
+      </main>
       <Footer />
     </>
   );

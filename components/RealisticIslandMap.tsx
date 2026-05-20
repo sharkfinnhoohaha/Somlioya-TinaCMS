@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   TilesRenderer as TilesRendererImpl,
@@ -176,11 +177,11 @@ function IslandMarker() {
     <group ref={groupRef}>
       <mesh ref={coneRef} rotation-x={-Math.PI / 2}>
         <coneGeometry args={[0.5, 1.7, 4]} />
-        <meshStandardMaterial color="#ff4433" emissive="#ff2010" emissiveIntensity={0.75} transparent opacity={0.92} />
+        <meshStandardMaterial color="#C8A96E" emissive="#E4C78C" emissiveIntensity={0.6} transparent opacity={0.92} />
       </mesh>
       <mesh ref={ringRef} rotation-x={-Math.PI / 2}>
         <ringGeometry args={[0.65, 1.05, 48]} />
-        <meshBasicMaterial color="#ff5533" transparent opacity={0.30} side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#D6BC84" transparent opacity={0.30} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
@@ -207,8 +208,8 @@ function TilesScene({ apiKey, ortho }: { apiKey: string; ortho: boolean }) {
     const controls = new GlobeControlsImpl(scene, camera, gl.domElement, tiles);
     controls.enableDamping  = true;
     controls.dampingFactor  = 0.08;
-    controls.zoomSpeed      = 5;      // much faster scroll zoom
-    controls.rotationSpeed  = 1.5;
+    controls.zoomSpeed      = 2;      // calm, controlled scroll zoom
+    controls.rotationSpeed  = 1.0;
     controls.minAltitude    = 0;
     controls.maxAltitude    = Math.PI / 2;  // full tilt range: horizontal → overhead
     controlsRef.current = controls;
@@ -339,56 +340,104 @@ function Scene({
 // HUD Overlay
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Narrative points of interest — surfaced as a calm story panel over the map.
+const POINTS = [
+  {
+    title: 'The Main House',
+    text: 'The yellow house is the heart of the island — a shared kitchen, a living room with a fireplace, and quiet bedrooms upstairs.',
+  },
+  {
+    title: 'The Shoreline',
+    text: 'The irregular shoreline was carved by the last Ice Age. The sea moves quietly between skerries and narrow inlets.',
+  },
+  {
+    title: 'Heilhornet & the Peaks',
+    text: 'Across the fjord, the distinctive peak of Heilhornet rises alongside Breivasstinden and Hestmannen — a dramatic horizon.',
+  },
+  {
+    title: 'The Fjord Waters',
+    text: 'Årsetfjorden is home to cod, pollock and mackerel. Fishing has been part of life here for generations.',
+  },
+  {
+    title: 'The Northern Sky',
+    text: 'In summer the midnight sun keeps the sky pale all night. In winter the aurora fills clear nights with light.',
+  },
+];
+
 function HUDOverlay({ hud, ortho, onToggle }: { hud: HUDState; ortho: boolean; onToggle: () => void }) {
+  const [active, setActive] = useState<number | null>(null);
+
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-4 font-mono select-none">
-      <div className="flex items-start justify-between gap-3">
-        <div className="rounded-2xl border border-white/10 bg-black/50 px-5 py-3.5 backdrop-blur-xl shadow-xl">
-          <p className="mb-2 text-[9px] uppercase tracking-[0.28em] text-white/35">Position</p>
-          <div className="flex gap-5 text-[13px] text-white/85 tabular-nums">
-            <span>{formatDMS(hud.lat, 'N', 'S')}</span>
-            <span>{formatDMS(hud.lon, 'E', 'W')}</span>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-black/50 px-5 py-3.5 backdrop-blur-xl shadow-xl">
-          <div className="flex gap-8">
-            <div>
-              <p className="mb-1.5 text-[9px] uppercase tracking-[0.28em] text-white/35">ALT</p>
-              <p className="text-[22px] leading-none tabular-nums text-emerald-400">{formatAlt(hud.alt)}</p>
-            </div>
-            <div>
-              <p className="mb-1.5 text-[9px] uppercase tracking-[0.28em] text-white/35">HDG</p>
-              <p className="text-[22px] leading-none tabular-nums text-amber-400">{String(Math.round(hud.hdg)).padStart(3, '0')}°</p>
-            </div>
-          </div>
+    <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between select-none">
+      {/* ── Top bar: escape link + quiet position readout ── */}
+      <div className="flex items-start justify-between gap-3 p-4 md:p-6">
+        <Link
+          href="/"
+          className="focus-ring-light pointer-events-auto group flex items-center gap-2.5 rounded-full border border-white/12 bg-[#0d1622]/75 px-4 py-2.5 backdrop-blur-md transition-colors hover:bg-[#0d1622]/95"
+        >
+          <span aria-hidden="true" className="text-gold transition-transform group-hover:-translate-x-0.5">
+            ←
+          </span>
+          <span className="font-heading text-sm uppercase tracking-[0.16em] text-white/90">
+            Sømliøya
+          </span>
+        </Link>
+
+        <div className="rounded-full border border-white/12 bg-[#0d1622]/75 px-4 py-2.5 backdrop-blur-md">
+          <p className="font-sans text-[0.6rem] uppercase tracking-[0.18em] text-white/55 tabular-nums">
+            {formatDMS(hud.lat, 'N', 'S')} · {formatDMS(hud.lon, 'E', 'W')}
+            <span className="text-white/30"> · </span>
+            {formatAlt(hud.alt)}
+          </p>
         </div>
       </div>
 
-      <div className="pointer-events-auto flex items-end justify-between gap-3">
-        <div className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 backdrop-blur-xl shadow-xl">
-          <p className="text-[9px] uppercase tracking-[0.28em] text-white/35">Target</p>
-          <p className="mt-1.5 text-[13px] font-semibold text-white/90">Sømliøya · Nærøysund</p>
-          <p className="mt-0.5 text-[11px] text-white/45">Trøndelag, Norway</p>
-          {!ortho && (
-            <p className="mt-2 text-[10px] text-white/25">
-              Left-drag pan · Right-drag orbit · Scroll zoom
+      {/* ── Bottom: story card + points of interest + controls ── */}
+      <div className="flex flex-col gap-3 p-4 md:p-6">
+        {active !== null && (
+          <div className="pointer-events-auto max-w-sm rounded-2xl border border-white/12 bg-[#0d1622]/90 p-5 backdrop-blur-xl">
+            <h2 className="font-heading text-h4 font-normal text-white">{POINTS[active].title}</h2>
+            <div className="mt-2 mb-3 h-px w-10 bg-gold" />
+            <p className="font-sans text-caption leading-relaxed text-white/75">
+              {POINTS[active].text}
             </p>
-          )}
+          </div>
+        )}
+
+        <div className="pointer-events-auto rounded-2xl border border-white/12 bg-[#0d1622]/80 p-4 backdrop-blur-md">
+          <p className="mb-2.5 font-sans text-eyebrow uppercase tracking-[0.28em] text-white/50">
+            Points of interest
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {POINTS.map((p, i) => (
+              <button
+                key={p.title}
+                onClick={() => setActive(active === i ? null : i)}
+                aria-pressed={active === i}
+                className={`focus-ring-light rounded-full border px-3.5 py-1.5 font-sans text-[0.72rem] tracking-wide transition-colors ${
+                  active === i
+                    ? 'border-gold/70 bg-gold/15 text-gold'
+                    : 'border-white/15 text-white/75 hover:border-white/40 hover:text-white'
+                }`}
+              >
+                {p.title}
+              </button>
+            ))}
+          </div>
         </div>
-        <button
-          onClick={onToggle}
-          aria-label="Toggle view mode"
-          className={[
-            'rounded-2xl border px-5 py-4 text-xs uppercase tracking-widest',
-            'backdrop-blur-xl shadow-xl transition-all duration-300 focus:outline-none',
-            ortho
-              ? 'border-sky-400/30 bg-sky-500/20 text-sky-300 hover:bg-sky-500/30'
-              : 'border-white/10 bg-black/50 text-white/55 hover:bg-white/10 hover:text-white',
-          ].join(' ')}
-        >
-          <p className="text-[9px] tracking-[0.28em] text-white/35 mb-1.5">View Mode</p>
-          <p className="text-[13px] font-semibold">{ortho ? 'Top Down' : '3D Free'}</p>
-        </button>
+
+        <div className="flex items-end justify-between gap-3">
+          <p className="max-w-[15rem] font-sans text-[0.66rem] leading-relaxed text-white/60">
+            Drag to explore · Pinch or scroll to zoom · Two fingers or right-drag to tilt
+          </p>
+          <button
+            onClick={onToggle}
+            aria-label={`Switch to ${ortho ? '3D' : 'top-down'} view`}
+            className="focus-ring-light pointer-events-auto rounded-full border border-white/15 bg-[#0d1622]/80 px-5 py-3 font-sans text-[0.72rem] uppercase tracking-[0.16em] text-white/85 backdrop-blur-md transition-colors hover:bg-[#0d1622]/95 hover:text-white"
+          >
+            {ortho ? 'Top-down view' : '3D view'}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -400,11 +449,13 @@ function HUDOverlay({ hud, ortho, onToggle }: { hud: HUDState; ortho: boolean; o
 
 function LoadingScreen() {
   return (
-    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#070c14]">
-      <div className="h-10 w-10 rounded-full border-2 border-white/15 border-t-white/70 animate-spin mb-5" />
-      <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-white/40">Streaming 3D Tiles</p>
-      <p className="mt-1.5 font-mono text-[10px] text-white/20">
-        {TARGET_LAT_DEG.toFixed(5)}°N · {TARGET_LON_DEG.toFixed(5)}°E
+    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#0d1622]">
+      <div className="mb-5 h-9 w-9 rounded-full border-2 border-white/15 border-t-gold animate-spin" />
+      <p className="font-heading text-lead font-light italic text-white/75">
+        Bringing the island into view…
+      </p>
+      <p className="mt-2 font-sans text-eyebrow uppercase tracking-[0.28em] text-white/40">
+        Sømliøya · Nærøysund
       </p>
     </div>
   );

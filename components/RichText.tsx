@@ -1,8 +1,12 @@
 /**
  * TinaRichText renderer
  *
- * Supports `dark` prop for rendering on dark parallax backgrounds (landing page)
+ * Supports a `dark` prop for rendering on dark parallax backgrounds (home page)
  * vs. the default light-background style used on all inner pages.
+ *
+ * All sizing maps onto the shared type scale in globals.css (text-body,
+ * text-lead, text-h1…h4) so CMS content stays visually consistent with the
+ * hand-built page layouts.
  */
 
 import type { TinaRichText, TinaRichTextNode } from "@/tina/lib/client";
@@ -30,6 +34,8 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
 
   const children = node.children?.map((child, i) => renderNode(child, i, dark));
 
+  const bodyText = dark ? "text-lead text-white/80" : "text-body text-smoke";
+
   switch (node.type) {
     case "root":
       return <React.Fragment key={index}>{children}</React.Fragment>;
@@ -41,56 +47,56 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       );
       if (!hasContent) return null;
       return (
-        <p key={index} className={`font-sans font-light leading-[1.85] mt-5 first:mt-0 ${dark ? "text-white/70 text-lg" : "text-smoke"}`}>
+        <p key={index} className={`font-sans ${bodyText} mt-5 first:mt-0`}>
           {children}
         </p>
       );
     }
     case "h1":
       return (
-        <h1 key={index} className={`font-heading font-light tracking-wide mt-8 first:mt-0 ${dark ? "text-white text-4xl md:text-5xl" : "text-fjord-deep text-3xl md:text-4xl"}`}>
+        <h1 key={index} className={`font-heading text-h1 tracking-wide mt-10 first:mt-0 ${dark ? "text-white font-light" : "text-fjord-deep font-normal"}`}>
           {children}
         </h1>
       );
     case "h2":
       return (
-        <h2 key={index} className={`font-heading font-light tracking-wide mt-6 first:mt-0 ${dark ? "text-white/90 text-3xl md:text-4xl" : "text-fjord-deep text-2xl md:text-3xl"}`}>
+        <h2 key={index} className={`font-heading text-h2 tracking-wide mt-9 first:mt-0 ${dark ? "text-white/90 font-light" : "text-fjord-deep font-normal"}`}>
           {children}
         </h2>
       );
     case "h3":
       return (
-        <h3 key={index} className={`font-heading font-light mt-8 first:mt-0 ${dark ? "text-white/90 text-2xl md:text-3xl leading-relaxed tracking-wide" : "text-fjord-deep text-xl"}`}>
+        <h3 key={index} className={`font-heading text-h3 mt-8 first:mt-0 ${dark ? "text-white/90 font-light" : "text-fjord-deep font-normal"}`}>
           {children}
         </h3>
       );
     case "h4":
       return (
-        <h4 key={index} className={`font-heading font-light mt-6 first:mt-0 ${dark ? "text-white/85 text-xl" : "text-fjord-deep text-lg"}`}>
+        <h4 key={index} className={`font-heading text-h4 mt-6 first:mt-0 ${dark ? "text-white/85 font-normal" : "text-fjord-deep font-medium"}`}>
           {children}
         </h4>
       );
     case "h5":
       return (
-        <h5 key={index} className={`font-heading font-normal mt-4 first:mt-0 ${dark ? "text-white/80 text-base" : "text-fjord-deep text-base"}`}>
+        <h5 key={index} className={`font-sans text-caption uppercase tracking-[0.2em] mt-6 first:mt-0 ${dark ? "text-white/70" : "text-smoke"}`}>
           {children}
         </h5>
       );
     case "h6":
       return (
-        <h6 key={index} className={`font-heading font-normal mt-4 first:mt-0 ${dark ? "text-white/80 text-sm" : "text-fjord-deep text-sm"}`}>
+        <h6 key={index} className={`font-sans text-eyebrow uppercase tracking-[0.25em] mt-5 first:mt-0 ${dark ? "text-white/60" : "text-smoke-soft"}`}>
           {children}
         </h6>
       );
     case "ul":
       return (
-        <ul key={index} className={`list-disc pl-6 mt-5 space-y-2 font-sans font-light leading-[1.85] ${dark ? "text-white/70 text-lg" : "text-smoke"}`}>
+        <ul key={index} className={`list-disc pl-6 mt-5 space-y-2 font-sans ${bodyText}`}>
           {children}
         </ul>
       );
     case "ol":
       return (
-        <ol key={index} className={`list-decimal pl-6 mt-5 space-y-2 font-sans font-light leading-[1.85] ${dark ? "text-white/70 text-lg" : "text-smoke"}`}>
+        <ol key={index} className={`list-decimal pl-6 mt-5 space-y-2 font-sans ${bodyText}`}>
           {children}
         </ol>
       );
@@ -100,7 +106,7 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       return <React.Fragment key={index}>{children}</React.Fragment>;
     case "blockquote":
       return (
-        <blockquote key={index} className={`border-l-2 pl-5 my-6 font-heading font-light italic ${dark ? "border-gold/60 text-white/70 text-lg" : "border-gold text-smoke text-lg"}`}>
+        <blockquote key={index} className={`border-l-2 pl-5 my-7 font-heading text-lead font-light italic ${dark ? "border-gold/70 text-white/85" : "border-gold text-fjord"}`}>
           {children}
         </blockquote>
       );
@@ -111,7 +117,7 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       }
       const isExternal = /^https?:/i.test(href);
       return (
-        <a key={index} href={href} className={`underline underline-offset-2 transition-colors ${dark ? "text-white/80 hover:text-gold" : "text-fjord-deep hover:text-gold"}`} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
+        <a key={index} href={href} className={`underline underline-offset-2 transition-all ${dark ? "text-white decoration-gold/80 hover:decoration-gold" : "text-fjord-deep decoration-gold/70 hover:decoration-gold hover:decoration-2"}`} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
           {children}
         </a>
       );
@@ -120,13 +126,13 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       if (!node.url) return null;
       return (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={index} src={node.url} alt={node.alt ?? "Rich text image"} className="max-w-full rounded mt-5" />
+        <img key={index} src={node.url} alt={node.alt ?? ""} loading="lazy" className="max-w-full rounded mt-6" />
       );
     }
     case "table":
       return (
-        <div key={index} className="overflow-x-auto mt-5">
-          <table className={`w-full text-sm border-collapse font-sans font-light ${dark ? "text-white/70" : "text-smoke"}`}>
+        <div key={index} className="overflow-x-auto mt-6">
+          <table className={`w-full text-caption border-collapse font-sans ${dark ? "text-white/80" : "text-smoke"}`}>
             {children}
           </table>
         </div>
@@ -139,7 +145,7 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       return <tr key={index} className={`border-b ${dark ? "border-white/20" : "border-black/10"}`}>{children}</tr>;
     case "th":
       return (
-        <th key={index} className={`px-4 py-2 text-left font-medium ${dark ? "text-white/90 border-b border-white/30" : "text-fjord-deep border-b border-black/20"}`}>
+        <th key={index} className={`px-4 py-2 text-left font-medium ${dark ? "text-white border-b border-white/30" : "text-fjord-deep border-b border-black/20"}`}>
           {children}
         </th>
       );
@@ -150,7 +156,7 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       const safeUrl = sanitizeHref(node.url);
       if (!safeUrl) return null;
       return (
-        <div key={index} className="relative mt-5 w-full" style={{ paddingBottom: "56.25%" }}>
+        <div key={index} className="relative mt-6 w-full" style={{ paddingBottom: "56.25%" }}>
           <iframe
             src={safeUrl}
             title={node.caption ?? node.alt ?? "Embedded content"}
@@ -163,16 +169,16 @@ function renderNode(node: TinaRichTextNode, index: number, dark: boolean): React
       );
     }
     case "hr":
-      return <div key={index} className={`w-10 h-px mx-auto my-8 ${dark ? "bg-gold/50" : "bg-gold"}`} />;
+      return <div key={index} className={`w-10 h-px mx-auto my-9 ${dark ? "bg-gold/50" : "bg-gold"}`} />;
     case "strong":
       return <strong key={index} className="font-medium">{children}</strong>;
     case "em":
       return <em key={index} className="italic">{children}</em>;
     case "code":
-      return <code key={index} className={`font-mono text-sm px-1.5 py-0.5 rounded ${dark ? "bg-white/10 text-white/80" : "bg-black/5 text-smoke"}`}>{children}</code>;
+      return <code key={index} className={`font-mono text-caption px-1.5 py-0.5 rounded ${dark ? "bg-white/10 text-white/85" : "bg-black/5 text-smoke"}`}>{children}</code>;
     case "code_block":
       return (
-        <pre key={index} className={`font-mono text-sm rounded p-4 mt-5 overflow-x-auto ${dark ? "bg-white/10 text-white/80" : "bg-black/5 text-smoke"}`}>
+        <pre key={index} className={`font-mono text-caption rounded p-4 mt-6 overflow-x-auto ${dark ? "bg-white/10 text-white/85" : "bg-black/5 text-smoke"}`}>
           <code>{children}</code>
         </pre>
       );
@@ -195,7 +201,7 @@ export default function RichText({
   if (typeof value === "string") {
     return (
       <div className={className}>
-        <p className={`font-sans font-light leading-[1.85] mt-5 first:mt-0 ${dark ? "text-white/70 text-lg" : "text-smoke"}`}>{value}</p>
+        <p className={`font-sans mt-5 first:mt-0 ${dark ? "text-lead text-white/80" : "text-body text-smoke"}`}>{value}</p>
       </div>
     );
   }

@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Button from "./Button";
+import AnimatedDivider from "./AnimatedDivider";
 
 const FALLBACK_EMAIL = "hello@somlioya.no";
 
+const labelClass =
+  "font-sans text-caption uppercase tracking-[0.16em] text-fjord";
 const inputClass =
-  "w-full py-4 bg-transparent border-b border-black/10 font-sans text-base font-light text-charcoal outline-none focus:border-gold transition-colors placeholder:text-black/25";
+  "w-full py-3 bg-transparent border-b border-charcoal/20 font-sans text-body text-charcoal outline-none focus:border-fjord transition-colors placeholder:text-smoke-soft/60";
 
 export default function ContactForm({
   introText,
@@ -33,83 +37,86 @@ export default function ContactForm({
   };
 
   return (
-    <div className="max-w-xl mx-auto px-6 py-20">
-      <div className="divider mb-8" />
-      <p className="font-sans text-smoke font-light leading-[1.85] mb-4">
+    <div className="max-w-xl mx-auto px-6 py-16 md:py-24">
+      <AnimatedDivider className="mb-8" />
+      <p className="font-sans text-body text-smoke mb-4">
         {introText ?? "Just get in touch to ask for whatever you need."}
       </p>
-      <p className="font-sans text-smoke font-light leading-[1.85] mb-10">
+      <p className="font-sans text-body text-smoke mb-10">
         Prefer to write directly? Email us at{" "}
         <a
           href={`mailto:${email}`}
-          className="text-fjord-deep underline underline-offset-2 hover:text-gold transition-colors"
+          className="text-fjord-deep underline underline-offset-2 decoration-gold/70 hover:decoration-gold hover:decoration-2 transition-all"
         >
           {email}
         </a>
         .
       </p>
-      {!submitted ? (
-        <form onSubmit={handleSubmit} className="space-y-0">
-          <label htmlFor="contact-name" className="sr-only">
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+        <div className="flex flex-col gap-2">
+          <label htmlFor="contact-name" className={labelClass}>
             Your name
           </label>
           <input
             id="contact-name"
             type="text"
             name="name"
-            placeholder="Your name"
             required
             autoComplete="name"
-            className={`${inputClass} mb-6`}
+            placeholder="Jane Doe"
+            className={inputClass}
           />
-          <label htmlFor="contact-email" className="sr-only">
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="contact-email" className={labelClass}>
             Your email
           </label>
           <input
             id="contact-email"
             type="email"
             name="email"
-            placeholder="Your email"
             required
             autoComplete="email"
-            className={`${inputClass} mb-6`}
+            placeholder="jane@example.com"
+            className={inputClass}
           />
-          <label htmlFor="contact-message" className="sr-only">
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="contact-message" className={labelClass}>
             Your message
           </label>
           <textarea
             id="contact-message"
             name="message"
-            placeholder="Your moment — tell us what brings you here"
             rows={5}
             required
-            className={`${inputClass} resize-y min-h-[120px] mb-10`}
+            placeholder="Tell us what brings you here — the dates you have in mind, how many of you, and what you hope the island can be."
+            className={`${inputClass} resize-y min-h-[130px]`}
           />
-          <button
-            type="submit"
-            className="text-[0.72rem] font-sans font-medium tracking-[0.25em] uppercase px-12 py-4 bg-fjord-deep text-white hover:bg-gold hover:-translate-y-0.5 hover:shadow-lg transition-all duration-400 cursor-pointer"
-          >
-            Connect
-          </button>
-        </form>
-      ) : (
-        <div className="text-center py-12">
-          <p className="font-heading text-fjord-deep text-2xl font-light mb-3">
-            Thank you
-          </p>
-          <p className="font-sans text-smoke font-light">
-            Your email app should have opened with your message ready to send.
-            If it didn&apos;t, please write to us at{" "}
-            <a
-              href={`mailto:${email}`}
-              className="text-fjord-deep underline underline-offset-2 hover:text-gold transition-colors"
-            >
-              {email}
-            </a>
-            .
-          </p>
         </div>
-      )}
+
+        <div className="flex items-center gap-5 flex-wrap pt-1">
+          <Button type="submit" variant="primary">
+            Send enquiry
+          </Button>
+          {submitted && (
+            <p role="status" className="font-sans text-caption text-smoke max-w-xs">
+              Your email app should have opened with the message ready to send.
+              If it didn&apos;t, please write to{" "}
+              <a
+                href={`mailto:${email}`}
+                className="text-fjord-deep underline underline-offset-2"
+              >
+                {email}
+              </a>
+              .
+            </p>
+          )}
+        </div>
+      </form>
     </div>
   );
 }
