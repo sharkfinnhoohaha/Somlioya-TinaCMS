@@ -66,15 +66,16 @@ export default function ParallaxImage({
 
       {overlay && <div className="absolute inset-0 bg-black/45 z-10" />}
 
+      {/* transition eases the swap from the fallback colour to the sampled one */}
       {fadeTop && (
         <div
-          className="absolute inset-x-0 top-0 h-[35vh] pointer-events-none z-20"
+          className="absolute inset-x-0 top-0 h-[35vh] pointer-events-none z-20 transition-[background] duration-1000"
           style={{ background: `linear-gradient(to bottom, ${fadeTopColor} 0%, transparent 100%)` }}
         />
       )}
       {fadeBottom && (
         <div
-          className="absolute inset-x-0 bottom-0 h-[35vh] pointer-events-none z-20"
+          className="absolute inset-x-0 bottom-0 h-[35vh] pointer-events-none z-20 transition-[background] duration-1000"
           style={{ background: `linear-gradient(to top, ${fadeBottomColor} 0%, transparent 100%)` }}
         />
       )}

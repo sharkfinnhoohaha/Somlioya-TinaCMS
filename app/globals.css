@@ -14,9 +14,10 @@
   --color-bone: #EDE8E0;
   --color-ivory: #FAFAF8;
 
-  /* — Type families — */
-  --font-serif: 'Cormorant Garamond', Georgia, "Times New Roman", serif;
-  --font-sans: 'Karla', system-ui, -apple-system, sans-serif;
+  /* — Type families — the --font-cormorant / --font-karla variables are
+     injected on <html> by next/font in app/layout.tsx */
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-karla), system-ui, -apple-system, sans-serif;
 
   /* — Fluid type scale — one scale, shared by every page & the CMS renderer — */
   --text-display: clamp(3rem, 1.6rem + 5.6vw, 6rem);

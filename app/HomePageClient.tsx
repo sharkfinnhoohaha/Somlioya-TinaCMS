@@ -87,7 +87,7 @@ export default function HomePageClient(props: {
 
           {/* Adaptive hero → section-1 fade */}
           <div
-            className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
+            className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10 transition-[background] duration-1000"
             style={{ background: `linear-gradient(to top, ${bridgeHeroFirst} 0%, transparent 100%)` }}
           />
 

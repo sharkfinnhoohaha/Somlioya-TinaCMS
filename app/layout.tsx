@@ -1,5 +1,24 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Karla } from "next/font/google";
 import "./globals.css";
+
+// Self-hosted via next/font — no render-blocking Google Fonts stylesheet,
+// no flash of fallback type, and automatic size-adjusted fallbacks so text
+// doesn't shift when the webfonts arrive.
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-cormorant",
+});
+
+const karla = Karla({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  display: "swap",
+  variable: "--font-karla",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -21,19 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${cormorant.variable} ${karla.variable}`}>
       <body className="grain">
         <a href="#main-content" className="skip-link">
           Skip to content
