@@ -264,17 +264,23 @@ function TilesScene({ apiKey, ortho }: { apiKey: string; ortho: boolean }) {
 // CameraTracker
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** HUD refresh interval — the readout doesn't need 60fps React re-renders. */
+const HUD_UPDATE_INTERVAL_S = 0.15;
+
 function CameraTracker({ onUpdate }: { onUpdate: (s: HUDState) => void }) {
   const { camera } = useThree();
   const carto  = useRef({ lat: 0, lon: 0, height: 0 });
+  const lastUpdate = useRef(-Infinity);
   const pos    = useMemo(() => new THREE.Vector3(), []);
   const fwd    = useMemo(() => new THREE.Vector3(), []);
   const nPos   = useMemo(() => new THREE.Vector3(), []);
   const cSurf  = useMemo(() => new THREE.Vector3(), []);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
+    if (clock.elapsedTime - lastUpdate.current < HUD_UPDATE_INTERVAL_S) return;
     camera.getWorldPosition(pos);
     if (pos.lengthSq() < 1e6) return;
+    lastUpdate.current = clock.elapsedTime;
 
     WGS84_ELLIPSOID.getPositionToCartographic(pos, carto.current);
 

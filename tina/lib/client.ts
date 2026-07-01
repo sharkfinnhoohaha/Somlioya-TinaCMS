@@ -78,6 +78,7 @@ export interface TinaRichTextNode {
 
 export interface PageHero {
   image?: string;
+  posterImage?: string;
   imageAlt?: string;
   title: string;
   subtitle?: string;
