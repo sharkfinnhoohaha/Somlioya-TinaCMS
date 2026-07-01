@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "image": "/images/IMG_5123.jpeg",
+    "imageAlt": "Outdoor picnic tables with fjord view",
+    "title": "Plan Your Stay",
+    "subtitle": "A day, a weekend, or a week — here is how it works."
+  },
+  "intro": "Sømliøya is rented as a whole — when you come, the island is yours.\n\nThere is no booking calendar and no fixed packages. Every stay starts with a conversation: tell us your dates, how many of you there are, and what you hope the island can be. We will tell you honestly whether it fits.\n",
+  "steps": [
+    {
+      "title": "Write to us",
+      "description": "Send an enquiry with your dates, group size and what you have in mind — a quiet retreat, a family gathering, a celebration, a ritual. We reply within a day or two."
+    },
+    {
+      "title": "Shape the stay",
+      "description": "We help you plan the practical side: boat transfer, what to bring, food, firewood, and anything you want prepared before you arrive."
+    },
+    {
+      "title": "Arrive and slow down",
+      "description": "A short boat trip brings you across Årsetfjorden. From the moment you step ashore, the island — and its pace — is yours."
+    }
+  ],
+  "practicalSection": {
+    "heading": "Practical Details",
+    "paragraphs": "The island is intentionally simple. Stays are self-catered: the main house has a large shared kitchen, and meals tend to happen around the fire or the long table.\n\nGetting here: the nearest airports are Rørvik and Namsos; Trondheim is around three hours away by car. The boat crossing from the mainland is short, and we will arrange it with you.\n",
+    "facts": [
+      {
+        "label": "Sleeps",
+        "detail": "Simple bedrooms across two buildings, with space to pitch tents for larger groups."
+      },
+      {
+        "label": "Duration",
+        "detail": "From a single day to a full week. Weekends are the most requested — enquire early."
+      },
+      {
+        "label": "Facilities",
+        "detail": "Shared kitchen, living room with fireplace, hot showers, workshop space for groups and retreats."
+      },
+      {
+        "label": "Getting here",
+        "detail": "Short boat transfer across the fjord, arranged together with us when you book."
+      }
+    ]
+  },
+  "ratesSection": {
+    "heading": "Rates",
+    "paragraphs": "Rates depend on the season, the length of your stay and the size of your group. Tell us your dates and we will send you a clear quote — no hidden costs, no fine print.\n\nA day visit is priced differently from an overnight stay, and longer stays are priced kindly.\n"
+  }
+}

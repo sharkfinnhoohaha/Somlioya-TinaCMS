@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "image": "/images/IMG_5123.jpeg",
+    "imageAlt": "Piknikbord ute med utsikt over fjorden",
+    "title": "Planlegg oppholdet",
+    "subtitle": "En dag, en helg eller en uke — slik fungerer det."
+  },
+  "intro": "Sømliøya leies ut i sin helhet — når du kommer, er øya din.\n\nDet finnes ingen bookingkalender og ingen faste pakker. Hvert opphold starter med en samtale: fortell oss datoene dine, hvor mange dere er, og hva du håper øya kan være. Vi sier ærlig fra om det passer.\n",
+  "steps": [
+    {
+      "title": "Skriv til oss",
+      "description": "Send en forespørsel med datoer, gruppestørrelse og hva du har i tankene — et stille retreat, en familiesamling, en feiring, et ritual. Vi svarer i løpet av en dag eller to."
+    },
+    {
+      "title": "Form oppholdet",
+      "description": "Vi hjelper deg med det praktiske: båttransport, hva du bør ta med, mat, ved, og alt du ønsker klargjort før dere kommer."
+    },
+    {
+      "title": "Kom frem og senk tempoet",
+      "description": "En kort båttur tar deg over Årsetfjorden. Fra det øyeblikket du går i land, er øya — og dens tempo — ditt."
+    }
+  ],
+  "practicalSection": {
+    "heading": "Praktisk informasjon",
+    "paragraphs": "Øya er bevisst enkel. Oppholdene er selvhushold: hovedhuset har et stort felles kjøkken, og måltidene skjer gjerne rundt bålet eller langbordet.\n\nHvordan komme seg hit: nærmeste flyplasser er Rørvik og Namsos; Trondheim ligger rundt tre timer unna med bil. Båtturen fra fastlandet er kort, og vi avtaler den med dere.\n",
+    "facts": [
+      {
+        "label": "Sengeplasser",
+        "detail": "Enkle soverom fordelt på to bygninger, med plass til telt for større grupper."
+      },
+      {
+        "label": "Varighet",
+        "detail": "Fra en enkelt dag til en hel uke. Helgene er mest etterspurt — ta kontakt tidlig."
+      },
+      {
+        "label": "Fasiliteter",
+        "detail": "Felles kjøkken, stue med peis, varme dusjer, verkstedrom for grupper og retreater."
+      },
+      {
+        "label": "Reisen hit",
+        "detail": "Kort båttransport over fjorden, avtales sammen med oss når du booker."
+      }
+    ]
+  },
+  "ratesSection": {
+    "heading": "Priser",
+    "paragraphs": "Prisen avhenger av sesong, oppholdets lengde og gruppens størrelse. Fortell oss datoene dine, så sender vi et tydelig pristilbud — ingen skjulte kostnader, ingen liten skrift.\n\nEt dagsbesøk prises annerledes enn en overnatting, og lengre opphold prises vennlig.\n"
+  }
+}

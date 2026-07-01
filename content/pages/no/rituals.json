@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "image": "/images/IMG_5345.jpeg",
+    "imageAlt": "Dekorerte stoffbannere som henger fra bjørketrær med dekket bord bak",
+    "title": "Ritualer",
+    "subtitle": "Noen øyeblikk i livet ber om et sted."
+  },
+  "intro": "Noen øyeblikk i livet ber om et sted.\n\nEt sted å stanse opp, reflektere, og markere noe som betyr noe.\n\nPå Sømliøya skaper vi rom for personlige ritualer — enkle, meningsfulle øyeblikk knyttet til landskapet og havet.\n\nPå tvers av kulturer og gjennom historien har mennesker skapt ritualer for å gi form til viktige øyeblikk i livet: fødsel, tap, overganger, løfter, avslutninger og begynnelser. Ritualer hjelper oss å senke tempoet, tre ut av hverdagen og anerkjenne det som har endret seg.\n\nØya tilbyr en stille ramme for disse øyeblikkene — åpen, naturlig og fjernt fra verdens støy.\n",
+  "midImage": {
+    "src": "/images/IMG_5352.jpeg",
+    "alt": "Samling rundt bord under dekorerte stoffbannere"
+  },
+  "secondParagraphs": "Folk kommer hit av mange ulike grunner.\n\nFor å ta farvel med noen de var glad i. For å spre asken etter et menneske eller et kjært dyr. For å feire en ny begynnelse. For å markere et vendepunkt i livet. For å samle familie eller venner rundt et felles minne.\n\nNoen ønsker rett og slett et sted å stanse opp og anerkjenne noe viktig.\n",
+  "shapedTogetherSection": {
+    "heading": "Formet sammen",
+    "paragraphs": "Hvis du ønsker, kan vi hjelpe med å forme et ritual som passer deg og øyeblikket.\n\nRitualene på Sømliøya skapes sammen med Marijke Ottema, psykolog, og Maria Groot, kunstner. Sammen kombinerer vi psykologisk innsikt med kreative og symbolske elementer for å utforme noe personlig og meningsfullt.\n\nNoen ritualer er svært enkle: en vandring over øya, et bål ved vannet, noen få ord ved fjordkanten.\n\nAndre kan omfatte musikk, skriving, symbolske handlinger, eller tid i stillhet.\n\nHvert ritual er forskjellig, og formes alltid i samtale med de involverte.\n",
+    "image": "/images/IMG_9780.jpeg",
+    "imageAlt": "Kunstner som maler ved staffeli blant bjørketrær"
+  },
+  "gatheringsSection": {
+    "heading": "Andre samlinger",
+    "paragraphs": "Øya kan også brukes til andre meningsfulle samlinger:\n\n- små familiefeiringer\n- å minnes noen sammen\n- å markere et jubileum eller en overgang\n- å prøve ut en idé eller seremoni\n- kreative eller reflekterende samlinger med venner\n\nLandskapet blir ofte en del av opplevelsen.\n\nSømliøya foreskriver ikke hvordan disse øyeblikkene skal se ut. Øya tilbyr rett og slett rommet — og av og til litt veiledning i å forme noe som kjennes riktig.\n",
+    "pullQuote": "Øya har en egen evne til å gjøre ting klarere."
+  }
+}

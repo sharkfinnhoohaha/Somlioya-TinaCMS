@@ -8,7 +8,9 @@ import ParallaxImage from "@/components/ParallaxImage";
 import ScrollCue from "@/components/ScrollCue";
 import RichText from "@/components/RichText";
 import AnimatedDivider from "@/components/AnimatedDivider";
+import TestimonialBand from "@/components/TestimonialBand";
 import { useImageEdgeColor } from "@/hooks/useImageEdgeColor";
+import { useLocale, localeHref } from "@/hooks/useLocale";
 import { useTina } from "tinacms/dist/react";
 import { isVideo } from "@/lib/media";
 
@@ -19,6 +21,7 @@ export default function HomePageClient(props: {
 }) {
   const { data } = useTina(props);
   const page = data.homePage;
+  const locale = useLocale();
 
   const heroTitle = page?.hero?.title ?? "Sømliøya";
   const heroSubtitle = page?.hero?.subtitle ?? "Where the world becomes quieter";
@@ -108,11 +111,11 @@ export default function HomePageClient(props: {
               className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-up"
               style={{ animationDelay: "0.8s" }}
             >
-              <Button href="/island" variant="primary" onDark>
-                Explore
+              <Button href={localeHref(locale, "/island")} variant="primary" onDark>
+                {locale === "no" ? "Utforsk" : "Explore"}
               </Button>
-              <Button href="/contact" variant="secondary" onDark>
-                Contact Us
+              <Button href={localeHref(locale, "/contact")} variant="secondary" onDark>
+                {locale === "no" ? "Kontakt oss" : "Contact Us"}
               </Button>
             </div>
           </div>
@@ -178,14 +181,21 @@ export default function HomePageClient(props: {
                   satellite data. Fly over the fjords and explore the coastline.
                 </p>
               )}
-              <Button href="/map" variant="secondary" onDark>
-                Open 3D Map
+              <Button href={localeHref(locale, "/map")} variant="secondary" onDark>
+                {locale === "no" ? "Åpne 3D-kart" : "Open 3D Map"}
               </Button>
             </Reveal>
           </div>
         </ParallaxImage>
+
+        {/* ═══════ TESTIMONIALS (hidden until quotes exist in the CMS) ═══════ */}
+        <TestimonialBand
+          heading={page?.testimonialsSection?.heading}
+          items={page?.testimonialsSection?.items}
+          instagramUrl={page?.instagramUrl}
+        />
       </main>
-      <Footer />
+      <Footer instagramUrl={page?.instagramUrl} />
     </div>
   );
 }

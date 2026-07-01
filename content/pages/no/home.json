@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "image": "/images/videokenburns.m4v",
+    "posterImage": "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg",
+    "imageAlt": "Sømliøya sett fra luften i vinterlys",
+    "title": "Sømliøya",
+    "subtitle": "Der verden blir stillere"
+  },
+  "poeticParagraphs": "Sømliøya er en øy. Den er liten, privat og enkel. Ingen veier, ingen trafikk — bare vann og svaberg. Fugler, trær og rom.\n\nDu kommer hit for å være. For å skrive. For å tenke. For å feire, skape, ta farvel, lage minner.\n\nBål tennes ved vannkanten, fisk fanges og spises, og kajakker glir stille gjennom fjorden.\n",
+  "secondParagraphs": "Her finnes ingen timeplan, og ingenting som må gjøres. Dagene formes av lys og vær, av tidevannet og bålet.\n\nEnten du kommer for en enkelt stille natt eller en lengre samling med venner, ber øya deg bare om én ting — at du senker tempoet.\n",
+  "pullQuote": "Det er et sted hvor du kan tre ut av verden for en stund.",
+  "mapCta": {
+    "heading": "Se øya fra oven",
+    "description": "Sviv over fjorden i en interaktiv 3D-modell av Sømliøya, gjengitt i sanntid fra satellittdata.\n"
+  },
+  "firstImage": {
+    "src": "/images/IMG_2171.jpeg",
+    "alt": "Speilblank fjord i solnedgang med fjell"
+  },
+  "secondImage": {
+    "src": "/images/IMG_9794.jpeg",
+    "alt": "Dramatisk oransje og rosa solnedgang over den norske fjorden"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "image": "/images/activitieskenburns.m4v",
+    "posterImage": "/images/IMG_4928.jpeg",
+    "imageAlt": "Fjellpanorama i solnedgang med turgåere",
+    "title": "Aktiviteter",
+    "subtitle": "Det er alltid noe å gjøre. Og alltid rom for å gjøre ingenting."
+  },
+  "intro": "Livet på Sømliøya foregår for det meste ute.\n\nØya og fjorden rundt gir rom for de enkle tingene: å utforske landskapet, være ved vannet, eller samles rundt et bål. Det er alltid noe å gjøre — og selvfølgelig alltid rom for å gjøre ingenting.\n",
+  "waterSection": {
+    "heading": "På vannet",
+    "items": [
+      {
+        "image": "/images/IMG_4762.jpeg",
+        "imageAlt": "Utsikt over fjorden med en liten båt",
+        "title": "Kajakk",
+        "description": "Fjorden er rolig og skjermet mange steder, og gjør det mulig å utforske kysten og stille viker med kajakk."
+      },
+      {
+        "image": "/images/IMG_1476.jpeg",
+        "imageAlt": "Fiskestenger mot fjorden med fjell i bakgrunnen",
+        "title": "Fiske",
+        "description": "Fiske har alltid vært en del av livet langs fjorden. Torsk, sei og makrell er vanlig i disse farvannene."
+      },
+      {
+        "image": "/images/IMG_1611.jpeg",
+        "imageAlt": "Person som fisker fra svaberg i norsk genser",
+        "title": "Bading",
+        "description": "Sjøen er kald og klar. Du kan hoppe fra svabergene og varme deg etterpå ved bålet eller i huset."
+      }
+    ]
+  },
+  "landSection": {
+    "heading": "På land",
+    "items": [
+      {
+        "image": "/images/IMG_1432.jpeg",
+        "imageAlt": "To turgåere på fjelltopp i solnedgang",
+        "title": "Turer og fjellvandring",
+        "description": "Øya og områdene rundt byr på enkle kystvandringer over svaberg, skogsstier og åpen strandlinje."
+      },
+      {
+        "image": "/images/IMG_1460.jpeg",
+        "imageAlt": "Silhuett av turgåer mot dramatisk oransje solnedgang",
+        "title": "Heilhornet",
+        "description": "En av de mest karakteristiske toppene i regionen. En dagstur til toppen gir vid utsikt over fjorder, øyer og det åpne Norskehavet."
+      },
+      {
+        "image": "/images/IMG_1496.jpeg",
+        "imageAlt": "Turgåere på steinete fjellrygg",
+        "title": "Dyreliv",
+        "description": "Havørn sees ofte over fjorden, og rådyr og elg beveger seg gjennom skogene i nærheten."
+      }
+    ]
+  },
+  "regionSection": {
+    "heading": "Utforsk regionen",
+    "places": [
+      {
+        "name": "Leka",
+        "description": "Leka er en liten øy utenfor kysten, kjent for sine karakteristiske røde og oransje bergformasjoner — noen av de eldste geologiske formasjonene i landet. Landskapet er overraskende variert, med røffe fjell, åpen kystlinje, stille strender og vid utsikt over havet.\n\nHer finner du også det som ofte regnes som en av Norges vakreste fotturer, med stier som tar deg gjennom denne unike geologien og ut til panoramautsikt over kysten.\n\n![Lekas røde bergformasjoner og kystlinje](/images/IMG_6617.jpeg)\n"
+      },
+      {
+        "name": "Kystbygdene",
+        "description": "Fastlandskysten i nærheten er full av små fiskevær og stille havner. En kort båttur tar deg til butikker, kaféer og hverdagsrytmen i norsk kystliv — nær nok til å nå med letthet, langt nok unna til at øya forblir sin egen stille verden.\n"
+      }
+    ],
+    "image": "/images/IMG_1467.jpeg",
+    "imageAlt": "To personer ved varde med utsikt over fjorder i solnedgang"
+  },
+  "fireSection": {
+    "heading": "Rundt bålet",
+    "text": "Når lyset mykner, finner dagen som regel veien tilbake til bålet. Det er der måltider lages og deles, der historier fortelles, og der kvelden senker seg til lyden av vannet.\n\nEt bål ved stranden er det enkleste øya har å by på — og ofte den delen av oppholdet folk husker best.\n",
+    "closingImage": "/images/IMG_5214.jpeg",
+    "closingImageAlt": "Gruppe mennesker som spiser ved langbord ved fjorden"
+  }
+}

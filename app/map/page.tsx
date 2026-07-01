@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/i18n";
 import Link from "next/link";
 import RealisticIslandMap from "@/components/RealisticIslandMap";
 
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   title: "3D Island Map",
   description:
     "Explore Sømliøya in an interactive 3D model rendered in real time from satellite data.",
+  alternates: pageAlternates("/map", "en"),
 };
 
 export default function MapPage() {

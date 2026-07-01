@@ -17,38 +17,47 @@
 import fs from "fs";
 import path from "path";
 
-function readContentFile<T>(filename: string): T | null {
+export type Locale = "en" | "no";
+
+function readContentFile<T>(filename: string, locale: Locale = "en"): T | null {
   try {
-    const filePath = path.join(process.cwd(), "content", "pages", `${filename}.json`);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const dir =
+      locale === "no"
+        ? path.join(process.cwd(), "content", "pages", "no")
+        : path.join(process.cwd(), "content", "pages");
+    const raw = fs.readFileSync(path.join(dir, `${filename}.json`), "utf-8");
     return JSON.parse(raw) as T;
   } catch {
     return null;
   }
 }
 
-export function getHomePage() {
-  return readContentFile<HomePageContent>("home");
+export function getHomePage(locale: Locale = "en") {
+  return readContentFile<HomePageContent>("home", locale);
 }
 
-export function getActivitiesPage() {
-  return readContentFile<ActivitiesPageContent>("activities");
+export function getActivitiesPage(locale: Locale = "en") {
+  return readContentFile<ActivitiesPageContent>("activities", locale);
 }
 
-export function getStayingPage() {
-  return readContentFile<StayingPageContent>("staying");
+export function getStayingPage(locale: Locale = "en") {
+  return readContentFile<StayingPageContent>("staying", locale);
 }
 
-export function getIslandPage() {
-  return readContentFile<IslandPageContent>("island");
+export function getIslandPage(locale: Locale = "en") {
+  return readContentFile<IslandPageContent>("island", locale);
 }
 
-export function getRitualsPage() {
-  return readContentFile<RitualsPageContent>("rituals");
+export function getRitualsPage(locale: Locale = "en") {
+  return readContentFile<RitualsPageContent>("rituals", locale);
 }
 
-export function getContactPage() {
-  return readContentFile<ContactPageContent>("contact");
+export function getContactPage(locale: Locale = "en") {
+  return readContentFile<ContactPageContent>("contact", locale);
+}
+
+export function getPlanPage(locale: Locale = "en") {
+  return readContentFile<PlanPageContent>("plan", locale);
 }
 
 // ─── Content type definitions ─────────────────────────────────────────────────
@@ -84,6 +93,11 @@ export interface PageHero {
   subtitle?: string;
 }
 
+export interface Testimonial {
+  quote?: string;
+  attribution?: string;
+}
+
 export interface HomePageContent {
   hero?: PageHero;
   poeticParagraphs?: TinaRichText;
@@ -95,6 +109,11 @@ export interface HomePageContent {
   };
   firstImage?: TinaImage;
   secondImage?: TinaImage;
+  testimonialsSection?: {
+    heading?: string;
+    items?: Testimonial[];
+  };
+  instagramUrl?: string;
 }
 
 export interface ActivityItem {
@@ -182,4 +201,29 @@ export interface ContactPageContent {
   hero?: PageHero;
   introText?: string;
   contactEmail?: string;
+}
+
+export interface PlanStep {
+  title?: string;
+  description?: string;
+}
+
+export interface PlanFact {
+  label?: string;
+  detail?: string;
+}
+
+export interface PlanPageContent {
+  hero?: PageHero;
+  intro?: TinaRichText;
+  steps?: PlanStep[];
+  practicalSection?: {
+    heading?: string;
+    paragraphs?: TinaRichText;
+    facts?: PlanFact[];
+  };
+  ratesSection?: {
+    heading?: string;
+    paragraphs?: TinaRichText;
+  };
 }

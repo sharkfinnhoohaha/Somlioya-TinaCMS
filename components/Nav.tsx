@@ -4,21 +4,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale, localeHref, stripLocale, type Locale } from "@/hooks/useLocale";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/island", label: "The Island" },
-  { href: "/activities", label: "Activities" },
-  { href: "/staying", label: "Staying" },
-  { href: "/rituals", label: "Rituals" },
-  { href: "/map", label: "Map" },
-  { href: "/contact", label: "Contact" },
-];
+const NAV_LABELS: Record<Locale, string[]> = {
+  en: ["Home", "The Island", "Activities", "Staying", "Rituals", "Plan", "Map", "Contact"],
+  no: ["Hjem", "Øya", "Aktiviteter", "Overnatting", "Ritualer", "Planlegg", "Kart", "Kontakt"],
+};
+
+const NAV_PATHS = ["/", "/island", "/activities", "/staying", "/rituals", "/plan", "/map", "/contact"];
 
 export default function Nav() {
   const pathname = usePathname();
+  const locale = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const links = NAV_PATHS.map((path, i) => ({
+    href: localeHref(locale, path),
+    label: NAV_LABELS[locale][i],
+  }));
+
+  // Language switcher — jump to the same page in the other language.
+  const otherLocaleHref =
+    locale === "no" ? stripLocale(pathname ?? "/") : localeHref("no", pathname ?? "/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -55,7 +63,7 @@ export default function Nav() {
         }`}
       >
         <Link
-          href="/"
+          href={localeHref(locale, "/")}
           className={`font-heading text-lg tracking-[0.15em] uppercase font-light transition-colors duration-400 ${
             scrolled ? "text-charcoal" : "text-white"
           }`}
@@ -86,6 +94,19 @@ export default function Nav() {
               </li>
             );
           })}
+          <li>
+            <Link
+              href={otherLocaleHref}
+              aria-label={locale === "no" ? "Switch to English" : "Bytt til norsk"}
+              className={`text-[0.72rem] font-sans tracking-[0.18em] uppercase border px-2.5 py-1 transition-colors duration-400 ${
+                scrolled
+                  ? "text-charcoal border-charcoal/30 hover:border-charcoal"
+                  : "text-white border-white/40 hover:border-white"
+              }`}
+            >
+              {locale === "no" ? "EN" : "NO"}
+            </Link>
+          </li>
         </ul>
 
         {/* Hamburger */}
@@ -144,6 +165,13 @@ export default function Nav() {
                 </Link>
               );
             })}
+            <Link
+              href={otherLocaleHref}
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 font-sans text-caption uppercase tracking-[0.25em] text-smoke border border-charcoal/25 px-4 py-2"
+            >
+              {locale === "no" ? "English" : "Norsk"}
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
