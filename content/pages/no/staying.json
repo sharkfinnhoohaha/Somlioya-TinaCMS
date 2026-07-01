@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "image": "/images/8A53C7A7FEF5530A7B3D2DC3EB5393CB.jpg",
+    "imageAlt": "Byggene på øya sett fra luften, omgitt av skog og fjord",
+    "title": "Soving og opphold",
+    "subtitle": "Bevisst enkelt, delt, og nær naturen."
+  },
+  "intro": "Livet på Sømliøya er enkelt og delt.\n\nDet er to bygninger på øya, med plass til å sove, samles og tilbringe tid sammen. Husene er beskjedne og praktiske, laget for små grupper som kommer for å bo tett på naturen.\n",
+  "buildingImages": [
+    {
+      "src": "/images/A4D4C1444081F165FD87951C3F619B8B.jpg",
+      "alt": "Begge byggene på øya sett fra luften"
+    },
+    {
+      "src": "/images/IMG_3215.jpeg",
+      "alt": "Hovedhuset utvendig med trapp og furutre"
+    }
+  ],
+  "sleepingSection": {
+    "heading": "Soving",
+    "paragraphs": "Øya har enkle soverom fordelt på begge bygningene. De fleste rommene er små og stille, ment først og fremst som et behagelig sted å hvile etter en dag ute.\n\nFor de som heller vil sove tettere på landskapet, er det selvsagt også plass til å slå opp telt på øya.\n\nOvernattingen på Sømliøya er bevisst enkel, i tråd med stedets karakter.\n",
+    "image": "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
+    "imageAlt": "Hovedhuset med terrasse, hage og hund"
+  },
+  "sharedSpacesSection": {
+    "heading": "Fellesrom",
+    "paragraphs": "Hovedhuset har et stort felles kjøkken og en stue, der man lager mat, spiser og tilbringer kveldene sammen. En peis gjør det til et varmt samlingssted etter tid ute ved vannet.\n\nBadene er felles, med toaletter og varme dusjer.\n"
+  },
+  "galleryImages": [
+    {
+      "src": "/images/IMG_7429.jpeg",
+      "alt": "Samlingsrom med bord og solsikkemalerier"
+    },
+    {
+      "src": "/images/IMG_7414.jpeg",
+      "alt": "Stor spisestue med tregulv"
+    },
+    {
+      "src": "/images/IMG_7422.jpeg",
+      "alt": "Stue med peis og sofaer"
+    },
+    {
+      "src": "/images/IMG_1256.jpeg",
+      "alt": "Mennesker som lager mat sammen på kjøkkenet"
+    },
+    {
+      "src": "/images/IMG_5123.jpeg",
+      "alt": "Piknikbord ute med utsikt over fjorden"
+    },
+    {
+      "src": "/images/IMG_6710.jpeg",
+      "alt": "Det gule huset utvendig med treterrasse"
+    }
+  ],
+  "groupSpacesSection": {
+    "heading": "Grupperom",
+    "paragraphs": "Den andre bygningen på øya fungerer som verksted og samlingsrom for grupper, retreater og kreativt arbeid. Her ligger også noen enkle soverom.\n\nI kjelleren i hovedhuset finnes nok et rom som kan brukes til møter, verksteder eller stille arbeid.\n"
+  },
+  "closingImage": {
+    "src": "/images/C67B4FC64A05FAAED4F9CD3EB952B05B.jpg",
+    "alt": "Øya sett fra luften"
+  }
+}

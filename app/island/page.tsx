@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/i18n";
 import client from "@/tina/__generated__/client";
 import { getIslandPage } from "@/tina/lib/client";
 import IslandClient from "./IslandClient";
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   title: "About the Island",
   description:
     "Sømliøya lies in Årsetfjorden, Nærøysund, Trøndelag — a Norwegian island of quiet shorelines, northern light, mountains and wildlife.",
+  alternates: pageAlternates("/island", "en"),
 };
 
 export default async function IslandPage() {

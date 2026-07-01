@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useLocale, localeHref } from "@/hooks/useLocale";
 
 interface PlaceInput {
   name: string;
@@ -53,6 +54,7 @@ export default function RegionMap({
   apiKey?: string;
 }) {
   const [active, setActive] = useState<string | null>(null);
+  const locale = useLocale();
 
   const bgUrl = apiKey
     ? `https://maps.googleapis.com/maps/api/staticmap?center=65.0,11.65&zoom=9&size=900x550&scale=2&maptype=satellite&key=${apiKey}`
@@ -159,10 +161,10 @@ export default function RegionMap({
       </p>
 
       <Link
-        href="/map"
+        href={localeHref(locale, "/map")}
         className="focus-ring-light absolute bottom-4 right-4 z-20 font-sans text-[0.7rem] font-medium uppercase tracking-[0.2em] px-5 py-2.5 bg-[#0a1020]/70 border border-white/25 text-white hover:bg-gold hover:border-gold hover:text-fjord-deep transition-colors duration-300 backdrop-blur-sm"
       >
-        View 3D Map →
+        {locale === "no" ? "Se 3D-kart →" : "View 3D Map →"}
       </Link>
     </div>
   );

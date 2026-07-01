@@ -3,6 +3,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import { useLocale } from "@/hooks/useLocale";
 import { useTina } from "tinacms/dist/react";
 
 export default function ContactClient(props: {
@@ -12,6 +13,7 @@ export default function ContactClient(props: {
 }) {
   const { data } = useTina(props);
   const page = data.contactPage;
+  const locale = useLocale();
 
   const heroSrc = page?.hero?.image ?? "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg";
   const heroPoster =
@@ -36,6 +38,7 @@ export default function ContactClient(props: {
           height="h-[52vh] min-h-[360px]"
         />
         <ContactForm
+          locale={locale}
           introText={page?.introText}
           contactEmail={page?.contactEmail}
         />

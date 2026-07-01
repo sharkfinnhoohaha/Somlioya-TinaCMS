@@ -1,4 +1,4 @@
-import { defineConfig } from "tinacms";
+import { defineConfig, type Collection } from "tinacms";
 
 // ─── Reusable field groups ───────────────────────────────────────────────────
 
@@ -72,37 +72,9 @@ const richTextField = (name: string, label: string) => ({
   },
 });
 
-// ─── TinaCMS Configuration ────────────────────────────────────────────────────
+// ─── Page collections (English) ───────────────────────────────────────────────
 
-export default defineConfig({
-  branch:
-    process.env.GITHUB_BRANCH ||
-    process.env.VERCEL_GIT_COMMIT_REF ||
-    process.env.HEAD ||
-    "main",
-
-  // Use local mode (no Tina Cloud account needed for development)
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
-
-  build: {
-    outputFolder: "admin",
-    publicFolder: "public",
-  },
-
-  // Editor uploads land in /public/uploads, kept separate from the
-  // designer-curated /public/images library so a stray delete in the media
-  // browser can't take out a hero photo. Existing /images/... references in
-  // content keep working — paths in JSON are literal strings, not lookups.
-  media: {
-    tina: {
-      mediaRoot: "uploads",
-      publicFolder: "public",
-    },
-  },
-
-  schema: {
-    collections: [
+const pageCollections: (Collection & { ui: { router: () => string } })[] = [
       // ── Home Page ──────────────────────────────────────────────────────────
       {
         name: "homePage",
@@ -154,6 +126,43 @@ export default defineConfig({
               { type: "image" as const, name: "src", label: "Image" },
               { type: "string" as const, name: "alt", label: "Alt Text" },
             ],
+          },
+          {
+            type: "object" as const,
+            name: "testimonialsSection",
+            label: "Testimonials",
+            description:
+              "Guest quotes shown near the end of the home page. The section is hidden until at least one quote is added.",
+            fields: [
+              { type: "string" as const, name: "heading", label: "Heading" },
+              {
+                type: "object" as const,
+                name: "items",
+                label: "Quotes",
+                list: true,
+                ui: {
+                  itemProps: (item: { attribution?: string }) => ({
+                    label: item?.attribution || "Quote",
+                  }),
+                },
+                fields: [
+                  {
+                    type: "string" as const,
+                    name: "quote",
+                    label: "Quote",
+                    ui: { component: "textarea" },
+                  },
+                  { type: "string" as const, name: "attribution", label: "Attribution" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "string" as const,
+            name: "instagramUrl",
+            label: "Instagram URL",
+            description:
+              "Full URL to the island's Instagram profile. Shown as a follow link in the testimonials band and the footer when set.",
           },
         ],
       },
@@ -441,6 +450,81 @@ export default defineConfig({
         ],
       },
 
+      // ── Plan Your Stay Page ────────────────────────────────────────────────
+      {
+        name: "planPage",
+        label: "Plan Your Stay Page",
+        path: "content/pages",
+        match: { include: "plan" },
+        format: "json",
+        ui: {
+          allowedActions: { create: false, delete: false },
+          router: () => "/plan",
+        },
+        fields: [
+          {
+            type: "object" as const,
+            name: "hero",
+            label: "Hero",
+            fields: pageHeroFields,
+          },
+          richTextField("intro", "Intro"),
+          {
+            type: "object" as const,
+            name: "steps",
+            label: "How It Works — Steps",
+            list: true,
+            ui: {
+              itemProps: (item: { title?: string }) => ({
+                label: item?.title || "Step",
+              }),
+            },
+            fields: [
+              { type: "string" as const, name: "title", label: "Title" },
+              {
+                type: "string" as const,
+                name: "description",
+                label: "Description",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+          {
+            type: "object" as const,
+            name: "practicalSection",
+            label: "Practical Details Section",
+            fields: [
+              { type: "string" as const, name: "heading", label: "Heading" },
+              richTextField("paragraphs", "Paragraphs"),
+              {
+                type: "object" as const,
+                name: "facts",
+                label: "Key Facts",
+                list: true,
+                ui: {
+                  itemProps: (item: { label?: string }) => ({
+                    label: item?.label || "Fact",
+                  }),
+                },
+                fields: [
+                  { type: "string" as const, name: "label", label: "Label" },
+                  { type: "string" as const, name: "detail", label: "Detail", ui: { component: "textarea" } },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object" as const,
+            name: "ratesSection",
+            label: "Rates Section",
+            fields: [
+              { type: "string" as const, name: "heading", label: "Heading" },
+              richTextField("paragraphs", "Paragraphs"),
+            ],
+          },
+        ],
+      },
+
       // ── Contact Page ───────────────────────────────────────────────────────
       {
         name: "contactPage",
@@ -475,6 +559,58 @@ export default defineConfig({
           },
         ],
       },
-    ],
+];
+
+// ─── Norwegian mirrors ────────────────────────────────────────────────────────
+// Each English collection gets a Norwegian twin backed by content/pages/no/,
+// served at /no/... — same fields, so the two languages can never drift
+// structurally. Note: /no pages are rendered from these files but don't have
+// Tina live-preview wiring; edit them via the /admin collection list.
+
+const norwegianCollections = pageCollections.map((collection) => ({
+  ...collection,
+  name: `${collection.name}No`,
+  label: `${collection.label} (Norsk)`,
+  path: "content/pages/no",
+  ui: {
+    ...collection.ui,
+    router: () => {
+      const en = collection.ui.router();
+      return en === "/" ? "/no" : `/no${en}`;
+    },
+  },
+}));
+
+// ─── TinaCMS Configuration ────────────────────────────────────────────────────
+
+export default defineConfig({
+  branch:
+    process.env.GITHUB_BRANCH ||
+    process.env.VERCEL_GIT_COMMIT_REF ||
+    process.env.HEAD ||
+    "main",
+
+  // Use local mode (no Tina Cloud account needed for development)
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+  token: process.env.TINA_TOKEN || "",
+
+  build: {
+    outputFolder: "admin",
+    publicFolder: "public",
+  },
+
+  // Editor uploads land in /public/uploads, kept separate from the
+  // designer-curated /public/images library so a stray delete in the media
+  // browser can't take out a hero photo. Existing /images/... references in
+  // content keep working — paths in JSON are literal strings, not lookups.
+  media: {
+    tina: {
+      mediaRoot: "uploads",
+      publicFolder: "public",
+    },
+  },
+
+  schema: {
+    collections: [...pageCollections, ...norwegianCollections],
   },
 });

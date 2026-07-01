@@ -1,16 +1,41 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale, localeHref, type Locale } from "@/hooks/useLocale";
 
-const footerLinks = [
-  { href: "/island", label: "The Island" },
-  { href: "/activities", label: "Activities" },
-  { href: "/staying", label: "Staying" },
-  { href: "/rituals", label: "Rituals" },
-  { href: "/map", label: "3D Map" },
-  { href: "/contact", label: "Contact" },
-];
+const FOOTER_PATHS = ["/island", "/activities", "/staying", "/rituals", "/plan", "/map", "/contact"];
 
-export default function Footer() {
+const FOOTER_LABELS: Record<Locale, string[]> = {
+  en: ["The Island", "Activities", "Staying", "Rituals", "Plan Your Stay", "3D Map", "Contact"],
+  no: ["Øya", "Aktiviteter", "Overnatting", "Ritualer", "Planlegg oppholdet", "3D-kart", "Kontakt"],
+};
+
+const COPY: Record<
+  Locale,
+  { blurb: string; explore: string; getInTouch: string; place: string; tagline: string }
+> = {
+  en: {
+    blurb:
+      "A private island in Nærøysund, Trøndelag — a place to step outside the world for a while.",
+    explore: "Explore",
+    getInTouch: "Get in touch",
+    place: "Nærøysund Municipality",
+    tagline: "Where the world becomes quieter",
+  },
+  no: {
+    blurb:
+      "En privat øy i Nærøysund, Trøndelag — et sted å tre ut av verden for en stund.",
+    explore: "Utforsk",
+    getInTouch: "Ta kontakt",
+    place: "Nærøysund kommune",
+    tagline: "Der verden blir stillere",
+  },
+};
+
+export default function Footer({ instagramUrl }: { instagramUrl?: string }) {
   const year = new Date().getFullYear();
+  const locale = useLocale();
+  const t = COPY[locale];
 
   return (
     <footer className="bg-fjord-deep text-ivory">
@@ -22,23 +47,22 @@ export default function Footer() {
               Sømliøya
             </p>
             <p className="font-sans text-caption text-white/65 leading-relaxed max-w-xs">
-              A private island in Nærøysund, Trøndelag — a place to step
-              outside the world for a while.
+              {t.blurb}
             </p>
           </div>
 
           {/* Explore */}
           <nav aria-label="Footer" className="flex flex-col gap-2.5">
             <p className="font-sans text-eyebrow uppercase tracking-[0.3em] text-white/45 mb-1">
-              Explore
+              {t.explore}
             </p>
-            {footerLinks.map((l) => (
+            {FOOTER_PATHS.map((path, i) => (
               <Link
-                key={l.href}
-                href={l.href}
+                key={path}
+                href={localeHref(locale, path)}
                 className="font-sans text-caption uppercase tracking-[0.18em] text-white/75 hover:text-gold transition-colors w-fit"
               >
-                {l.label}
+                {FOOTER_LABELS[locale][i]}
               </Link>
             ))}
           </nav>
@@ -46,7 +70,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="flex flex-col gap-2.5">
             <p className="font-sans text-eyebrow uppercase tracking-[0.3em] text-white/45 mb-1">
-              Get in touch
+              {t.getInTouch}
             </p>
             <a
               href="mailto:hello@somlioya.no"
@@ -54,8 +78,18 @@ export default function Footer() {
             >
               hello@somlioya.no
             </a>
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans text-caption text-white/85 hover:text-gold transition-colors w-fit underline underline-offset-2 decoration-white/25 hover:decoration-gold"
+              >
+                Instagram
+              </a>
+            )}
             <p className="font-sans text-caption text-white/65 leading-relaxed">
-              Nærøysund Municipality
+              {t.place}
               <br />
               Trøndelag · Norway
             </p>
@@ -67,7 +101,7 @@ export default function Footer() {
             © {year} Sømliøya
           </p>
           <p className="font-heading italic text-caption text-white/55">
-            Where the world becomes quieter
+            {t.tagline}
           </p>
         </div>
       </div>

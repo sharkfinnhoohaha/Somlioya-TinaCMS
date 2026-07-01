@@ -1,0 +1,28 @@
+{
+  "hero": {
+    "image": "/images/islandkenburns.m4v",
+    "posterImage": "/images/IMG_5184.jpeg",
+    "imageAlt": "Øya sett fra luften om sommeren med fjell bak",
+    "title": "Om øya",
+    "subtitle": "Nærøysund kommune, Trøndelag"
+  },
+  "intro": "![Fjorden rundt Sømliøya i solnedgang](/images/IMG_9794.jpeg)\n\nSømliøya ligger i Nærøysund kommune i Trøndelag. Øya ligger i Årsetfjorden, en del av fjordlandskapet som preger denne delen av norskekysten.\n\nLandskapet her ble formet under siste istid. Strandlinjen er uregelmessig, og sjøen beveger seg stille mellom skjær og trange viker.\n",
+  "climateSection": {
+    "heading": "Klima",
+    "paragraphs": "Livet her følger de nordlige årstidenes rytme.\n\nOm sommeren forsvinner lyset nesten aldri. Rundt solverv forblir himmelen blek gjennom natten, og fjorden speiler det myke nordlige lyset døgnet rundt.\n\nVinteren er stillere og mørkere. Stormer trekker gjennom fjorden, sjøen blir stålgrå, og klare netter fyller himmelen med stjerner og nordlys.\n",
+    "image": "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
+    "imageAlt": "Byggene på øya i gyllent vinterlys"
+  },
+  "mountainsSection": {
+    "heading": "Fjell og utsikt",
+    "paragraphs": "På andre siden av fjorden reiser fjellene langs Nordlandskysten seg — den karakteristiske toppen Heilhornet, sammen med Breivasstinden og Hestmannen. De bratte silhuettene danner en velkjent horisont over havet.\n",
+    "image": "/images/IMG_2336.jpeg",
+    "imageAlt": "Heilhornet og fjelltopper over fjorden om vinteren"
+  },
+  "wildlifeSection": {
+    "heading": "Dyreliv",
+    "paragraphs": "Dyrelivet er en del av landskapet. Elg og rådyr beveger seg gjennom skogene i nærheten, mens majestetiske havørner sirkler over fjorden. Langs stranden samles sjøfugl, og i vannet finnes fisk som er typisk for norskekysten.\n",
+    "image": "/images/IMG_1440.jpeg",
+    "imageAlt": "Reinsdyr i silhuett mot den nordlige himmelen på svaberg"
+  }
+}
