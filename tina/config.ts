@@ -93,8 +93,8 @@ const pageCollections: (Collection & { ui: { router: () => string } })[] = [
             label: "Hero",
             fields: pageHeroFields,
           },
-          richTextField("poeticParagraphs", "Poetic Intro Paragraphs"),
-          richTextField("secondParagraphs", "Second Text Block"),
+          { type: "string" as const, name: "poeticParagraphs", label: "Poetic Intro Paragraphs", ui: { component: "textarea" } },
+          { type: "string" as const, name: "secondParagraphs", label: "Second Text Block", ui: { component: "textarea" } },
           {
             type: "string" as const,
             name: "pullQuote",
@@ -106,7 +106,7 @@ const pageCollections: (Collection & { ui: { router: () => string } })[] = [
             label: "Map CTA",
             fields: [
               { type: "string" as const, name: "heading", label: "Heading" },
-              richTextField("description", "Description"),
+              { type: "string" as const, name: "description", label: "Description", ui: { component: "textarea" } },
             ],
           },
           {
@@ -239,7 +239,7 @@ const pageCollections: (Collection & { ui: { router: () => string } })[] = [
                 list: true,
                 fields: [
                   { type: "string" as const, name: "name", label: "Name" },
-                  richTextField("description", "Description"),
+                  { type: "string" as const, name: "description", label: "Description", ui: { component: "textarea" } },
                   { type: "number" as const, name: "lat", label: "Latitude (optional — positions the map marker)" },
                   { type: "number" as const, name: "lng", label: "Longitude (optional — positions the map marker)" },
                 ],
