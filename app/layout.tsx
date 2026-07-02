@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Karla } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
+import LangSetter from "@/components/LangSetter";
 import "./globals.css";
 
 // Self-hosted via next/font — no render-blocking Google Fonts stylesheet,
@@ -66,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${karla.variable}`}>
       <body className="grain">
+        <LangSetter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
