@@ -18,16 +18,12 @@
 
 import { spawnSync } from "node:child_process";
 
-// Force local mode: delete Tina Cloud env vars if TINA_CLOUD_ACTIVE is not "true".
-// This prevents Vercel env vars (NEXT_PUBLIC_TINA_CLIENT_ID, TINA_TOKEN) from
-// re-enabling a dead Tina Cloud project at build time.
-if (process.env.TINA_CLOUD_ACTIVE !== "true") {
-  delete process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
-  delete process.env.TINA_TOKEN;
-}
-
+// Tina Cloud is active when both credentials are present. On Vercel production
+// these are set as env vars (NEXT_PUBLIC_TINA_CLIENT_ID + TINA_TOKEN), which
+// makes `tinacms build` generate an admin client that points at Tina Cloud so
+// the client can log in and save edits. With no creds (local dev / a fresh
+// project) we fall back to a local build so the site still ships with content.
 const hasTinaCloudCreds = Boolean(
-  process.env.TINA_CLOUD_ACTIVE === "true" &&
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID && process.env.TINA_TOKEN
 );
 
@@ -44,14 +40,22 @@ function run(label, command, args, env = {}) {
   }
 }
 
-const tinaArgs = ["tinacms", "build", "--skip-cloud-checks"];
-if (!hasTinaCloudCreds) {
+const tinaArgs = ["tinacms", "build"];
+if (hasTinaCloudCreds) {
+  console.log(
+    "✔ Tina Cloud credentials detected — building the admin against Tina " +
+      "Cloud so /admin can log in and save edits in production."
+  );
+  // Cloud checks stay ON so a bad token or wrong project fails the deploy
+  // loudly, instead of silently shipping an admin the client can't use.
+} else {
   console.log(
     "ℹ NEXT_PUBLIC_TINA_CLIENT_ID / TINA_TOKEN not set — building the local " +
       "Tina client. Content is served from content/pages/*.json; the /admin " +
       "UI requires Tina Cloud credentials to edit in production."
   );
   tinaArgs.push("--local");
+  tinaArgs.push("--skip-cloud-checks");
   // --skip-indexing avoids the long-running local file-indexing step that
   // spins up a datalayer server and can hang in CI/serverless build
   // environments with limited wall-clock time. The generated client and

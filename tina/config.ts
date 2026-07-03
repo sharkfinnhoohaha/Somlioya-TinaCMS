@@ -590,12 +590,14 @@ export default defineConfig({
     process.env.HEAD ||
     "main",
 
-  // Tina Cloud credentials from env vars. Set NEXT_PUBLIC_TINA_CLIENT_ID and
-  // TINA_TOKEN (plus TINA_CLOUD_ACTIVE=true) in Vercel env vars to enable
-  // cloud-based editing in production. Without them the build falls back to
-  // local mode (content served from JSON files, no visual editor).
-  // Media is repo-based (public/images/), so images never depend on
-  // assets.tina.io CDN.
+  // Tina Cloud credentials, read from the environment.
+  //   NEXT_PUBLIC_TINA_CLIENT_ID — public client id from app.tina.io
+  //   TINA_TOKEN                  — secret read/write token
+  // When both are set (production on Vercel), the /admin editor talks to Tina
+  // Cloud so the client can log in and save changes. When they are empty
+  // (local dev with `tinacms dev`), Tina falls back to the local file server.
+  // Media is repo-based (public/images/ and public/uploads/), so images never
+  // depend on the assets.tina.io CDN.
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
 

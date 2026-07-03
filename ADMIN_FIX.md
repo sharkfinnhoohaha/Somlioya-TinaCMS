@@ -1,117 +1,94 @@
-# TinaCMS Admin Login Fix — Diagnosis & Instructions
+# TinaCMS Admin — Why editing was broken & how to finish the fix
 
-## Summary
+## Root cause (fixed in code)
 
-The `/admin` panel is **not broken in the code**. The TinaCMS config, admin route,
-proxy.ts, and build pipeline are all correctly configured. The issue is that
-**Vercel Deployment Protection (SSO) is enabled** on the project, which intercepts
-every route — including `/admin` — with a `302 → vercel.com/sso-api` redirect
-before Next.js ever runs.
+The `/admin` panel loaded but the client **could not read or save any content**
+in production. The public site was fine (pages read the JSON files directly),
+but the CMS editor was non-functional.
 
-## What I Found
+The reason: the site was locked into TinaCMS **local mode**. The generated
+admin client had `url: 'http://localhost:4001/graphql'` baked in — an endpoint
+that only exists while a developer runs `tinacms dev` on their own laptop. On
+Vercel there is no such server, so every query and every save the client
+attempted failed.
 
-### 1. Vercel SSO is blocking everything (root cause)
+Two pieces of code forced this and had to be undone:
 
-```
-$ curl -D - https://...vercel.app/admin
-HTTP/2 302
-location: https://vercel.com/sso-api?url=...%2Fadmin&nonce=...
-```
+- `tina/config.ts` hardcoded `clientId: ""` and `token: ""`.
+- `scripts/build.mjs` **deleted** `NEXT_PUBLIC_TINA_CLIENT_ID` / `TINA_TOKEN`
+  from the environment at build time unless a `TINA_CLOUD_ACTIVE` flag was set,
+  and always built with `--local`.
 
-The **entire site** (not just `/admin`) returns a 302 to `vercel.com/sso-api → vercel.com/login`.
-This is Vercel's "Deployment Protection" / SSO feature, enabled at the **project level**
-in the Vercel dashboard. It is not a code issue and cannot be fixed by pushing code.
+### What changed
 
-### 2. TinaCMS config is correct
+- `tina/config.ts` now reads `clientId` / `token` from
+  `NEXT_PUBLIC_TINA_CLIENT_ID` / `TINA_TOKEN`.
+- `scripts/build.mjs` no longer strips those vars. When both are present it
+  builds the admin **against Tina Cloud** (editing works in production); when
+  they are absent it falls back to a local build so `tinacms dev` and offline
+  builds still work.
+- Cloud checks run during a credentialed build, so a wrong token or project id
+  fails the deploy loudly instead of silently shipping a broken editor.
 
-- `tina/config.ts` — properly defines 14 collections (7 EN + 7 NO), correct `build.outputFolder: "admin"`, `publicFolder: "public"`
-- `proxy.ts` — correctly uses Next.js 16 `proxy` convention (replaces deprecated `middleware.ts`), protects `/admin` with HTTP Basic auth when `ADMIN_PASSWORD` is set
-- `public/admin/.gitignore` — correctly ignores generated `index.html` and `assets/` (regenerated at build time)
-- `scripts/build.mjs` — correctly falls back to `--local` build when Tina Cloud creds are absent
+## What you need to do (one-time, ~5 minutes)
 
-### 3. Build was hanging (fixed)
+The code is ready. To turn on editing you just need a Tina Cloud project and two
+environment variables. The old Tina Cloud project expired, so create a fresh one.
 
-The `tinacms build --local` command was hanging because the local file-indexing step
-spins up a datalayer server on port 9000 that never exits in CI/serverless environments.
-**Fixed** by adding `--skip-indexing` to the local build path. The admin HTML, GraphQL
-client, and TypeScript types are still generated — only the long-running file index
-is skipped (content is served from JSON files at runtime anyway).
+### 1. Create a Tina Cloud project
 
-### 4. Tina Cloud credentials are NOT set in Vercel env vars
+1. Go to **https://app.tina.io** and sign in.
+2. Create a **new project** and connect it to the GitHub repo
+   `sharkfinnhoohaha/somlioya-tinacms`.
+3. Set the project's **branch** to your production branch (`main`).
 
-The `.env.example` documents the required vars:
-- `NEXT_PUBLIC_TINA_CLIENT_ID` — public, sent to browser
-- `TINA_TOKEN` — secret read/write token
+### 2. Copy the credentials
 
-Without these, the admin UI loads but **cannot connect to Tina Cloud** for
-editing. The build falls back to `--local` mode, which generates the admin
-HTML but the editor won't be able to save changes.
+From the project's **Overview / Settings** page:
 
-### 5. GraphQL error from before
+- **Client ID** → this is `NEXT_PUBLIC_TINA_CLIENT_ID`
+- Generate a **Read/Write Token** → this is `TINA_TOKEN`
 
-The "Unexpected error querying context. Syntax error: unexpected <eof>" error
-was a symptom of the build hanging/timing out during `tinacms build --local`
-without `--skip-indexing`. The datalayer server would start but never complete
-indexing, producing empty/malformed GraphQL responses. The `--skip-indexing`
-fix resolves this.
+### 3. Add them to Vercel
 
-## What I Fixed (pushed to main)
+In **Vercel → the project → Settings → Environment Variables**, add both for the
+**Production** (and Preview, if you want editing on previews) environment:
 
-- **`scripts/build.mjs`** — Added `--skip-indexing` flag to the local TinaCMS
-  build path to prevent the datalayer server from hanging in CI/Vercel builds.
+| Name | Value | Environment |
+|------|-------|-------------|
+| `NEXT_PUBLIC_TINA_CLIENT_ID` | your Client ID | Production |
+| `TINA_TOKEN` | your Read/Write token | Production |
 
-## What Finn Needs to Do (manual — cannot be done from code)
+### 4. Redeploy
 
-### Step 1: Disable Vercel Deployment Protection (fixes the immediate login issue)
+Trigger a redeploy (push a commit or hit **Redeploy** in Vercel). The build log
+should print `✔ Tina Cloud credentials detected …`. If the credentials are wrong,
+the build fails with a clear Tina Cloud error — fix the values and redeploy.
 
-This is what's blocking `/admin` — and the entire site:
+### 5. Invite your client
 
-1. Go to **https://vercel.com/sharkfinnhoohahas-projects/somlioya-tinacms**
-2. Click **Settings** → **Deployment Protection**
-3. Set **Vercel Authentication** to **"Disabled"** (or "Production Deployment" if you want protection on preview deployments only)
-4. Redeploy (push any commit or click "Redeploy" in the Deployments tab)
+In **app.tina.io → your project → Collaborators**, invite the client by email.
+They log in at `https://<your-domain>/admin` with their Tina Cloud account and
+can edit every page. Edits are committed straight back to the GitHub repo.
 
-After this, `https://...vercel.app/admin` will serve the TinaCMS admin HTML
-instead of redirecting to Vercel's SSO login.
+## Also check: Vercel Deployment Protection
 
-### Step 2: Set Tina Cloud environment variables (enables editing in admin)
+If the whole site (not just `/admin`) redirects to a Vercel login page, that is
+**Vercel Deployment Protection / SSO**, set in **Vercel → Settings → Deployment
+Protection**. Disable it (or scope it to Preview only) so visitors and the
+client's `/admin` login aren't intercepted. This is a dashboard setting, not code.
 
-1. Go to **https://app.tina.io** → your project → **Settings**
-2. Find your **Client ID** and generate a **Read/Write Token**
-3. Go to **Vercel** → your project → **Settings** → **Environment Variables**
-4. Add these two variables (for **Production** environment):
+## Optional: Basic-auth gate on /admin
 
-   | Name | Value | Environment |
-   |------|-------|------------|
-   | `NEXT_PUBLIC_TINA_CLIENT_ID` | `your-client-id-from-tina` | Production |
-   | `TINA_TOKEN` | `your-read-write-token-from-tina` | Production |
+`proxy.ts` adds an HTTP Basic auth prompt in front of `/admin` when
+`ADMIN_PASSWORD` is set in Vercel (username `admin`). This is independent of the
+Tina Cloud login and is only an extra gate — leave it unset if you rely solely on
+Tina Cloud's own authentication.
 
-5. **Redeploy** the project (the build will pick up the new env vars and build
-   with Tina Cloud mode instead of `--local`)
+## Architecture recap
 
-### Step 3 (optional): Set ADMIN_PASSWORD for Basic Auth protection
-
-Once Vercel SSO is disabled, the admin is open by default. To protect it:
-
-1. In Vercel → Settings → Environment Variables, add:
-
-   | Name | Value | Environment |
-   |------|-------|------------|
-   | `ADMIN_PASSWORD` | `your-chosen-password` | Production |
-
-2. Redeploy. The admin will then require HTTP Basic auth (username: `admin`).
-
-### Step 4: Verify
-
-After redeploying:
-- `https://...vercel.app/` should show the Sømliøya homepage
-- `https://...vercel.app/admin` should show the TinaCMS editor UI
-- If Tina Cloud creds are set, you can log in and edit content
-- If Tina Cloud creds are NOT set, the admin loads but shows an error when trying to edit — content is still served correctly from JSON files
-
-## Architecture Notes
-
-- Content lives in `content/pages/*.json` (EN) and `content/pages/no/*.json` (NO)
-- Pages read content via filesystem (`tina/lib/client.ts`) with a GraphQL client fallback
-- The admin UI is a static SPA generated by `tinacms build` into `public/admin/`
-- `proxy.ts` (Next.js 16 replacement for `middleware.ts`) optionally guards `/admin` with Basic auth
+- Content lives in `content/pages/*.json` (EN) and `content/pages/no/*.json` (NO).
+- Public pages read the JSON from disk (`tina/lib/client.ts`).
+- The `/admin` UI is a static SPA generated by `tinacms build` into `public/admin/`.
+- With Tina Cloud creds set, that SPA talks to Tina Cloud, which reads/writes the
+  content JSON via GitHub — so client edits become commits on `main`.
