@@ -52,6 +52,11 @@ if (!hasTinaCloudCreds) {
       "UI requires Tina Cloud credentials to edit in production."
   );
   tinaArgs.push("--local");
+  // --skip-indexing avoids the long-running local file-indexing step that
+  // spins up a datalayer server and can hang in CI/serverless build
+  // environments with limited wall-clock time. The generated client and
+  // admin assets are still produced.
+  tinaArgs.push("--skip-indexing");
 }
 
 run("TinaCMS build", "npx", tinaArgs);
