@@ -1,11 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import blurMap from "@/lib/blur-data.json";
+
+const blurPlaceholders: Record<string, string> = blurMap;
 
 /**
  * Samples the average colour of the top or bottom edge strip of an image.
  * Returns a darkened, muted version suitable for cinematic section transitions.
  * Falls back to `fallback` until the image loads or on any canvas error.
+ *
+ * Samples from the pre-generated 16px blur placeholder when one exists —
+ * a data URL, so no network request. Previously this re-downloaded the
+ * full-resolution original alongside the next/image-optimized copy.
  */
 export function useImageEdgeColor(
   src: string,
@@ -17,9 +24,14 @@ export function useImageEdgeColor(
   useEffect(() => {
     if (!src) return;
 
+    // Prefer the 16px blur placeholder (a data URL — decodes instantly, no
+    // download). Fall back to fetching the real image only when no
+    // placeholder was generated for this path.
+    const source = blurPlaceholders[src] ?? src;
+
     const img = new window.Image();
     // Only set crossOrigin for external URLs – local images don't need it
-    if (src.startsWith("http")) img.crossOrigin = "anonymous";
+    if (source.startsWith("http")) img.crossOrigin = "anonymous";
 
     img.onload = () => {
       try {
@@ -67,7 +79,7 @@ export function useImageEdgeColor(
       }
     };
 
-    img.src = src;
+    img.src = source;
   }, [src, edge, fallback]);
 
   return color;
