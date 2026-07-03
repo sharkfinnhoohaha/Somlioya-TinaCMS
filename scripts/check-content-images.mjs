@@ -17,23 +17,27 @@ const PATH_RE = /"(\/(?:images|uploads)\/[^"]+)"/g;
 
 async function collectRefs() {
   const refs = new Map(); // path -> Set<sourceFile>
-  let entries;
-  try {
-    entries = await readdir(contentDir);
-  } catch (err) {
-    if (err.code === "ENOENT") return refs;
-    throw err;
-  }
+  const contentDirs = [contentDir, join(contentDir, "no")];
 
-  for (const name of entries) {
-    if (!name.endsWith(".json")) continue;
-    const file = join(contentDir, name);
-    const text = await readFile(file, "utf8");
-    let m;
-    while ((m = PATH_RE.exec(text))) {
-      const p = m[1];
-      if (!refs.has(p)) refs.set(p, new Set());
-      refs.get(p).add(name);
+  for (const dir of contentDirs) {
+    let entries;
+    try {
+      entries = await readdir(dir);
+    } catch (err) {
+      if (err.code === "ENOENT") continue;
+      throw err;
+    }
+
+    for (const name of entries) {
+      if (!name.endsWith(".json")) continue;
+      const file = join(dir, name);
+      const text = await readFile(file, "utf8");
+      let m;
+      while ((m = PATH_RE.exec(text))) {
+        const p = m[1];
+        if (!refs.has(p)) refs.set(p, new Set());
+        refs.get(p).add(name);
+      }
     }
   }
   return refs;
