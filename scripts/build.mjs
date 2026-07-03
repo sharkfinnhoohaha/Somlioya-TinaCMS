@@ -18,6 +18,14 @@
 
 import { spawnSync } from "node:child_process";
 
+// Force local mode: delete Tina Cloud env vars if TINA_CLOUD_ACTIVE is not "true".
+// This prevents Vercel env vars (NEXT_PUBLIC_TINA_CLIENT_ID, TINA_TOKEN) from
+// re-enabling a dead Tina Cloud project at build time.
+if (process.env.TINA_CLOUD_ACTIVE !== "true") {
+  delete process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
+  delete process.env.TINA_TOKEN;
+}
+
 const hasTinaCloudCreds = Boolean(
   process.env.TINA_CLOUD_ACTIVE === "true" &&
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID && process.env.TINA_TOKEN
