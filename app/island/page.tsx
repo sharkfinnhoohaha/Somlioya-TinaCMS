@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/i18n";
-import client from "@/tina/__generated__/client";
 import { getIslandPage } from "@/tina/lib/client";
 import IslandClient from "./IslandClient";
 
@@ -12,15 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function IslandPage() {
-  let props: { data: any; query: string; variables: object };
-  try {
-    props = await client.queries.islandPage({ relativePath: "island.json" });
-  } catch {
-    props = {
-      data: { islandPage: getIslandPage() as any },
-      query: "",
-      variables: { relativePath: "island.json" },
-    };
-  }
+  const props = {
+    data: { islandPage: getIslandPage() as any },
+    query: "",
+    variables: { relativePath: "island.json" },
+  };
   return <IslandClient {...props} />;
 }
