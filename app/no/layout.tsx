@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Karla } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
-import LangSetter from "@/components/LangSetter";
-import "./globals.css";
+import "@/app/globals.css";
 
-// Self-hosted via next/font — no render-blocking Google Fonts stylesheet,
-// no flash of fallback type, and automatic size-adjusted fallbacks so text
-// doesn't shift when the webfonts arrive.
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
@@ -22,13 +18,12 @@ const karla = Karla({
   variable: "--font-karla",
 });
 
-// Structured data for search engines — the island is a rentable lodging.
 const lodgingJsonLd = {
   "@context": "https://schema.org",
   "@type": "LodgingBusiness",
   name: "Sømliøya",
   description:
-    "A private island retreat in Nærøysund, Trøndelag, Norway. Rent for a day, a weekend, or a week.",
+    "Et privat øy-retreat i Nærøysund, Trøndelag, Norge. Leies ut for en dag, en helg eller en uke.",
   url: SITE_URL,
   email: "hello@somlioya.no",
   address: {
@@ -47,34 +42,33 @@ const lodgingJsonLd = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sømliøya — Where the world becomes quieter",
+    default: "Sømliøya — Der verden blir stillere",
     template: "%s · Sømliøya",
   },
   description:
-    "A private island retreat in Nærøysund, Trøndelag, Norway. Rent for a day, a weekend, or a week.",
+    "Et privat øy-retreat i Nærøysund, Trøndelag. Leies ut for en dag, en helg eller en uke.",
   openGraph: {
     title: "Sømliøya",
-    description: "A place to step outside the world for a while.",
+    description: "Et sted å tre ut av verden for en stund.",
     type: "website",
-    locale: "en_GB",
+    locale: "nb_NO",
   },
 };
 
-export default function RootLayout({
+export default function NorwegianLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${karla.variable}`}>
+    <html lang="no" className={`${cormorant.variable} ${karla.variable}`}>
       <body className="grain">
-        <LangSetter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
         />
         <a href="#main-content" className="skip-link">
-          Skip to content
+          Hopp til innhold
         </a>
         {children}
       </body>
