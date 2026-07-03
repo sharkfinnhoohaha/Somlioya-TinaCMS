@@ -19,6 +19,7 @@
 import { spawnSync } from "node:child_process";
 
 const hasTinaCloudCreds = Boolean(
+  process.env.TINA_CLOUD_ACTIVE === "true" &&
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID && process.env.TINA_TOKEN
 );
 

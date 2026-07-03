@@ -590,9 +590,14 @@ export default defineConfig({
     process.env.HEAD ||
     "main",
 
-  // Use local mode (no Tina Cloud account needed for development)
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
+  // Local mode — no Tina Cloud account needed.
+  // Tina Cloud credentials were removed because the Tina Cloud project
+  // (523da489-c704-4aaf-8d32-1ff42bf31028) is no longer active, causing all
+  // assets.tina.io image URLs to 404. In local mode, images are served from
+  // /public/images/ directly. Set NEXT_PUBLIC_TINA_CLIENT_ID and TINA_TOKEN
+  // in Vercel env vars ONLY if you re-create the Tina Cloud project.
+  clientId: "",
+  token: "",
 
   build: {
     outputFolder: "admin",
