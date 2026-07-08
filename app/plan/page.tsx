@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPlanPage } from "@/tina/lib/client";
+import { PlanPageDocument } from "@/tina/__generated__/types";
 import { pageAlternates } from "@/lib/i18n";
 import PlanClient from "./PlanClient";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function PlanPage() {
   const props = {
     data: { planPage: getPlanPage() as any },
-    query: "",
+    query: PlanPageDocument,
     variables: { relativePath: "plan.json" },
   };
   return <PlanClient {...props} />;

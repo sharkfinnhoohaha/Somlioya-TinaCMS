@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/i18n";
 import { getContactPage } from "@/tina/lib/client";
+import { ContactPageDocument } from "@/tina/__generated__/types";
 import ContactClient from "./ContactClient";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   const props = {
     data: { contactPage: getContactPage() as any },
-    query: "",
+    query: ContactPageDocument,
     variables: { relativePath: "contact.json" },
   };
   return <ContactClient {...props} />;

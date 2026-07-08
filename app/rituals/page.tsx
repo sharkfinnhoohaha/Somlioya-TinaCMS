@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/i18n";
 import { getRitualsPage } from "@/tina/lib/client";
+import { RitualsPageDocument } from "@/tina/__generated__/types";
 import RitualsClient from "./RitualsClient";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function RitualsPage() {
   const props = {
     data: { ritualsPage: getRitualsPage() as any },
-    query: "",
+    query: RitualsPageDocument,
     variables: { relativePath: "rituals.json" },
   };
   return <RitualsClient {...props} />;

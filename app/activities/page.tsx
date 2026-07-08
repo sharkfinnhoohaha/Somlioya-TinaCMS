@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/i18n";
 import { getActivitiesPage } from "@/tina/lib/client";
+import { ActivitiesPageDocument } from "@/tina/__generated__/types";
 import ActivitiesClient from "./ActivitiesClient";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function ActivitiesPage() {
   const props = {
     data: { activitiesPage: getActivitiesPage() as any },
-    query: "",
+    query: ActivitiesPageDocument,
     variables: { relativePath: "activities.json" },
   };
   return <ActivitiesClient {...props} />;

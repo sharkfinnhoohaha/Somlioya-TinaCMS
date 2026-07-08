@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/i18n";
 import { getIslandPage } from "@/tina/lib/client";
+import { IslandPageDocument } from "@/tina/__generated__/types";
 import IslandClient from "./IslandClient";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function IslandPage() {
   const props = {
     data: { islandPage: getIslandPage() as any },
-    query: "",
+    query: IslandPageDocument,
     variables: { relativePath: "island.json" },
   };
   return <IslandClient {...props} />;
