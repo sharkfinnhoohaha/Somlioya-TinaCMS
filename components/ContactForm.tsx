@@ -126,7 +126,7 @@ export default function ContactForm({
   return (
     <div className="max-w-xl mx-auto px-6 py-16 md:py-24">
       <AnimatedDivider className="mb-8" />
-      <p className="font-sans text-body text-smoke mb-4">
+      <p className="font-sans text-body text-smoke mb-4 whitespace-pre-line">
         {introText ?? t.intro}
       </p>
       <p className="font-sans text-body text-smoke mb-10">
