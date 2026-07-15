@@ -199,9 +199,18 @@ export default function RichText({
   if (!value) return null;
 
   if (typeof value === "string") {
+    // Textarea fields store paragraphs as blank-line-separated plain text;
+    // without splitting, the breaks collapse and everything renders as one
+    // run-on paragraph. whitespace-pre-line keeps single line breaks too.
+    const paragraphs = value
+      .split(/\n{2,}/)
+      .map((p) => p.trim())
+      .filter(Boolean);
     return (
       <div className={className}>
-        <p className={`font-sans mt-5 first:mt-0 ${dark ? "text-lead text-white/80" : "text-body text-smoke"}`}>{value}</p>
+        {paragraphs.map((p, i) => (
+          <p key={i} className={`font-sans whitespace-pre-line mt-5 first:mt-0 ${dark ? "text-lead text-white/80" : "text-body text-smoke"}`}>{p}</p>
+        ))}
       </div>
     );
   }

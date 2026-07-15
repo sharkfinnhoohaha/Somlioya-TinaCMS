@@ -4,7 +4,9 @@ import { pageAlternates } from "@/lib/i18n";
 import HomePageClient from "../HomePageClient";
 
 export const metadata: Metadata = {
-  title: "Sømliøya — Der verden blir stillere",
+  // absolute: skip the "%s · Sømliøya" layout template — the home page title
+  // already contains the site name, so templating doubled it.
+  title: { absolute: "Sømliøya — Der verden blir stillere" },
   description:
     "Et privat øy-retreat i Nærøysund, Trøndelag. Leies ut for en dag, en helg eller en uke.",
   alternates: pageAlternates("/", "no"),
