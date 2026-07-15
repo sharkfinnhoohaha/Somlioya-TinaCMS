@@ -37,11 +37,7 @@ export default function ContactClient(props: {
           }
           height="h-[52vh] min-h-[360px]"
         />
-        <ContactForm
-          locale={locale}
-          introText={page?.introText}
-          contactEmail={page?.contactEmail}
-        />
+        <ContactForm locale={locale} introText={page?.introText} />
       </main>
       <Footer />
     </>

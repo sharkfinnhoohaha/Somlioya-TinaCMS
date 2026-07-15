@@ -4,18 +4,15 @@ import { useState } from "react";
 import Button from "./Button";
 import AnimatedDivider from "./AnimatedDivider";
 
-const FALLBACK_EMAIL = "hello@somlioya.no";
-
 const labelClass =
   "font-sans text-caption uppercase tracking-[0.16em] text-fjord";
 const inputClass =
   "w-full py-3 bg-transparent border-b border-charcoal/20 font-sans text-body text-charcoal outline-none focus:border-fjord transition-colors placeholder:text-smoke-soft/60";
 
-type Status = "idle" | "sending" | "sent" | "mailto" | "error";
+type Status = "idle" | "sending" | "sent" | "error";
 
 interface Labels {
   intro: string;
-  preferEmail: [string, string];
   name: string;
   namePlaceholder: string;
   email: string;
@@ -25,14 +22,12 @@ interface Labels {
   send: string;
   sending: string;
   sent: string;
-  mailtoNote: [string, string];
   error: string;
 }
 
 const LABELS: Record<"en" | "no", Labels> = {
   en: {
     intro: "Just get in touch to ask for whatever you need.",
-    preferEmail: ["Prefer to write directly? Email us at", "."],
     name: "Your name",
     namePlaceholder: "Jane Doe",
     email: "Your email",
@@ -43,15 +38,11 @@ const LABELS: Record<"en" | "no", Labels> = {
     send: "Send enquiry",
     sending: "Sending…",
     sent: "Thank you — your enquiry has been sent. We will reply as soon as we can.",
-    mailtoNote: [
-      "Your email app should have opened with the message ready to send. If it didn't, please write to",
-      ".",
-    ],
-    error: "Something went wrong. Please email us directly at",
+    error:
+      "Something went wrong sending your message. Please try again in a moment.",
   },
   no: {
     intro: "Ta kontakt og spør om det du måtte lure på.",
-    preferEmail: ["Vil du heller skrive direkte? Send e-post til", "."],
     name: "Navnet ditt",
     namePlaceholder: "Kari Nordmann",
     email: "E-postadressen din",
@@ -62,35 +53,19 @@ const LABELS: Record<"en" | "no", Labels> = {
     send: "Send forespørsel",
     sending: "Sender…",
     sent: "Takk — forespørselen din er sendt. Vi svarer så snart vi kan.",
-    mailtoNote: [
-      "E-postprogrammet ditt skal ha åpnet seg med meldingen klar. Hvis ikke, skriv til",
-      ".",
-    ],
-    error: "Noe gikk galt. Send oss gjerne en e-post direkte på",
+    error: "Noe gikk galt under sendingen. Prøv gjerne igjen om litt.",
   },
 };
 
 export default function ContactForm({
   introText,
-  contactEmail,
   locale = "en",
 }: {
   introText?: string;
-  contactEmail?: string;
   locale?: "en" | "no";
 }) {
-  const email = contactEmail?.trim() || FALLBACK_EMAIL;
   const [status, setStatus] = useState<Status>("idle");
   const t = LABELS[locale];
-
-  const openMailto = (name: string, fromEmail: string, message: string) => {
-    const subject = `Island enquiry from ${name || "the website"}`;
-    const body = `${message}\n\n— ${name}\n${fromEmail}`;
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setStatus("mailto");
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,37 +82,17 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email: fromEmail, message, company }),
       });
-      if (res.ok) {
-        setStatus("sent");
-        return;
-      }
-      const data = await res.json().catch(() => ({}));
-      if (data?.fallback) {
-        // Server-side sending isn't configured — open the visitor's mail app.
-        openMailto(name, fromEmail, message);
-        return;
-      }
-      setStatus("error");
+      setStatus(res.ok ? "sent" : "error");
     } catch {
-      openMailto(name, fromEmail, message);
+      setStatus("error");
     }
   };
 
   return (
     <div className="max-w-xl mx-auto px-6 py-16 md:py-24">
       <AnimatedDivider className="mb-8" />
-      <p className="font-sans text-body text-smoke mb-4 whitespace-pre-line">
+      <p className="font-sans text-body text-smoke mb-10 whitespace-pre-line">
         {introText ?? t.intro}
-      </p>
-      <p className="font-sans text-body text-smoke mb-10">
-        {t.preferEmail[0]}{" "}
-        <a
-          href={`mailto:${email}`}
-          className="text-fjord-deep underline underline-offset-2 decoration-gold/70 hover:decoration-gold hover:decoration-2 transition-all"
-        >
-          {email}
-        </a>
-        {t.preferEmail[1]}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-7">
@@ -206,28 +161,9 @@ export default function ContactForm({
               {t.sent}
             </p>
           )}
-          {status === "mailto" && (
-            <p role="status" className="font-sans text-caption text-smoke max-w-xs">
-              {t.mailtoNote[0]}{" "}
-              <a
-                href={`mailto:${email}`}
-                className="text-fjord-deep underline underline-offset-2"
-              >
-                {email}
-              </a>
-              {t.mailtoNote[1]}
-            </p>
-          )}
           {status === "error" && (
             <p role="alert" className="font-sans text-caption text-smoke max-w-xs">
-              {t.error}{" "}
-              <a
-                href={`mailto:${email}`}
-                className="text-fjord-deep underline underline-offset-2"
-              >
-                {email}
-              </a>
-              .
+              {t.error}
             </p>
           )}
         </div>

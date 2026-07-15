@@ -554,7 +554,7 @@ const pageCollections: (Collection & { ui: { router: () => string } })[] = [
             name: "contactEmail",
             label: "Contact Email Address",
             description:
-              "Where enquiries are sent. The contact form opens the visitor's email app addressed here, and this address is shown on the page.",
+              "Where contact form enquiries are delivered. This address is never shown to visitors.",
             required: true,
           },
         ],

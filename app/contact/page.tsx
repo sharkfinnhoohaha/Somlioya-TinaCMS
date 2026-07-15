@@ -12,8 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
+  // Strip contactEmail before it reaches the client — page props are
+  // serialized into the HTML, and the delivery address is private. The
+  // /api/contact route reads it from the CMS server-side.
+  const { contactEmail, ...page } = getContactPage() ?? {};
   const props = {
-    data: { contactPage: getContactPage() as any },
+    data: { contactPage: page as any },
     query: ContactPageDocument,
     variables: { relativePath: "contact.json" },
   };

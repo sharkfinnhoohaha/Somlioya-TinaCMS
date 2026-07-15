@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import { getContactPage } from "@/tina/lib/client";
 
-const FALLBACK_EMAIL = "hello@somlioya.no";
 const MAX_LENGTHS = { name: 200, email: 320, message: 5000 };
 
 /**
- * Contact form endpoint. Sends the enquiry by email through Resend when
- * RESEND_API_KEY is configured; otherwise returns 503 so the client can fall
- * back to opening the visitor's own mail app (the previous behaviour).
+ * Contact form endpoint. Sends the enquiry by email through Resend to the
+ * address configured in the CMS (Contact Page → Contact Email Address).
+ * The form is the only contact channel — no address is shown publicly and
+ * there is no mailto fallback, so both RESEND_API_KEY and the CMS address
+ * must be configured for enquiries to get through.
  *
  * Env vars (see .env.example):
- *   RESEND_API_KEY      — Resend API key; unset = mailto fallback
- *   CONTACT_FROM_EMAIL  — verified sender, e.g. "Sømliøya <noreply@somlioya.no>"
+ *   RESEND_API_KEY      — Resend API key (required in production)
+ *   CONTACT_FROM_EMAIL  — verified sender, e.g. "Sømliøya <noreply@somlioya.net>"
  */
 export async function POST(request: Request) {
   let body: { name?: string; email?: string; message?: string; company?: string };
@@ -38,14 +39,18 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  const to = getContactPage()?.contactEmail?.trim();
+  if (!apiKey || !to) {
+    console.error(
+      "Contact form is not configured:",
+      apiKey ? "no contactEmail set in the CMS" : "RESEND_API_KEY is not set"
+    );
     return NextResponse.json(
-      { error: "Email sending is not configured.", fallback: true },
+      { error: "Email sending is not configured." },
       { status: 503 }
     );
   }
 
-  const to = getContactPage()?.contactEmail?.trim() || FALLBACK_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL || "Sømliøya <onboarding@resend.dev>";
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -66,7 +71,7 @@ export async function POST(request: Request) {
   if (!res.ok) {
     console.error("Resend error:", res.status, await res.text());
     return NextResponse.json(
-      { error: "Could not send your message right now.", fallback: true },
+      { error: "Could not send your message right now." },
       { status: 502 }
     );
   }

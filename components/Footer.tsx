@@ -12,13 +12,14 @@ const FOOTER_LABELS: Record<Locale, string[]> = {
 
 const COPY: Record<
   Locale,
-  { blurb: string; explore: string; getInTouch: string; place: string; tagline: string }
+  { blurb: string; explore: string; getInTouch: string; contactLink: string; place: string; tagline: string }
 > = {
   en: {
     blurb:
       "A private island in Nærøysund, Trøndelag — a place to step outside the world for a while.",
     explore: "Explore",
     getInTouch: "Get in touch",
+    contactLink: "Send us a message",
     place: "Nærøysund Municipality",
     tagline: "Where the world becomes quieter",
   },
@@ -27,6 +28,7 @@ const COPY: Record<
       "En privat øy i Nærøysund, Trøndelag — et sted å tre ut av verden for en stund.",
     explore: "Utforsk",
     getInTouch: "Ta kontakt",
+    contactLink: "Send oss en melding",
     place: "Nærøysund kommune",
     tagline: "Der verden blir stillere",
   },
@@ -72,12 +74,12 @@ export default function Footer({ instagramUrl }: { instagramUrl?: string }) {
             <p className="font-sans text-eyebrow uppercase tracking-[0.3em] text-white/45 mb-1">
               {t.getInTouch}
             </p>
-            <a
-              href="mailto:hello@somlioya.no"
+            <Link
+              href={localeHref(locale, "/contact")}
               className="font-sans text-caption text-white/85 hover:text-gold transition-colors w-fit underline underline-offset-2 decoration-white/25 hover:decoration-gold"
             >
-              hello@somlioya.no
-            </a>
+              {t.contactLink}
+            </Link>
             {instagramUrl && (
               <a
                 href={instagramUrl}

@@ -30,7 +30,6 @@ const lodgingJsonLd = {
   description:
     "A private island retreat in Nærøysund, Trøndelag, Norway. Rent for a day, a weekend, or a week.",
   url: SITE_URL,
-  email: "hello@somlioya.no",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Nærøysund",
