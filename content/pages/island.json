@@ -1,28 +1,28 @@
 {
   "hero": {
-    "image": "/images/islandkenburns.m4v",
-    "posterImage": "/images/IMG_5184.jpeg",
+    "image": "/uploads/images/islandkenburns.m4v",
+    "posterImage": "/uploads/images/IMG_5184.jpeg",
     "imageAlt": "Aerial view of the island in summer with mountains behind",
     "title": "About the Island",
     "subtitle": "Nærøysund municipality, Trøndelag"
   },
-  "intro": "![The fjord around Sømliøya at sunset](/images/IMG_9794.jpeg)\n\nSømliøya lies in Nærøysund municipality in Trøndelag. The island sits in Årsetfjorden, part of the fjord landscape that shapes this stretch of the Norwegian coast.\n\nThe land here was formed during the last Ice Age. The shoreline is irregular, and the sea moves quietly between skerries and narrow inlets.\n",
+  "intro": "Sømliøya lies in Nærøysund municipality in Trøndelag. The island sits in Årsetfjorden, part of the fjord landscape that shapes this stretch of the Norwegian coast.\n\nThe land here was formed during the last Ice Age. The shoreline is irregular, and the sea moves quietly between skerries and narrow inlets.\n",
   "climateSection": {
     "heading": "Climate",
     "paragraphs": "Life here follows the rhythm of the northern seasons.\n\nIn summer the light hardly disappears. Around the solstice the sky remains pale through the night and the fjord reflects the soft northern light twenty-four hours a day.\n\nWinter is quieter and darker. Storms pass through the fjord, the sea turns steel grey, and clear nights fill the sky with stars and northern lights.\n",
-    "image": "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
+    "image": "/uploads/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
     "imageAlt": "The island buildings in golden winter light"
   },
   "mountainsSection": {
     "heading": "Mountains and Views",
     "paragraphs": "Across the fjord rise the mountains of the Nordland coast — the distinctive peak of Heilhornet, together with Breivasstinden and Hestmannen. Their steep silhouettes form a familiar horizon above the sea.\n",
-    "image": "/images/IMG_2336.jpeg",
+    "image": "/uploads/images/IMG_2336.jpeg",
     "imageAlt": "Heilhornet and mountain peaks across the fjord in winter"
   },
   "wildlifeSection": {
     "heading": "Wildlife",
     "paragraphs": "Wildlife is part of the landscape. Moose and roe deer move through nearby forests, while majestic sea eagles circle above the fjord. Along the shore seabirds gather, and the waters hold fish typical for the Norwegian coast.\n",
-    "image": "/images/IMG_1440.jpeg",
+    "image": "/uploads/images/IMG_1440.jpeg",
     "imageAlt": "Reindeer silhouetted against the northern sky on rocks"
   }
 }
