@@ -1,7 +1,7 @@
 {
   "hero": {
-    "image": "/images/activitieskenburns.m4v",
-    "posterImage": "/images/IMG_4928.jpeg",
+    "image": "/uploads/images/activitieskenburns.m4v",
+    "posterImage": "/uploads/images/IMG_4928.jpeg",
     "imageAlt": "Mountain panorama at sunset with hikers",
     "title": "Activities",
     "subtitle": "There is always something to do. And always space to do nothing at all."
@@ -11,19 +11,19 @@
     "heading": "On the Water",
     "items": [
       {
-        "image": "/images/IMG_4762.jpeg",
+        "image": "/uploads/images/IMG_4762.jpeg",
         "imageAlt": "View across the fjord with a small boat",
         "title": "Kayaking",
-        "description": "The fjord is calm and sheltered in many places, making it possible to explore the coast and quiet bays by kayak."
+        "description": "The sheltered waters around the island are ideal for kayaking. Follow the coastline, explore small bays or paddle out between the scattered islands. On calm mornings the water can be almost mirror-like."
       },
       {
-        "image": "/images/IMG_1476.jpeg",
+        "image": "/uploads/images/IMG_1476.jpeg",
         "imageAlt": "Fishing rods against the fjord with mountain backdrop",
         "title": "Fishing",
         "description": "Fishing has always been part of life along the fjord. Cod, pollock and mackerel are common in these waters."
       },
       {
-        "image": "/images/IMG_1611.jpeg",
+        "image": "/uploads/images/IMG_1611.jpeg",
         "imageAlt": "Person fishing from rocks in Norwegian sweater",
         "title": "Swimming",
         "description": "The sea is cold and clear. You can jump from the rocks and warm up afterwards by the fire or in the house."
@@ -34,19 +34,19 @@
     "heading": "On Land",
     "items": [
       {
-        "image": "/images/IMG_1432.jpeg",
+        "image": "/uploads/images/IMG_1432.jpeg",
         "imageAlt": "Two hikers at mountain summit at sunset",
         "title": "Walking & Hiking",
         "description": "The island and nearby areas offer simple coastal walks across rocks, forest paths and open shoreline."
       },
       {
-        "image": "/images/IMG_1460.jpeg",
+        "image": "/uploads/images/IMG_1460.jpeg",
         "imageAlt": "Silhouette of hiker against dramatic orange sunset",
         "title": "Heilhornet",
         "description": "One of the most distinctive peaks in the region. A day trip to the summit offers wide views across fjords, islands and the open Norwegian Sea."
       },
       {
-        "image": "/images/IMG_1496.jpeg",
+        "image": "/uploads/images/IMG_1496.jpeg",
         "imageAlt": "Hikers on rocky mountain summit ridge",
         "title": "Wildlife Watching",
         "description": "Sea eagles are often seen above the fjord, and roe deer and moose move through nearby forests."
@@ -65,13 +65,13 @@
         "description": "The mainland coast nearby is dotted with small fishing villages and quiet harbours. A short trip by boat brings you to shops, cafés and the everyday rhythm of Norwegian coastal life — close enough to reach with ease, far enough that the island remains its own quiet world.\n"
       }
     ],
-    "image": "/images/IMG_1467.jpeg",
+    "image": "/uploads/images/IMG_1467.jpeg",
     "imageAlt": "Two people at summit cairn overlooking fjords at sunset"
   },
   "fireSection": {
     "heading": "Around the Fire",
     "text": "As the light softens, the day usually finds its way back to the fire. It is where meals are cooked and shared, where stories are told, and where the evening slows to the sound of the water.\n\nA fire by the shore is the simplest thing the island offers — and often the part of a stay that people remember most.\n",
-    "closingImage": "/images/IMG_5214.jpeg",
+    "closingImage": "/uploads/images/IMG_5214.jpeg",
     "closingImageAlt": "Group of people dining at outdoor table by the fjord"
   }
 }
