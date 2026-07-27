@@ -1,7 +1,7 @@
 {
   "hero": {
-    "image": "/uploads/images/activitieskenburns.m4v",
-    "posterImage": "/uploads/images/IMG_4928.jpeg",
+    "image": "/images/activitieskenburns.m4v",
+    "posterImage": "/images/IMG_4928.jpeg",
     "imageAlt": "Mountain panorama at sunset with hikers",
     "title": "Activities",
     "subtitle": "There is always something to do. And always space to do nothing at all."
@@ -11,19 +11,19 @@
     "heading": "On the Water",
     "items": [
       {
-        "image": "/uploads/images/IMG_4762.jpeg",
+        "image": "/images/IMG_4762.jpeg",
         "imageAlt": "View across the fjord with a small boat",
         "title": "Kayaking",
         "description": "The sheltered waters around the island are ideal for kayaking. Follow the coastline, explore small bays or paddle out between the scattered islands. On calm mornings the water can be almost mirror-like."
       },
       {
-        "image": "/uploads/images/IMG_1476.jpeg",
+        "image": "/images/IMG_1476.jpeg",
         "imageAlt": "Fishing rods against the fjord with mountain backdrop",
         "title": "Fishing",
         "description": "FFishing is part of everyday life here. Cast a line from the shore or head out by boat and, depending on the season, you may catch cod, pollock, mackerel or even a helibot!"
       },
       {
-        "image": "/uploads/images/IMG_1611.jpeg",
+        "image": "/images/IMG_1611.jpeg",
         "imageAlt": "Person fishing from rocks in Norwegian sweater",
         "title": "Swimming",
         "description": "The sea rarely gets warm, even in summer. A swim from the rocks is refreshing and warming up afterwards by the sun or the fire makes it worth it every time."
@@ -34,19 +34,19 @@
     "heading": "On Land",
     "items": [
       {
-        "image": "/uploads/images/IMG_1432.jpeg",
+        "image": "/images/IMG_1432.jpeg",
         "imageAlt": "Two hikers at mountain summit at sunset",
         "title": "Walking & Hiking",
         "description": "From the island you can wander along the shoreline, through quiet forest and over smooth coastal rocks. There are no crowds or marked tourist routes, just nature at its own pace and endless mountains."
       },
       {
-        "image": "/uploads/images/IMG_1460.jpeg",
+        "image": "/images/IMG_1460.jpeg",
         "imageAlt": "Silhouette of hiker against dramatic orange sunset",
         "title": "Heilhornet",
         "description": "Rising directly from the coast, Heilhornet is one of the region's most recognisable mountains. The hike takes around six hours, but the reward is a sweeping view across the Helgeland coastline, the fjords and the Norwegian Sea."
       },
       {
-        "image": "/uploads/images/IMG_1496.jpeg",
+        "image": "/images/IMG_1496.jpeg",
         "imageAlt": "Hikers on rocky mountain summit ridge",
         "title": "Wildlife Watching",
         "description": "Nature is never far away on Sømliøya. White-tailed sea eagles are often seen soaring above the fjord, while roe deer and moose regularly wander through the surrounding forests. Along the shoreline you may spot otters, seals resting on the rocks, and seabirds such as oystercatchers, cormorants and eider ducks. If you slow down and keep your eyes open, chances are you'll see something."
@@ -65,13 +65,13 @@
         "description": "The mainland coast nearby is dotted with small fishing villages and quiet harbours. A short trip by boat brings you to shops, cafés and the everyday rhythm of Norwegian coastal life — close enough to reach with ease, far enough that the island remains its own quiet world.\n"
       }
     ],
-    "image": "/uploads/images/IMG_1467.jpeg",
+    "image": "/images/IMG_1467.jpeg",
     "imageAlt": "Two people at summit cairn overlooking fjords at sunset"
   },
   "fireSection": {
     "heading": "Around the Fire",
     "text": "As the light softens, the day usually finds its way back to the fire. It is where meals are cooked and shared, where stories are told, and where the evening slows to the sound of the water.\n\nA fire by the shore is the simplest thing the island offers — and often the part of a stay that people remember most.\n",
-    "closingImage": "/uploads/images/IMG_5214.jpeg",
+    "closingImage": "/images/IMG_5214.jpeg",
     "closingImageAlt": "Group of people dining at outdoor table by the fjord"
   }
 }

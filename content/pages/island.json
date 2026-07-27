@@ -1,7 +1,7 @@
 {
   "hero": {
-    "image": "/uploads/images/islandkenburns.m4v",
-    "posterImage": "/uploads/images/IMG_5184.jpeg",
+    "image": "/images/islandkenburns.m4v",
+    "posterImage": "/images/IMG_5184.jpeg",
     "imageAlt": "Aerial view of the island in summer with mountains behind",
     "title": "About the Island",
     "subtitle": "Nærøysund municipality, Trøndelag"
@@ -10,19 +10,19 @@
   "climateSection": {
     "heading": "Climate",
     "paragraphs": "Life here follows the rhythm of the northern seasons.\n\nIn summer the light hardly disappears. Around the solstice the sky remains pale through the night and the fjord reflects the soft northern light twenty-four hours a day.\n\nWinter is quieter and darker. Storms pass through the fjord, the sea turns steel grey, and clear nights fill the sky with stars and northern lights.\n",
-    "image": "/uploads/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
+    "image": "/images/dji_fly_20251123_133742_0223_1763901492851_photo.jpg",
     "imageAlt": "The island buildings in golden winter light"
   },
   "mountainsSection": {
     "heading": "Mountains and Views",
     "paragraphs": "Across the fjord rise the mountains of the Nordland coast — the distinctive peak of Heilhornet, together with Breivasstinden and Hestmannen. Their steep silhouettes form a familiar horizon above the sea.\n",
-    "image": "/uploads/images/IMG_2336.jpeg",
+    "image": "/images/IMG_2336.jpeg",
     "imageAlt": "Heilhornet and mountain peaks across the fjord in winter"
   },
   "wildlifeSection": {
     "heading": "Wildlife",
     "paragraphs": "Wildlife is part of the landscape. Moose and roe deer move through nearby forests, while majestic sea eagles circle above the fjord. Along the shore seabirds gather, and the waters hold fish typical for the Norwegian coast.\n",
-    "image": "/uploads/images/IMG_1440.jpeg",
+    "image": "/images/IMG_1440.jpeg",
     "imageAlt": "Reindeer silhouetted against the northern sky on rocks"
   }
 }

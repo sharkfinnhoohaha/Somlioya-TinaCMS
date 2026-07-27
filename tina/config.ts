@@ -604,13 +604,23 @@ export default defineConfig({
     publicFolder: "public",
   },
 
-  // Editor uploads land in /public/uploads, kept separate from the
-  // designer-curated /public/images library so a stray delete in the media
-  // browser can't take out a hero photo. Existing /images/... references in
-  // content keep working — paths in JSON are literal strings, not lookups.
+  // mediaRoot MUST match the folder the photo library actually lives in
+  // (public/images). Tina does not treat image paths in the JSON as literal
+  // strings: on every save it normalises each `image` field against mediaRoot,
+  // prefixing the root when the stored value doesn't already start with it.
+  //
+  // Pointing mediaRoot at a second folder therefore rewrites the whole page's
+  // images on the next save — a previous "uploads" setting silently turned
+  // /images/hero.jpg into /uploads/images/hero.jpg across four pages, which
+  // fails the prebuild content-image check and blocks every deploy after it.
+  // The rewrite is idempotent, so with mediaRoot="images" an existing
+  // /images/... value round-trips unchanged.
+  //
+  // Keeping the editor in the same folder also means the media browser shows
+  // the existing photo library, so images can be reused instead of re-uploaded.
   media: {
     tina: {
-      mediaRoot: "uploads",
+      mediaRoot: "images",
       publicFolder: "public",
     },
   },

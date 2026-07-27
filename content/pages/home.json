@@ -1,7 +1,7 @@
 {
   "hero": {
-    "image": "/uploads/images/videokenburns.m4v",
-    "posterImage": "/uploads/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg",
+    "image": "/images/videokenburns.m4v",
+    "posterImage": "/images/352DA88B4DA84CDEBDF5A7A07AB23C3F.jpg",
     "imageAlt": "Aerial view of Sømliøya in winter light",
     "title": "Sømliøya",
     "subtitle": "Where the world becomes quieter"
@@ -14,11 +14,11 @@
     "description": "Drift above the fjord in an interactive 3D model of Sømliøya, rendered in real time from satellite data.\n"
   },
   "firstImage": {
-    "src": "/uploads/images/IMG_2171.jpeg",
+    "src": "/images/IMG_2171.jpeg",
     "alt": "Mirror-still fjord at sunset with mountains"
   },
   "secondImage": {
-    "src": "/uploads/images/IMG_9794.jpeg",
+    "src": "/images/IMG_9794.jpeg",
     "alt": "Dramatic orange and pink sunset over the Norwegian fjord"
   }
 }
